@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.ComponentModel;
+
+namespace BindingExtensions.DelayBinding
+{
+    public class DelayBindingControllerCollection : FreezableCollection<DelayBindingController> { }
+
+    public class DelayBindingManager
+    {
+        public static DependencyProperty DelayBindingControllersProperty =
+            DependencyProperty.RegisterAttached("DelayBindingControllers",
+                                                typeof(DelayBindingControllerCollection),
+                                                typeof(DelayBindingManager),
+                                                new FrameworkPropertyMetadata(null));
+
+        public static DelayBindingControllerCollection GetDelayBindingControllers(DependencyObject obj)
+        {
+            if (obj.GetValue(DelayBindingControllersProperty) == null)
+            {
+                obj.SetValue(DelayBindingControllersProperty, new DelayBindingControllerCollection());
+            }
+            return (DelayBindingControllerCollection)obj.GetValue(DelayBindingControllersProperty);
+        }
+        public static void SetDelayBindingControllers(DependencyObject obj, DelayBindingControllerCollection value)
+        {
+            obj.SetValue(DelayBindingControllersProperty, value);
+        }
+    }
+}

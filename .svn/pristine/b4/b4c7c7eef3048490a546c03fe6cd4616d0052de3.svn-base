@@ -1,0 +1,154 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows.Markup;
+using System.Windows.Data;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Globalization;
+using System.Windows.Controls;
+using System.IO;
+using System.Xml;
+
+namespace BindingExtensions
+{
+    [ContentProperty("Bindings")]
+    public abstract class MultiBindingExtensionBase : BindingBaseExtensionBase, IAddChild
+    {
+        #region IAddChild
+
+        void IAddChild.AddChild(Object value)
+        {
+            BindingBase binding = value as BindingBase;
+            if (binding != null)
+            {
+                Bindings.Add(binding);
+            }
+        }
+
+        void IAddChild.AddText(string text)
+        {
+        }
+
+        #endregion IAddChild
+
+        #region Properties
+
+        private BindingBase _binding;
+        protected override BindingBase BindingBase
+        {
+            get
+            {
+                if (_binding == null)
+                {
+                    _binding = new MultiBinding();
+                }
+                return _binding;
+            }
+        }
+
+        public MultiBinding MultiBinding
+        {
+            get
+            {
+                return BindingBase as MultiBinding;
+            }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)] 
+        public Collection<BindingBase> Bindings
+        {
+            get
+            {
+                return MultiBinding.Bindings;
+            }
+        }
+
+        [DefaultValue(null)]
+        public IMultiValueConverter Converter
+        {
+            get { return MultiBinding.Converter; }
+            set { MultiBinding.Converter = value; }
+        }
+
+        [TypeConverter(typeof(CultureInfoIetfLanguageTagConverter)), DefaultValue(null)]
+        public CultureInfo ConverterCulture
+        {
+            get { return MultiBinding.ConverterCulture; }
+            set { MultiBinding.ConverterCulture = value; }
+        }
+
+        [DefaultValue(null)]
+        public object ConverterParameter
+        {
+            get { return MultiBinding.ConverterParameter; }
+            set { MultiBinding.ConverterParameter = value; }
+        }
+
+        [DefaultValue(BindingMode.Default)]
+        public BindingMode Mode
+        {
+            get { return MultiBinding.Mode; }
+            set { MultiBinding.Mode = value; }
+        }
+
+        [DefaultValue(false)]
+        public bool NotifyOnSourceUpdated
+        {
+            get { return MultiBinding.NotifyOnSourceUpdated; }
+            set { MultiBinding.NotifyOnSourceUpdated = value; }
+        }
+
+        [DefaultValue(false)]
+        public bool NotifyOnTargetUpdated
+        {
+            get { return MultiBinding.NotifyOnTargetUpdated; }
+            set { MultiBinding.NotifyOnTargetUpdated = value; }
+        }
+
+        [DefaultValue(false)]
+        public bool NotifyOnValidationError
+        {
+            get { return MultiBinding.NotifyOnValidationError; }
+            set { MultiBinding.NotifyOnValidationError = value; }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public UpdateSourceExceptionFilterCallback UpdateSourceExceptionFilter
+        {
+            get { return MultiBinding.UpdateSourceExceptionFilter; }
+            set { MultiBinding.UpdateSourceExceptionFilter = value; }
+        }
+
+        [DefaultValue(UpdateSourceTrigger.PropertyChanged)]
+        public UpdateSourceTrigger UpdateSourceTrigger
+        {
+            get { return MultiBinding.UpdateSourceTrigger; }
+            set { MultiBinding.UpdateSourceTrigger = value; }
+        }
+
+        [DefaultValue(false)]
+        public bool ValidatesOnDataErrors
+        {
+            get { return MultiBinding.ValidatesOnDataErrors; }
+            set { MultiBinding.ValidatesOnDataErrors = value; }
+        }
+
+        [DefaultValue(false)]
+        public bool ValidatesOnExceptions
+        {
+            get { return MultiBinding.ValidatesOnExceptions; }
+            set { MultiBinding.ValidatesOnExceptions = value; }
+        }
+
+        [DefaultValue(null)]
+        public Collection<ValidationRule> ValidationRules
+        {
+            get { return MultiBinding.ValidationRules; }
+        }
+
+        #endregion // Properties
+    }
+}

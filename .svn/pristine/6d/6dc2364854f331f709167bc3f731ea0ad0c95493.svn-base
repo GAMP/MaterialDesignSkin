@@ -1,0 +1,104 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows.Markup;
+using System.Windows;
+using System.Windows.Data;
+using System.ComponentModel;
+
+namespace BindingExtensions.DelayBinding
+{
+    public class DelayMultiBindingExtension : MultiBindingExtensionBase
+    {
+        public DelayMultiBindingExtension() { }
+
+        #region Properties
+
+        public TimeSpan UpdateTargetDelay
+        {
+            get;
+            set;
+        }
+
+        public TimeSpan UpdateSourceDelay
+        {
+            get;
+            set;
+        }
+
+        #endregion // Properties
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            IProvideValueTarget service = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
+            DependencyObject targetObject = service.TargetObject as DependencyObject;
+            DependencyProperty targetProperty = service.TargetProperty as DependencyProperty;
+
+            if (targetObject == null || targetProperty == null)
+            {
+                return base.ProvideValue(serviceProvider);
+            }
+
+            // Prevent the designer from reporting exceptions because
+            // GetMetadata returns null in design mode
+            if (DesignerProperties.GetIsInDesignMode(targetObject) == true)
+                return BindingMode.OneWay;
+
+            SetBinding(targetObject, targetProperty);
+
+            // Return the current value
+            return targetObject.GetValue(targetProperty);
+        }
+
+        public override void SetBinding(DependencyObject targetObject, DependencyProperty targetProperty)
+        {
+            FrameworkPropertyMetadata metadata = targetProperty.GetMetadata(targetObject.GetType()) as FrameworkPropertyMetadata;
+            MultiBinding.Mode = GetBindingMode(metadata);
+            // Used as a workaround to bug that happends when the setter rejects the new value.
+            // The GUI control doesn't stay in sync. E.g SelectedItem for a ComboBox
+            MultiBinding.UpdateSourceTrigger = UpdateSourceTrigger.Explicit;
+
+            foreach (Binding binding in MultiBinding.Bindings)
+            {
+                if (binding.Mode == BindingMode.Default)
+                {
+                    // Usually for a MultiBinding, when the TargetProperty has the BindsTwoWayByDefault flag set to true
+                    // then the Bindings also binds TwoWay if their BindingMode is set to Default. Since the SourcePropertyMirror,
+                    // (which ultimately uses the Binding) hasn't got this flag set, this workaround is needed
+                    if (MultiBinding.Mode == BindingMode.TwoWay && metadata.BindsTwoWayByDefault == true)
+                    {
+                        binding.Mode = BindingMode.TwoWay;
+                    }
+                    // This one is also need since we are setting the MultiBinding Mode to TwoWay.
+                    else if (MultiBinding.Mode == BindingMode.OneWayToSource)
+                    {
+                        binding.Mode = BindingMode.OneWayToSource;
+                    }
+                }
+            }
+
+            DelayBindingController delayBindingController =
+                new DelayBindingController(targetObject, targetProperty,
+                                           UpdateSourceDelay, UpdateTargetDelay, MultiBinding, MultiBinding.Mode);
+            DelayBindingManager.GetDelayBindingControllers(targetObject).Add(delayBindingController);
+            delayBindingController.SetupBindingListeners();
+        }
+
+        private BindingMode GetBindingMode(FrameworkPropertyMetadata metadata)
+        {
+            if (MultiBinding.Mode == BindingMode.Default)
+            {
+                if (metadata != null && metadata.BindsTwoWayByDefault == true)
+                {
+                    return BindingMode.TwoWay;
+                }
+                else
+                {
+                    return BindingMode.OneWay;
+                }
+            }
+            return MultiBinding.Mode;
+        }
+    }
+}

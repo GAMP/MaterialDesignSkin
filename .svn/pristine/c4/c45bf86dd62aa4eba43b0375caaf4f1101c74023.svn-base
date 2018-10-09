@@ -1,0 +1,18 @@
+﻿using SharedLib.Views;
+using System.ComponentModel.Composition;
+using System.Windows.Controls;
+
+namespace MaterialDesignSkin.Views
+{
+    /// <summary>
+    /// Interaction logic for HomeView.xaml
+    /// </summary>
+    [Export()]
+    public partial class HomeView : UserControl, IView
+    {
+        public HomeView()
+        {
+            InitializeComponent();
+        }
+    }
+}

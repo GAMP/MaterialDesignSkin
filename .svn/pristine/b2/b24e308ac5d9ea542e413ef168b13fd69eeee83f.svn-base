@@ -1,0 +1,362 @@
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using MaterialDesignThemes.Wpf;
+using System.ComponentModel.Composition;
+using System.Threading;
+using Client;
+using System.Windows.Threading;
+using Client.ViewModels;
+
+namespace MaterialDesignSkin.Views
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    [Export(typeof(IShellWindow))]
+    [Export(typeof(IDialogService))]
+    public partial class MainWindow : Window, IDialogService,
+        IShellWindow
+    {
+        #region CONSTRUCTOR
+        public MainWindow()
+        {
+            InitializeComponent();
+            EventManager.RegisterClassHandler(typeof(FrameworkElement), GotFocusEvent, new RoutedEventHandler(OnRemoveFocusVisualStyle), true);
+        }
+        #endregion
+
+        #region FIELDS
+        private SemaphoreSlim DIALOG_LOCK = new SemaphoreSlim(1, 1);
+        private SemaphoreSlim OVERLAY_LOCK = new SemaphoreSlim(1, 1);
+        private CancellationTokenSource
+            DIALOG_CTS,
+            OVERLAY_CTS;
+        #endregion
+
+        #region IMPORTS
+
+        [Import()]
+        private IClinetCompositionService CompositionService
+        {
+            get; set;
+        }
+
+        [Import()]
+        private IClient Client
+        {
+            get; set;
+        }
+
+        #endregion
+
+        #region INTERFACES
+
+        public Task ShowDialogAsync(object content)
+        {
+            return ShowDialogAsync(content, CancellationToken.None);
+        }
+
+        public async Task ShowDialogAsync(object content, CancellationToken ct)
+        {
+            await ShowDialogInternalAsync(content, Timeout.InfiniteTimeSpan, ct);
+        }
+
+        public Task<bool> TryShowDialogAsync(object content)
+        {
+            return TryShowDialogAsync(content, CancellationToken.None);
+        }
+
+        public async Task<bool> TryShowDialogAsync(object content, CancellationToken ct)
+        {
+            try
+            {
+                await this.ShowDialogInternalAsync(content, TimeSpan.Zero, ct);
+                return true;
+            }
+            catch (DialogLockException)
+            {
+                return false;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public Task<bool> ShowAcceptDialogAsync(string message)
+        {
+            return ShowAcceptDialogAsync(message, CancellationToken.None);
+        }
+
+        public Task<bool> ShowAcceptDialogAsync(string message, CancellationToken ct)
+        {
+            return ShowAcceptDialogAsync(message, MessageDialogButtons.Accept, ct);
+        }
+
+        public Task<bool> ShowAcceptDialogAsync(string message, MessageDialogButtons buttons)
+        {
+            return ShowAcceptDialogAsync(message, buttons, CancellationToken.None);
+        }
+
+        public async Task<bool> ShowAcceptDialogAsync(string message, MessageDialogButtons buttons, CancellationToken ct)
+        {
+            if (string.IsNullOrWhiteSpace(message))
+                throw new ArgumentNullException(nameof(message));
+
+            //create view model
+            var viewModel = this.CompositionService.GetExportedValue<IMessageDialogViewModel>();
+            viewModel.Message = message;
+            viewModel.Buttons = buttons;
+
+            //create view on UI thread
+            var view = await this.Dispatcher.InvokeAsync(() => this.CompositionService.GetExportedValue<AcceptDialogView>());
+
+            //set data context on UI thread
+            await this.Dispatcher.InvokeAsync(() => view.DataContext = viewModel);
+
+            return await this.ShowDialogInternalAsync(view, Timeout.InfiniteTimeSpan, ct) is true;
+        }
+
+        private async Task<object> ShowDialogInternalAsync(object content, TimeSpan waitSpan, CancellationToken ct)
+        {
+            if (content == null)
+                throw new ArgumentNullException(nameof(content));
+
+            var CANCELATION_TOKEN_SOURCE = this.CreateDialogLinkedTokenSource(ct);
+            var CANCELATION_TOKEN = CANCELATION_TOKEN_SOURCE.Token;
+
+            if (await DIALOG_LOCK.WaitAsync(waitSpan, CANCELATION_TOKEN) == true)
+            {
+                try
+                {
+                    return await this.Dispatcher.Invoke(async () =>
+                    {
+                        return await this._MAIN_DIALOG.ShowDialog(content, delegate (object sender, DialogOpenedEventArgs args)
+                        {
+                            if (CANCELATION_TOKEN.IsCancellationRequested)
+                            {
+                                this.Dispatcher.Invoke(() => args.Session.Close(false));
+                            }
+                            else
+                            {
+                                CANCELATION_TOKEN.Register(() => this.Dispatcher.Invoke(() =>
+                                {
+                                    try
+                                    {
+                                        if (!args.Session.IsEnded)
+                                            args.Session.Close(false);
+                                    }
+                                    catch
+                                    {
+
+                                    }
+                                }));
+                            }
+                        });
+                    });
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    DIALOG_LOCK.Release();
+                }
+            }
+            else
+            {
+                throw new DialogLockException();
+            }
+        }
+
+        public void HideCurrentDialog()
+        {
+            DIALOG_CTS?.Cancel();
+            DIALOG_CTS?.Dispose();
+            DIALOG_CTS = null;
+        }
+
+        private CancellationTokenSource CreateDialogLinkedTokenSource(CancellationToken ct)
+        {
+            DIALOG_CTS = DIALOG_CTS ?? new CancellationTokenSource();
+            return CancellationTokenSource.CreateLinkedTokenSource(DIALOG_CTS.Token, ct);
+        }
+        private CancellationTokenSource CreateOverlayLinkedTokenSource(CancellationToken ct)
+        {
+            OVERLAY_CTS = OVERLAY_CTS ?? new CancellationTokenSource();
+            return CancellationTokenSource.CreateLinkedTokenSource(OVERLAY_CTS.Token, ct);
+        }
+
+        private class DialogLockException : Exception
+        {
+        }
+
+        #region OVERLAY
+
+        public Task<bool> TryShowOverlayAsync(object content)
+        {
+            return TryShowOverlayAsync(content, CancellationToken.None);
+        }
+        public Task<bool> TryShowOverlayAsync(object content, CancellationToken ct)
+        {
+            return ShowOverlayInternalAsync(content,true, TimeSpan.Zero,ct);
+        }
+
+        public Task ShowOverlayAsync(object content)
+        {
+            return ShowOverlayAsync(content, CancellationToken.None);
+        }
+        public Task ShowOverlayAsync(object content, CancellationToken ct)
+        {
+            return ShowOverlayInternalAsync(content,true, Timeout.InfiniteTimeSpan, ct);
+        }
+
+        public Task ShowOverlayAsync(object content,bool allowClosing)
+        {
+            return ShowOverlayInternalAsync(content, allowClosing, Timeout.InfiniteTimeSpan, CancellationToken.None);
+        }
+
+        private async Task<bool> ShowOverlayInternalAsync(object content, bool allowClosing, TimeSpan waitSpan, CancellationToken ct)
+        {
+            if (content == null)
+                throw new ArgumentNullException(nameof(content));
+
+            var CANCELATION_TOKEN_SOURCE = this.CreateOverlayLinkedTokenSource(ct);
+            var CANCELATION_TOKEN = CANCELATION_TOKEN_SOURCE.Token;
+
+            if (await OVERLAY_LOCK.WaitAsync(waitSpan, CANCELATION_TOKEN))
+            {
+                try
+                {
+                    var WAIT_HANDLE = new SemaphoreSlim(0, 1);
+
+                    MouseButtonEventHandler mouseButtonEventHandler = delegate (object sender, MouseButtonEventArgs args)
+                    {
+                        if (!allowClosing)
+                            return;
+
+                        var CURRENT_OVERLAY_CONTENT = this._OVERLAY_CONTENT_HOST.Content;
+
+                        if (CURRENT_OVERLAY_CONTENT == null)
+                            return;
+
+                        if (args.Source != this._OVERLAY_CONTENT_HOST)
+                        {
+                            WAIT_HANDLE.Release();
+                        }
+                    };
+                    KeyEventHandler keyEventHandler = delegate (object sender, KeyEventArgs args)
+                    {
+                        if (!allowClosing)
+                            return;
+
+                        if (args.Key != Key.Escape)
+                            return;
+
+                        var CURRENT_OVERLAY_CONTENT = this._OVERLAY_CONTENT_HOST.Content;
+                        if (CURRENT_OVERLAY_CONTENT == null)
+                            return;
+
+                        WAIT_HANDLE.Release();
+                    };
+
+                    this.MouseDown += mouseButtonEventHandler;
+                    this.KeyDown += keyEventHandler;
+
+                    await this.Dispatcher.InvokeAsync(() =>
+                    {
+                        //make overlay visible
+                        this.OVERLAY_HOST.IsHitTestVisible = true;
+
+                        //set desired content
+                        this._OVERLAY_CONTENT_HOST.Content = content;
+
+                        //move focus
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            if (!this._OVERLAY_CONTENT_HOST.Focus())
+                                return;
+                            this._OVERLAY_CONTENT_HOST.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+                        }, DispatcherPriority.Background);
+                    });
+
+                    try
+                    {
+                        await WAIT_HANDLE.WaitAsync(CANCELATION_TOKEN);
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        this.MouseDown -= mouseButtonEventHandler;
+                        this.KeyDown -= keyEventHandler;
+
+                        await this.Dispatcher.InvokeAsync(() =>
+                        {
+                            //make overlay visible
+                            this.OVERLAY_HOST.IsHitTestVisible = false;
+                            this._OVERLAY_CONTENT_HOST.Content = null;
+                        });
+                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    if (IsOverlayGracefullClosed == false)
+                        throw;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    IsOverlayGracefullClosed = null;
+                    OVERLAY_LOCK.Release();
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void HideCurrentOverlay()
+        {
+            HideCurrentOverlay(false);
+        }
+
+        public void HideCurrentOverlay(bool cancel)
+        {
+            IsOverlayGracefullClosed = OVERLAY_CTS != null ? !cancel : (bool?)null;
+            OVERLAY_CTS?.Cancel();
+            OVERLAY_CTS?.Dispose();
+            OVERLAY_CTS = null;
+        }
+
+        private bool? IsOverlayGracefullClosed
+        {
+            get;set;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region EVENT HANDLERS
+
+        private static void OnRemoveFocusVisualStyle(object sender, RoutedEventArgs e)
+        {
+            if (sender is FrameworkElement element)
+                element.FocusVisualStyle = null;
+        }
+
+        #endregion          
+    }
+}

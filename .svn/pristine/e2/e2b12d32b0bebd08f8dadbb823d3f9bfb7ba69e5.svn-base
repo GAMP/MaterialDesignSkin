@@ -1,0 +1,260 @@
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using MaterialDesignThemes.Wpf;
+using System.ComponentModel.Composition;
+using System.Threading;
+using Client;
+using System.Windows.Threading;
+using Client.ViewModels;
+using SkinInterfaces;
+
+namespace MaterialDesignSkin.Views
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    [Export(typeof(IShellWindow))]
+    [Export(typeof(IDialogService))]
+    public partial class MainWindow : Window, IDialogService,
+        IShellWindow
+    {
+        #region CONSTRUCTOR
+        public MainWindow()
+        {
+            InitializeComponent();
+            EventManager.RegisterClassHandler(typeof(FrameworkElement), GotFocusEvent, new RoutedEventHandler(OnRemoveFocusVisualStyle), true);
+        }
+        #endregion
+
+        #region FIELDS
+        private SemaphoreSlim DIALOG_LOCK = new SemaphoreSlim(1, 1);
+        private SemaphoreSlim OVERLAY_LOCK = new SemaphoreSlim(1, 1);
+        private SemaphoreSlim OVERLAY_SIGANL = new SemaphoreSlim(0, 1);
+        #endregion
+
+        #region IMPORTS
+
+        [Import()]
+        private IClinetCompositionService CompositionService
+        {
+            get;set;
+        }
+
+        [Import()]
+        private IClient Client
+        {
+            get;set;
+        }
+
+        #endregion
+
+        #region INTERFACES
+
+        public async Task<bool> TryShowDialogAsync(object content)
+        {
+            if (await DIALOG_LOCK.WaitAsync(TimeSpan.Zero))
+            {
+                try
+                {
+                    await this.Dispatcher.Invoke(()=> this._MAIN_DIALOG.ShowDialog(content));
+                    return true;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    DIALOG_LOCK.Release();
+                }
+            }
+            return false;
+        }
+
+        public async Task ShowDialogAsync(object content, CancellationToken ct)
+        {
+            await DIALOG_LOCK.WaitAsync(Timeout.Infinite, ct);
+            try
+            {
+                await this.Dispatcher.Invoke(() => this._MAIN_DIALOG.ShowDialog(content));
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                DIALOG_LOCK.Release();
+            }
+        }
+
+        public async Task<bool> ShowAcceptDialogAsync(string message, CancellationToken ct)
+        {
+            if (string.IsNullOrWhiteSpace(message))
+                throw new ArgumentNullException(nameof(message));
+
+            await DIALOG_LOCK.WaitAsync(Timeout.Infinite, ct);
+            try
+            {
+                var view = await this.Dispatcher.InvokeAsync(()=> this.CompositionService.GetExportedValue<AcceptDialogView>());
+                var viewModel = this.CompositionService.GetExportedValue<IMessageDialogViewModel>();
+                viewModel.Message = message;
+
+                await this.Dispatcher.InvokeAsync(() => view.DataContext = viewModel);
+                
+
+                return await this.Dispatcher.Invoke(()=> this._MAIN_DIALOG.ShowDialog(view)) is true;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                DIALOG_LOCK.Release();
+            }
+        }
+
+        public Task<bool> TryShowOverlayAsync(object content)
+        {
+            return this.TryShowOverlayAsync(content, CancellationToken.None);
+        }
+        public Task<bool> TryShowOverlayAsync(object content, CancellationToken ct)
+        {
+            return this.ShowOverlayAsyncInternal(content, ct, TimeSpan.Zero);
+        }
+
+        public Task ShowOverlayAsync(object content)
+        {
+            return ShowOverlayAsync(content, CancellationToken.None);
+        }
+        public Task ShowOverlayAsync(object content, CancellationToken ct)
+        {
+            return this.ShowOverlayAsyncInternal(content, ct, Timeout.InfiniteTimeSpan);
+        }
+
+        private async Task<bool> ShowOverlayAsyncInternal(object content, CancellationToken ct, TimeSpan waitSpan)
+        {
+            if (content == null)
+                throw new ArgumentNullException(nameof(content));
+
+            if (await OVERLAY_LOCK.WaitAsync(waitSpan))
+            {
+                try
+                {
+                    await this.Dispatcher.InvokeAsync(() =>
+                    {
+                        //make overlay visible
+                        this.OVERLAY_HOST.IsHitTestVisible = true;
+                        this._OVERLAY_CONTENT_HOST.Content = content;
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            if (!this._OVERLAY_CONTENT_HOST.Focus()) return;
+                            this._OVERLAY_CONTENT_HOST.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+                        }, DispatcherPriority.Background);
+
+                    });
+
+                    try
+                    {
+                        await OVERLAY_SIGANL.WaitAsync(ct);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        await this.Dispatcher.InvokeAsync(() =>
+                        {
+                            //make overlay visible
+                            this.OVERLAY_HOST.IsHitTestVisible = false;
+                            this._OVERLAY_CONTENT_HOST.Content = null;
+                        });
+                    }
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    OVERLAY_LOCK.Release();
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public Task<bool> TryHideCurrentOverlayAsync()
+        {
+            int ENTERED_COUNT = OVERLAY_SIGANL.Release();
+
+            return Task.FromResult(ENTERED_COUNT > 0);
+        }
+
+        #endregion
+
+        #region EVENT HANDLERS
+
+        private async void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var CURRENT_OVERLAY_CONTENT = this._OVERLAY_CONTENT_HOST.Content;
+            if (CURRENT_OVERLAY_CONTENT == null)
+                return;
+            if (e.Source != this._OVERLAY_CONTENT_HOST)
+            {
+                await this.TryHideCurrentOverlayAsync();
+            }
+        }
+
+        private async void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Escape)
+                return;
+
+            var CURRENT_OVERLAY_CONTENT = this._OVERLAY_CONTENT_HOST.Content;
+            if (CURRENT_OVERLAY_CONTENT == null)
+                return;
+            await this.TryHideCurrentOverlayAsync();
+
+        }
+
+        private static void OnRemoveFocusVisualStyle(object sender, RoutedEventArgs e)
+        {
+            if (sender is FrameworkElement element)
+                element.FocusVisualStyle = null;
+        }
+
+        #endregion
+
+        private async void OnProfileClick(object sender, RoutedEventArgs e)
+        {
+            var view = this.CompositionService.GetExportedValue<UserProfileView>();
+            var model = this.CompositionService.GetExportedValue<IUserEditViewModel>();
+            var user = this.Client.CurrentUser;
+
+            CancellationTokenSource cts = new CancellationTokenSource();
+            model.AcceptCommand = new SimpleCommand<object, object>((object o) => model.IsValid, (object o) => cts.Cancel());
+            model.FromSource(user);
+            view.DataContext = model;
+            try
+            {
+                await this.ShowOverlayAsync(view, cts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+
+            }
+            if(model.IsValid)
+            {
+                var updatedProfile = model.ToSource();
+                this.Client.SetUserInfo(updatedProfile);
+            }
+        }
+    }
+}

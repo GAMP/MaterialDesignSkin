@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Data;
+
+namespace BindingExtensions.DelayBinding
+{
+    public static class DelayBindingOperations
+    {
+        public static void ClearBinding(DependencyObject targetObject, DependencyProperty targetProperty)
+        {
+            if (targetObject == null)
+            {
+                throw new ArgumentNullException("target");
+            }
+            if (targetProperty == null)
+            {
+                throw new ArgumentNullException("dp");
+            }
+            DelayBindingControllerCollection controllers = DelayBindingManager.GetDelayBindingControllers(targetObject);
+            for (int i = 0; i < controllers.Count; i++)
+            {
+                DelayBindingController controller = controllers[i];
+                if (controller.TargetProperty == targetProperty)
+                {
+                    controller.ClearBinding();
+                    controllers.Remove(controller);
+                    break;
+                }
+            }
+        }
+
+        public static void SetBinding(DependencyObject targetObject,
+                                        DependencyProperty targetProperty,
+                                        BindingBaseExtensionBase delayBinding)
+        {
+            if (targetObject == null)
+            {
+                throw new ArgumentNullException("targetObject");
+            }
+            if (targetProperty == null)
+            {
+                throw new ArgumentNullException("targetProperty");
+            }
+            if (delayBinding == null)
+            {
+                throw new ArgumentNullException("delayBinding");
+            }
+
+            delayBinding.SetBinding(targetObject, targetProperty);
+        }
+    }
+}

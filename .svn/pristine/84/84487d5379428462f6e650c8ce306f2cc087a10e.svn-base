@@ -1,0 +1,28 @@
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+
+namespace MaterialDesignSkin
+{
+    public class FullViewPanel : VirtualizingStackPanel
+    {
+        protected override Size MeasureOverride(Size constraint)
+        {
+            //foreach (UIElement element in this.Children)
+            //{
+            //    Rect bounds = element.TransformToAncestor(this)
+            //        .TransformBounds(new Rect(0, 0, element.RenderSize.Width, element.RenderSize.Height));
+            //    Rect rect = new Rect(0, 0, this.ActualWidth, this.ActualHeight);
+            //    bool visisble = bounds.Left + bounds.Size.Width <= rect.Width;
+            //    element.Visibility = visisble ? Visibility.Visible : Visibility.Collapsed;
+            //}
+
+            return base.MeasureOverride(constraint);
+        }       
+
+        protected override Size ArrangeOverride(Size arrangeSize)
+        { 
+            return base.ArrangeOverride(arrangeSize);
+        }
+    }
+}
