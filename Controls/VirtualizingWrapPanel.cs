@@ -7,7 +7,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace MaterialDesignSkin
+namespace MaterialDesignSkin.Controls
 {
     public enum WrapPanelAlignment
     {

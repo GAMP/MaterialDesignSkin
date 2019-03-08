@@ -9,6 +9,7 @@ namespace MaterialDesignSkin.Modules
     [ModuleIcon("APPS")]
     [ModuleDisplayOrder(1)]
     [ModuleGuid("A4A98C3F-F944-46EF-9C56-359F5F896B53")]
+    [ModuleType(typeof(AppSectionModule))]
     [Export(typeof(IClientSectionModule))]
     public class AppSectionModule : ClientSectionModuleBase
     {

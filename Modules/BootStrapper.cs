@@ -1,4 +1,5 @@
 ﻿using Client;
+using MaterialDesignSkin.Source;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -36,12 +37,19 @@ namespace MaterialDesignSkin.Modules
                     RenderOptions.ProcessRenderMode = materialConfig.SoftwareRendering ? System.Windows.Interop.RenderMode.SoftwareOnly : System.Windows.Interop.RenderMode.Default;
 
                     //disable shadows if configured
-                    Source.SkinShadowExtension.DisableShadows = materialConfig.DisableShadows;
+                    SkinShadowExtension.DisableShadows = materialConfig.DisableShadows;
+
+                    //disable points if configured
+                    SettingsHelper.HidePoints = materialConfig.HidePoints;
+
+                    //hide balance if configured
+                    SettingsHelper.HideBalance = materialConfig.HideBalance;
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 //trace exception
+                Client.LogAddError("Skin bootstrapper failed.", ex, SharedLib.LogCategories.Generic);
             }
 
             var wpfApp = Application.Current;
@@ -74,6 +82,26 @@ namespace MaterialDesignSkin.Modules
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Gets or sets if showing of points should be disabled.
+        /// </summary>
+        [DataMember()]
+        [DefaultValue(false)]
+        public bool HidePoints
+        {
+            get;set;
+        }
+
+        /// <summary>
+        /// Gets or sets if balance should be hidden.
+        /// </summary>
+        [DataMember()]
+        [DefaultValue(false)]
+        public bool HideBalance
+        {
+            get;set;
         }
 
         #endregion

@@ -21,6 +21,7 @@ namespace MaterialDesignSkin.Views
     /// </summary>
     [Export(typeof(IShellWindow))]
     [Export(typeof(IDialogService))]
+    [InheritedExport()]
     public partial class MainWindow : Window, IDialogService,
         IShellWindow
     {
@@ -29,11 +30,11 @@ namespace MaterialDesignSkin.Views
         {
             InitializeComponent();
             EventManager.RegisterClassHandler(typeof(FrameworkElement), GotFocusEvent, new RoutedEventHandler(OnRemoveFocusVisualStyle), true);
-            //Timeline.DesiredFrameRateProperty.OverrideMetadata( typeof(Timeline),      new FrameworkPropertyMetadata { DefaultValue = 1 }  );
         }
         #endregion
 
         #region FIELDS
+
         private SemaphoreSlim DIALOG_LOCK = new SemaphoreSlim(1, 1);
         private SemaphoreSlim OVERLAY_LOCK = new SemaphoreSlim(1, 1);
         private CancellationTokenSource

@@ -9,6 +9,7 @@ namespace MaterialDesignSkin.Modules
     [ModuleIcon("HOME")]
     [ModuleDisplayOrder(0)]
     [ModuleGuid("1732883C-CEED-4322-B038-E9EC0A46A129")]
+    [ModuleType(typeof(HomeSectionModule))]
     [Export(typeof(IClientSectionModule))]
     public class HomeSectionModule : ClientSectionModuleBase
     {

@@ -11,8 +11,7 @@
              FontSize="22"
              d:DesignWidth="1013">
     <UserControl.Resources>
-        <Style TargetType="TextBox"
-               BasedOn="{StaticResource MaterialDesignTextFieldBoxTextBox}">
+        <Style TargetType="TextBox">
             <Setter Property="Margin"
                     Value="4" />
         </Style>

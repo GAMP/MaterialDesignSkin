@@ -11,7 +11,7 @@
         xmlns:lex="clr-namespace:Localization.Extensions;assembly=DataInterfaces"
         xmlns:wd="clr-namespace:System.Windows.Data;assembly=DataInterfaces"
         lexEngine:LocalizeDictionary.DesignLanguage="English"
-        lexEngine:LocalizeDictionary.DesignSearchPath="D:\My Documents\Visual Studio 2012\Projects\Gizmo\Server_Service\Server_Service\bin\Debug\Languages"
+        lexEngine:LocalizeDictionary.DesignSearchPath="D:\My Documents\Visual Studio 2015\Projects\Gizmo\GizmoService\GizmoService\bin\Debug\Languages"
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{StaticResource MaterialDesignFont}"
         TextElement.Foreground="{StaticResource MaterialDesignBody}"
@@ -26,6 +26,7 @@
         ResizeMode="NoResize"
         SizeToContent="Manual"
         mc:Ignorable="d">
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -36,6 +37,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
     <Grid>
         <md:DialogHost CloseOnClickAway="True"
                        Name="_MAIN_DIALOG"
@@ -45,7 +47,8 @@
                             Radius="0" />
             </md:DialogHost.Effect>
             <md:DialogHost.Style>
-                <Style TargetType="md:DialogHost">
+                <Style TargetType="md:DialogHost"
+                       BasedOn="{StaticResource {x:Type md:DialogHost}}">
                     <Style.Triggers>
                         <DataTrigger Value="True">
                             <DataTrigger.Binding>
@@ -78,7 +81,8 @@
             </md:DialogHost.Style>
             <md:Transitioner>
                 <md:Transitioner.Style>
-                    <Style TargetType="md:Transitioner">
+                    <Style TargetType="md:Transitioner"
+                           BasedOn="{StaticResource {x:Type md:Transitioner}}">
                         <Setter Property="SelectedIndex"
                                 Value="1" />
                         <Style.Triggers>
@@ -88,7 +92,7 @@
                                         Value="0" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding UserLoginViewModel.IsUserLoggedIn}"
-                                         Value="Fase">
+                                         Value="False">
                                 <Setter Property="SelectedIndex"
                                         Value="1" />
                             </DataTrigger>
@@ -120,6 +124,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <ListBox Grid.Column="0"
+                                             BorderThickness="0"
                                              Margin="42,0,0,0"
                                              ItemsSource="{Binding ItemsView}"
                                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
@@ -221,8 +226,8 @@
                                                      HorizontalAlignment="Center"
                                                      Padding="0"
                                                      Margin="2"
-                                                     Width="24"
-                                                     Height="24"
+                                                     Width="32"
+                                                     Height="32"
                                                      Grid.Row="0"
                                                      Grid.RowSpan="2"
                                                      Grid.Column="0"
@@ -251,8 +256,8 @@
                                         <md:PackIcon VerticalAlignment="Center"
                                                      HorizontalAlignment="Center"
                                                      Padding="0"
-                                                     Width="24"
-                                                     Height="24"
+                                                     Width="32"
+                                                     Height="32"
                                                      Grid.Column="0"
                                                      Kind="Timer" />
                                         <Popup x:Name="_USER_TIME_PRODUCT_POPUP"
@@ -336,23 +341,53 @@
                                         <Grid Grid.Column="1"
                                               Margin="8"
                                               VerticalAlignment="Center">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition />
                                             </Grid.RowDefinitions>
+                                            <md:PackIcon VerticalAlignment="Center"
+                                                         HorizontalAlignment="Center"
+                                                         Padding="0"
+                                                         Width="32"
+                                                         Height="32"
+                                                         Grid.Column="0"
+                                                         Grid.Row="0"
+                                                         Grid.RowSpan="2"
+                                                         Visibility="{Binding Source={x:Static ss:SettingsHelper.HideBalance},Converter={StaticResource BoolToVisibilityConverter}}"
+                                                         Kind="Wallet" />
                                             <TextBlock Grid.Row="0"
+                                                       Grid.Column="1"
                                                        Text="{lex:LocTextUpper Key=HEADER_USER_BALANCE}"
                                                        Opacity="0.5"
                                                        VerticalAlignment="Center"
-                                                       HorizontalAlignment="Left"
-                                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                                       HorizontalAlignment="Left">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock"
+                                                           BasedOn="{StaticResource MaterialDesignSubheadingTextBlock}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Source={x:Static ss:SettingsHelper.HideBalance}}"
+                                                                         Value="True">
+                                                                <Setter Property="Grid.RowSpan"
+                                                                        Value="2" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
                                             <TextBlock Grid.Row="1"
-                                                       Text="{wd:CultureAwareBinding UserViewModel.Balance,StringFormat=C}"
+                                                       Grid.Column="1"
+                                                       Visibility="{Binding Source={x:Static ss:SettingsHelper.HideBalance},Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}"
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Left">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock"
                                                            BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
+                                                        <Setter Property="Text"
+                                                                Value="{wd:CultureAwareBinding UserViewModel.Balance,StringFormat=C}" />
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding UserViewModel.Balance,Converter={StaticResource ValueLessConverter},ConverterParameter=0}"
                                                                          Value="True">
@@ -365,7 +400,8 @@
                                         </Grid>
                                         <Grid Grid.Column="2"
                                               Margin="8"
-                                              VerticalAlignment="Center">
+                                              VerticalAlignment="Center"
+                                              Visibility="{Binding Source={x:Static ss:SettingsHelper.HidePoints},Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition />
@@ -513,6 +549,7 @@
                                           Margin="0,16,0,16">
                                         <Border Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
                                                 CornerRadius="4"
+                                                MinHeight="76"
                                                 Background="{StaticResource MaterialDesignCardBackground}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -704,7 +741,7 @@
                                                                 <DoubleAnimation Duration="0:0:0.250"
                                                                                  From="0"
                                                                                  Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Opacity)"
-                                                                                 To="0.7" />
+                                                                                 To="0.8" />
                                                             </Storyboard>
                                                         </BeginStoryboard>
                                                     </DataTrigger.EnterActions>
@@ -905,6 +942,59 @@
                                 </Style>
                             </local:LoginControl.Style>
                         </local:LoginControl>
+                        <Label VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               FontSize="128"
+                               IsHitTestVisible="False"
+                               Margin="16"
+                               Effect="{ss:SkinShadow MaterialDesignShadowDepth5}"
+                               Content="{Binding Client.Number,FallbackValue=?}">
+                            <Label.Style>
+                                <Style TargetType="Label"
+                                       BasedOn="{StaticResource MaterialDesignLabel}">
+                                    <Setter Property="Opacity"
+                                            Value="0" />
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding UserViewModel.IsLoggedIn}"
+                                                           Value="False" />
+                                                <Condition Binding="{Binding UserViewModel.IsIdle}"
+                                                           Value="True" />
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.250"
+                                                                         To="1"
+                                                                         Storyboard.TargetProperty="Opacity" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </MultiDataTrigger.EnterActions>
+                                            <MultiDataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.250"
+                                                                         To="0"
+                                                                         Storyboard.TargetProperty="Opacity" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </MultiDataTrigger.ExitActions>
+                                        </MultiDataTrigger>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <MultiBinding Converter="{StaticResource BoolAnyConverter}">
+                                                    <Binding Path="Client.IsLocked" />
+                                                    <Binding Path="Client.IsOutOfOrder" />
+                                                </MultiBinding>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="Visibility"
+                                                    Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
                     </Grid>
                 </md:TransitionerSlide>
             </md:Transitioner>
@@ -955,6 +1045,7 @@
               Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
@@ -990,7 +1081,73 @@
                        HorizontalAlignment="Left"
                        Grid.Column="1"
                        Text="{Binding Client.Version}" />
-            <ComboBox DataContext="{Binding UserLoginViewModel}"
+            <Border Grid.Column="2"
+                    CornerRadius="4,4,0,0"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Center"
+                    MinWidth="150"
+                    Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
+                    Background="{StaticResource MaterialDesignDarkBackground}">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding UserViewModel.IsLoggedIn}"
+                                               Value="False" />
+                                    <Condition Binding="{Binding UserViewModel.IsIdle}"
+                                               Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.250"
+                                                             To="0"
+                                                             Storyboard.TargetProperty="Opacity" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.EnterActions>
+                                <MultiDataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.250"
+                                                             To="1"
+                                                             Storyboard.TargetProperty="Opacity" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.ExitActions>
+                            </MultiDataTrigger>
+                            <DataTrigger Value="True">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource BoolAnyConverter}">
+                                        <Binding Path="Client.IsLocked" />
+                                        <Binding Path="Client.IsOutOfOrder" />
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <DockPanel LastChildFill="True"
+                           DataContext="{Binding ShellSettingsViewModel}"
+                           Margin="8">
+                    <TextBlock Text="{lex:LocTextUpper Key=CLINET_UI_LANGUAGE}"
+                               FontWeight="SemiBold"
+                               Visibility="Collapsed"
+                               FontSize="16"
+                               Margin="4"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center" />
+                    <ComboBox FontWeight="SemiBold"
+                              FontSize="16"
+                              md:HintAssist.Hint="{Binding Client.Settings.Language}"
+                              ItemsSource="{Binding Languages.Result}"
+                              SelectedItem="{Binding Client.PreferedUILanguage}" />
+                </DockPanel>
+            </Border>
+            <ComboBox DataContext="{Binding ShellSettingsViewModel}"
                       ItemsSource="{Binding InstalledCultures}"
                       Margin="0,0,32,16"
                       FontSize="16"
@@ -1000,7 +1157,8 @@
                       Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
                       SelectedItem="{Binding SelectedInputCulture,Mode=TwoWay}"
                       DisplayMemberPath="ThreeLetterISOLanguageName"
-                      Grid.Column="2" />
+                      Grid.Column="3" />
         </Grid>
     </Grid>
+
 </Window>

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:lib="clr-namespace:MaterialDesignSkin"
+             xmlns:controls="clr-namespace:MaterialDesignSkin.Controls"
              xmlns:sharedLib="clr-namespace:SharedLib;assembly=DataInterfaces"
              xmlns:lex="clr-namespace:Localization.Extensions;assembly=DataInterfaces"
              mc:Ignorable="d">
@@ -36,29 +36,55 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
                 <TextBox FontSize="24"
+                         Padding="-8"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="2"
                          Text="{Binding Filter,UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         md:TextFieldAssist.TextFieldCornerRadius="2"
                          md:HintAssist.IsFloating="False"
-                         md:HintAssist.HintOpacity="0.3"
-                         md:HintAssist.Hint="{lex:LocTextUpper Key=SEARCH}"
+                         md:TextFieldAssist.HasFilledTextField="True"
                          HorizontalAlignment="Stretch"
-                         VerticalAlignment="Stretch" />
+                         Margin="0,0,0,8"
+                         VerticalAlignment="Stretch">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Esc"
+                                    Command="{Binding ResetFilterCommand}" />
+                    </TextBox.InputBindings>
+                    <md:HintAssist.Hint>
+                        <StackPanel Orientation="Horizontal">
+                            <md:PackIcon Kind="Magnify"
+                                         Width="32"
+                                         Height="32"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Margin="2" />
+                            <TextBlock Text="{lex:LocText Key=SEARCH}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </md:HintAssist.Hint>
+                </TextBox>
                 <Button Visibility="{Binding HasFilter,Converter={StaticResource BoolToHiddenConverter}}"
+                        Grid.Column="1"
                         VerticalAlignment="Center"
                         md:RippleAssist.IsDisabled="True"
-                        Padding="4"
-                        Margin="2"
+                        Margin="8"
+                        Padding="0"
                         BorderBrush="Transparent"
                         BorderThickness="0"
                         HorizontalAlignment="Right"
                         Command="{Binding ResetFilterCommand}"
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                        Style="{StaticResource MaterialDesignFlatButton}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="Red"
-                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                   Text="{lex:LocTextUpper Key=SEARCH_CLEAR_FILTERS}" />
-                        <md:PackIcon Margin="4 .5 0 0"
-                                     Foreground="Red"
+                        <md:PackIcon Margin="2"
+                                     Width="32"
+                                     Height="32"
                                      Kind="Close" />
                     </StackPanel>
                 </Button>
@@ -257,11 +283,11 @@
                           ItemTemplate="{StaticResource _APP_DISPLAY_LIST_TEMPLATE}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <lib:VirtualizingWrapPanel ScrollOffset="220"
-                                                   VirtualizingPanel.VirtualizationMode="Recycling"
-                                                   ChildHeight="400"
-                                                   ChildWidth="225"
-                                                   IsItemsHost="True" />
+                        <controls:VirtualizingWrapPanel ScrollOffset="220"
+                                                        VirtualizingPanel.VirtualizationMode="Recycling"
+                                                        ChildHeight="400"
+                                                        ChildWidth="225"
+                                                        IsItemsHost="True" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
