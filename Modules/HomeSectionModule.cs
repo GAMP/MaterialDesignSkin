@@ -13,6 +13,8 @@ namespace MaterialDesignSkin.Modules
     [Export(typeof(IClientSectionModule))]
     public class HomeSectionModule : ClientSectionModuleBase
     {
+        #region IMPORTS
+
         [Import(typeof(Views.HomeView))]
         public override IView View { get => base.View; protected set => base.View = value; }
 
@@ -22,11 +24,17 @@ namespace MaterialDesignSkin.Modules
             get; set;
         }
 
+        #endregion
+
+        #region IPartImportsSatisfiedNotification
+
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
 
             View.DataContext = ViewModel;
-        }
+        } 
+        
+        #endregion
     }
 }

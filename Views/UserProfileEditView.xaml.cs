@@ -8,8 +8,7 @@ namespace MaterialDesignSkin.Views
     /// Interaction logic for UserProfileView.xaml
     /// </summary>
     [Export(typeof(IUserProfileEditView))]
-    public partial class UserProfileEditView : UserControl,
-        IUserProfileEditView
+    public partial class UserProfileEditView : UserControl, IUserProfileEditView
     {
         public UserProfileEditView()
         {

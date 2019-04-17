@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using MaterialDesignThemes.Wpf;
 using System.ComponentModel.Composition;
 using System.Threading;
 using Client;
@@ -13,6 +12,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using SkinInterfaces;
 
 namespace MaterialDesignSkin.Views
 {
@@ -112,12 +112,6 @@ namespace MaterialDesignSkin.Views
             get; set;
         }
 
-        [Import()]
-        private IClient Client
-        {
-            get; set;
-        }
-
         #endregion
 
         #region INTERFACES
@@ -141,7 +135,7 @@ namespace MaterialDesignSkin.Views
         {
             try
             {
-                await this.ShowDialogInternalAsync(content, TimeSpan.Zero, ct);
+                await ShowDialogInternalAsync(content, TimeSpan.Zero, ct);
                 return true;
             }
             catch (DialogLockException)
@@ -174,57 +168,55 @@ namespace MaterialDesignSkin.Views
             if (string.IsNullOrWhiteSpace(message))
                 throw new ArgumentNullException(nameof(message));
 
+            ////create view model
+            //var viewModel = CompositionService.GetExportedValue<IMessageDialogViewModel>();
+            //viewModel.Message = message;
+            //viewModel.Buttons = buttons;
+
+            ////create view on UI thread
+            //var view = await Dispatcher.InvokeAsync(() => CompositionService.GetExportedValue<AcceptDialogView>());
+
+            ////set data context on UI thread
+            //await Dispatcher.InvokeAsync(() => view.DataContext = viewModel);
+
+            //return await ShowDialogInternalAsync(view, Timeout.InfiniteTimeSpan, ct) is true;
+
+            bool result = false;
+
             //create view model
-            var viewModel = this.CompositionService.GetExportedValue<IMessageDialogViewModel>();
+            var viewModel = CompositionService.GetExportedValue<MessageDialogViewModel>();
             viewModel.Message = message;
             viewModel.Buttons = buttons;
 
+            #region CREATE VIEWS
+
             //create view on UI thread
-            var view = await this.Dispatcher.InvokeAsync(() => this.CompositionService.GetExportedValue<AcceptDialogView>());
+            var CONTENT = await Dispatcher.InvokeAsync(() => CompositionService.GetExportedValue<AcceptDialogViewEx>());
 
             //set data context on UI thread
-            await this.Dispatcher.InvokeAsync(() => view.DataContext = viewModel);
+            await Dispatcher.InvokeAsync(() => CONTENT.DataContext = viewModel); 
 
-            return await this.ShowDialogInternalAsync(view, Timeout.InfiniteTimeSpan, ct) is true;
-        }
+            #endregion
 
-        private async Task<object> ShowDialogInternalAsync(object content, TimeSpan waitSpan, CancellationToken ct)
-        {
-            if (content == null)
-                throw new ArgumentNullException(nameof(content));
+            var LINKED_CTS = CreateOverlayLinkedTokenSource(ct);
+            var LINKED_CT = LINKED_CTS.Token;
 
-            var CANCELATION_TOKEN_SOURCE = this.CreateDialogLinkedTokenSource(ct);
-            var CANCELATION_TOKEN = CANCELATION_TOKEN_SOURCE.Token;
-
-            if (await DIALOG_LOCK.WaitAsync(waitSpan, CANCELATION_TOKEN) == true)
+            if(await OVERLAY_LOCK.WaitAsync(TimeSpan.Zero))
             {
                 try
                 {
-                    return await this.Dispatcher.Invoke(async () =>
+                    viewModel.AcceptCommand = new SimpleCommand<object, object>((o) => true, (o) =>
                     {
-                        return await this._MAIN_DIALOG.ShowDialog(content, delegate (object sender, DialogOpenedEventArgs args)
-                        {
-                            if (CANCELATION_TOKEN.IsCancellationRequested)
-                            {
-                                this.Dispatcher.InvokeAsync(() => args.Session.Close(false));
-                            }
-                            else
-                            {
-                                CANCELATION_TOKEN.Register(() => this.Dispatcher.Invoke(() =>
-                                {
-                                    try
-                                    {
-                                        if (!args.Session.IsEnded)
-                                            args.Session.Close(false);
-                                    }
-                                    catch
-                                    {
-                                        throw;
-                                    }
-                                }));
-                            }
-                        });
+                        HideCurrentOverlay(false);
+                        result = true;
                     });
+                    viewModel.CancelCommand = new SimpleCommand<object, object>((o) => true, (o) =>
+                    {
+                        HideCurrentOverlay(false);
+                        result = false;
+                    });
+
+                    await ShowOverlayWithLockAsync(CONTENT, false, Timeout.InfiniteTimeSpan, LINKED_CT);
                 }
                 catch
                 {
@@ -232,13 +224,102 @@ namespace MaterialDesignSkin.Views
                 }
                 finally
                 {
-                    DIALOG_LOCK.Release();
+                    OVERLAY_LOCK.Release();
                 }
             }
             else
             {
-                throw new DialogLockException();
+                var WAIT_HANDLE = new SemaphoreSlim(0, 1);
+
+                var CONTENT_LOCK = new ContentLock()
+                {
+                    Content = CONTENT,
+                    WaitHandle = WAIT_HANDLE
+                };
+
+                OVERLAY_CONTENT_STACK.Push(CONTENT_LOCK);
+
+                viewModel.AcceptCommand = new SimpleCommand<object, object>((o) => true, (o) =>
+                {
+                    WAIT_HANDLE.Release();
+                    result = true;
+                });
+                viewModel.CancelCommand = new SimpleCommand<object, object>((o) => true, (o) =>
+                {
+                    WAIT_HANDLE.Release();
+                    result = false;
+                });
+
+                await Dispatcher.InvokeAsync(() => 
+                {
+                    _OVERLAY_CONTENT_HOST.Content = CONTENT;
+                });
+
+                await WAIT_HANDLE.WaitAsync(Timeout.InfiniteTimeSpan, LINKED_CT);
+
+                var NEW_STACK = OVERLAY_CONTENT_STACK.Where(o => o != CONTENT_LOCK);
+                OVERLAY_CONTENT_STACK = new ConcurrentStack<ContentLock>(NEW_STACK);
+                if (OVERLAY_CONTENT_STACK.TryPeek(out var CURRENT_LOCK))
+                {
+                    await Dispatcher.InvokeAsync(() => _OVERLAY_CONTENT_HOST.Content = CURRENT_LOCK.Content);
+                }
             }
+
+            return result;
+        }
+
+        private Task<object> ShowDialogInternalAsync(object content, TimeSpan waitSpan, CancellationToken ct)
+        {
+            throw new NotSupportedException();
+            //if (content == null)
+            //    throw new ArgumentNullException(nameof(content));
+
+            //var CANCELATION_TOKEN_SOURCE = CreateDialogLinkedTokenSource(ct);
+            //var CANCELATION_TOKEN = CANCELATION_TOKEN_SOURCE.Token;
+
+            //if (await DIALOG_LOCK.WaitAsync(waitSpan, CANCELATION_TOKEN) == true)
+            //{
+            //    try
+            //    {
+            //        return await Dispatcher.Invoke(async () =>
+            //        {
+            //            return await _MAIN_DIALOG.ShowDialog(content, delegate (object sender, DialogOpenedEventArgs args)
+            //            {
+            //                if (CANCELATION_TOKEN.IsCancellationRequested)
+            //                {
+            //                    Dispatcher.InvokeAsync(() => args.Session.Close(false));
+            //                }
+            //                else
+            //                {
+            //                    CANCELATION_TOKEN.Register(() => Dispatcher.Invoke(() =>
+            //                    {
+            //                        try
+            //                        {
+            //                            if (!args.Session.IsEnded)
+            //                                args.Session.Close(false);
+            //                        }
+            //                        catch
+            //                        {
+            //                            throw;
+            //                        }
+            //                    }));
+            //                }
+            //            });
+            //        });
+            //    }
+            //    catch
+            //    {
+            //        throw;
+            //    }
+            //    finally
+            //    {
+            //        DIALOG_LOCK.Release();
+            //    }
+            //}
+            //else
+            //{
+            //    throw new DialogLockException();
+            //}
         }
 
         public void HideCurrentDialog()
@@ -259,9 +340,11 @@ namespace MaterialDesignSkin.Views
             return CancellationTokenSource.CreateLinkedTokenSource(OVERLAY_CTS.Token, ct);
         }
 
+        #region DIALOGLOCKEXCEPTION
         private class DialogLockException : Exception
         {
-        }
+        } 
+        #endregion
 
         #region OVERLAY
 
@@ -474,7 +557,7 @@ namespace MaterialDesignSkin.Views
                     }
                 }
 
-                MouseButtonEventHandler mouseButtonEventHandler = delegate (object sender, MouseButtonEventArgs args)
+                void mouseButtonEventHandler(object sender, MouseButtonEventArgs args)
                 {
                     if (!allowClosing)
                         return;
@@ -483,9 +566,9 @@ namespace MaterialDesignSkin.Views
                     {
                         TryPop();
                     }
-                };
+                }
 
-                KeyEventHandler keyEventHandler = delegate (object sender, KeyEventArgs args)
+                void keyEventHandler(object sender, KeyEventArgs args)
                 {
                     if (!allowClosing)
                         return;
@@ -494,7 +577,7 @@ namespace MaterialDesignSkin.Views
                         return;
 
                     TryPop();
-                };
+                }
 
                 MouseDown += mouseButtonEventHandler;
                 KeyDown += keyEventHandler;
@@ -512,7 +595,6 @@ namespace MaterialDesignSkin.Views
                     if (!_OVERLAY_CONTENT_HOST.Focus())
                         return;
                     _OVERLAY_CONTENT_HOST.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
-
                 });
 
                 OverlayEvent?.Invoke(this, new OverlayEventArgs(true));
@@ -550,12 +632,15 @@ namespace MaterialDesignSkin.Views
             finally
             {
                 //release all locks
-                OVERLAY_CONTENT_STACK.ToList().ForEach(CL => CL.WaitHandle?.Release());
+                OVERLAY_CONTENT_STACK?.ToList().ForEach(CL => CL.WaitHandle?.Release());
 
                 //content stack is no longer valid
-                OVERLAY_CONTENT_STACK.Clear();
+                OVERLAY_CONTENT_STACK?.Clear();
 
+                //reset the gacefull close flag
                 IsOverlayGracefullClosed = null;
+
+                //raise event
                 OverlayEvent?.Invoke(this, new OverlayEventArgs(false));
             }
         }
@@ -579,7 +664,6 @@ namespace MaterialDesignSkin.Views
             get; set;
         }
 
-
         #endregion
 
         #endregion
@@ -592,6 +676,60 @@ namespace MaterialDesignSkin.Views
                 element.FocusVisualStyle = null;
         }
 
-        #endregion          
+        #endregion
+
+        [Export(), PartCreationPolicy(CreationPolicy.NonShared)]
+        [Export(typeof(IMessageDialogViewModel))]
+        public class MessageDialogViewModel : SharedLib.PropertyChangedBase, IMessageDialogViewModel
+        {
+            #region FIELDS
+            private string message;
+            private MessageDialogButtons buttons = MessageDialogButtons.Accept;
+            private ICommand acceptCommand, cancelCommand;
+            #endregion
+
+            #region PROPERTIES
+
+            public ICommand AcceptCommand
+            {
+                get { return acceptCommand; }
+                set { SetProperty(ref acceptCommand, value); }
+            }
+
+            public ICommand CancelCommand
+            {
+                get { return cancelCommand; }
+                set { SetProperty(ref cancelCommand, value); }
+            }
+
+            public string Message
+            {
+                get { return message; }
+                set { SetProperty(ref message, value); }
+            }
+
+            public MessageDialogButtons Buttons
+            {
+                get { return buttons; }
+                set
+                {
+                    SetProperty(ref buttons, value);
+                    RaisePropertyChanged(nameof(ShowAccept));
+                    RaisePropertyChanged(nameof(ShowCancel));
+                }
+            }
+
+            public bool ShowAccept
+            {
+                get { return Buttons.HasFlag(MessageDialogButtons.Accept); }
+            }
+
+            public bool ShowCancel
+            {
+                get { return Buttons.HasFlag(MessageDialogButtons.Cancel); }
+            }
+
+            #endregion
+        }
     }
 }

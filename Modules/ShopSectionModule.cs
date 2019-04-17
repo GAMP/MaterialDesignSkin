@@ -1,4 +1,6 @@
 ﻿using Client;
+using Client.ViewModels;
+using SharedLib;
 using SharedLib.Views;
 using System.ComponentModel.Composition;
 using System.Threading;
@@ -33,6 +35,10 @@ namespace MaterialDesignSkin.Modules
 
         public override Task SwitchInAsync(CancellationToken ct)
         {
+            //if no prefered payment method set on the model use Deposits 
+            if(ViewModel.Order.PaymentMethodId==null)
+                ViewModel.Order.SetPaymentMethod((int?)PaymentMethodType.Deposit);            
+
             return base.SwitchInAsync(ct);
         }
 

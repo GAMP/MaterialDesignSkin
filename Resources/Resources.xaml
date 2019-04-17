@@ -9,15 +9,6 @@
                     xmlns:lc="clr-namespace:MaterialDesignSkin.Controls"
                     xmlns:ss="clr-namespace:MaterialDesignSkin.Source">
 
-    <!--<SolidColorBrush x:Key="PrimaryHueDarkBrush"
-                     Color="White" Opacity="0.5" />
-    <SolidColorBrush x:Key="MaterialDesignCardBackground"
-                     Color="Black" Opacity="0.5" />
-    <SolidColorBrush x:Key="MaterialDesignPaper"
-                     Color="WhiteSmoke" Opacity="0.5" />
-    <SolidColorBrush x:Key="MaterialDesignDarkBackground"
-                     Color="#780DA3" />-->
-
     <sifc:FlagsEnumValueConverter x:Key="FlagsEnumValueConverter"
                                   x:Shared="False" />
     <sifc:FlagsEnumValueVisibilityConverter x:Key="FlagsEnumValueVisibilityConverter"
@@ -906,6 +897,7 @@
                                          HorizontalAlignment="Center"
                                          Kind="Refresh"
                                          Grid.Column="0"
+                                         Visibility="Visible"
                                          Margin="4" />
                             <TextBlock Text="{lex:LocTextUpper EXECUTION_REPAIR}"
                                        Grid.Column="1"
@@ -965,6 +957,7 @@
                                HorizontalAlignment="Stretch">
                             <Popup.IsOpen>
                                 <ss:DelayedMultiBindingExtension Delay="0:0:0.05"
+                                                                 Mode="OneWay"
                                                                  Converter="{StaticResource BoolAnyConverter}">
                                     <Binding Path="IsMouseOver"
                                              RelativeSource="{RelativeSource AncestorType=Grid}"
@@ -1376,6 +1369,441 @@
                          Height="64" />
         </Grid>
     </DataTemplate>
+    <DataTemplate x:Key="_PRODUCT_ORDER_LINE_TEMPLATE">
+        <Grid Margin="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding Product.Name}"
+                       Style="{StaticResource MaterialDesignTitleTextBlock}"
+                       Margin="0,4,0,4"
+                       TextTrimming="CharacterEllipsis" />
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"
+                                      SharedSizeGroup="_ADD" />
+                    <ColumnDefinition Width="Auto"
+                                      SharedSizeGroup="_QUANTITY" />
+                    <ColumnDefinition Width="Auto"
+                                      SharedSizeGroup="_REMOVE" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto"
+                                      SharedSizeGroup="_DELETE" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Width="24"
+                        Height="24"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Command="{Binding AddCommand}"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+                    <md:PackIcon Kind="Plus"
+                                 Height="20"
+                                 Width="20" />
+                </Button>
+                <TextBlock Grid.Column="1"
+                           MinWidth="30"
+                           TextAlignment="Center"
+                           Style="{StaticResource MaterialDesignTitleTextBlock}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Text="{Binding Quantity}" />
+                <Button Grid.Column="2"
+                        Width="24"
+                        Height="24"
+                        Command="{Binding RemoveCommand}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+                    <md:PackIcon Kind="Minus"
+                                 Height="20"
+                                 Width="20" />
+                </Button>
+                <ContentControl Grid.Column="3">
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl"
+                               BasedOn="{StaticResource {x:Type ContentControl}}">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <TextBlock Text="{wd:CultureAwareBinding Total,StringFormat=C2}"
+                                               Margin="2"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               Style="{StaticResource MaterialDesignTitleTextBlock}" />
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding PayType}"
+                                             Value="Points">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <Grid VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <md:PackIcon Grid.Column="1"
+                                                             Kind="Trophy"
+                                                             Foreground="YellowGreen"
+                                                             VerticalAlignment="Center"
+                                                             HorizontalAlignment="Center" />
+                                                <TextBlock Grid.Column="0"
+                                                           Foreground="YellowGreen"
+                                                           Text="{Binding TotalPoints,StringFormat=N0}"
+                                                           Margin="2"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           Style="{StaticResource MaterialDesignTitleTextBlock}" />
+                                            </Grid>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+                <Button Grid.Column="4"
+                        Margin="4"
+                        Width="24"
+                        Height="24"
+                        Command="{Binding DeleteCommand}"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+                    <md:PackIcon Kind="Delete"
+                                 Foreground="Red"
+                                 Height="20"
+                                 Width="20" />
+                </Button>
+            </Grid>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="_PRODUCT_DISPLAY_TEMPLATE">
+        <Border Margin="0,0,4,4"
+                x:Name="_TEMPLATE_ROOT"
+                Background="{StaticResource MaterialDesignCardBackground}"
+                Effect="{ss:SkinShadow MaterialDesignShadowDepth1}">
+            <Border.Style>
+                <Style TargetType="Border"
+                       BasedOn="{StaticResource _CARD_BORDER_STYLE}">
+                    <Setter Property="Width"
+                            Value="NaN" />
+                    <Setter Property="Height"
+                            Value="NaN" />
+                    <Setter Property="Cursor"
+                            Value="Arrow" />
+                </Style>
+            </Border.Style>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap"
+                           TextTrimming="CharacterEllipsis"
+                           Margin="4,0,4,0"
+                           FontWeight="Light"
+                           Height="50"
+                           MaxHeight="50"
+                           Grid.Row="2">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock"
+                               BasedOn="{StaticResource MaterialDesignBody2TextBlock}">
+                            <Setter Property="Text"
+                                    Value="{Binding Description}" />
+                            <Setter Property="Opacity"
+                                    Value="0.8" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Description}"
+                                             Value="">
+                                    <Setter Property="Text"
+                                            Value="{lex:LocText Key=PRODUCT_NO_DESCRIPTION}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Description}"
+                                             Value="{x:Null}">
+                                    <Setter Property="Text"
+                                            Value="{lex:LocText Key=PRODUCT_NO_DESCRIPTION}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <Grid Grid.Row="3"
+                      Margin="8"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center">
+                    <md:PackIcon Width="128"
+                                 Height="128"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                 Visibility="{Binding HasImage,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}"
+                                 Grid.Row="3">
+                        <md:PackIcon.Style>
+                            <Style TargetType="md:PackIcon">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Type}"
+                                                 Value="ProductTime">
+                                        <Setter Property="Kind"
+                                                Value="Timer" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Type}"
+                                                 Value="Product">
+                                        <Setter Property="Kind"
+                                                Value="Food" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Type}"
+                                                 Value="ProductBundle">
+                                        <Setter Property="Kind"
+                                                Value="FoodForkDrink" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </md:PackIcon.Style>
+                    </md:PackIcon>
+                    <Grid Visibility="{Binding HasImage,Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Image Stretch="Uniform"
+                               RenderOptions.BitmapScalingMode="LowQuality"
+                               Source="{Binding ImageData.Result,Converter={StaticResource NullImageSourceConverter}}" />
+                        <ProgressBar Margin="8"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     IsIndeterminate="True"
+                                     Visibility="{Binding ImageData.IsNotCompleted, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                     Style="{StaticResource MaterialDesignCircularProgressBar}" />
+                    </Grid>
+                </Grid>
+                <Border x:Name="_ACTIONS_CONTAINER"
+                        Opacity="0"
+                        Grid.RowSpan="8">
+                    <Border.Background>
+                        <SolidColorBrush Color="Black"
+                                         Opacity="0.5" />
+                    </Border.Background>
+                    <Grid Margin="4"
+                          VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Button Command="{Binding AddToOrderCommand}"
+                                Grid.Row="0"
+                                BorderThickness="0"
+                                Background="YellowGreen">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <md:PackIcon Kind="CurrencyUsd" />
+                                <TextBlock Grid.Column="1"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Text="{lex:LocText Key=ADD_TO_ORDER}" />
+                            </Grid>
+                        </Button>
+                        <Separator Grid.Row="1"
+                                   Visibility="Hidden" />
+                        <Button Grid.Row="2"
+                                Command="{Binding AddToOrderCommand}"
+                                Visibility="{Binding CanPurchaseWithPoints,Converter={StaticResource BoolToVisibilityConverter}}"
+                                CommandParameter="True"
+                                BorderThickness="0"
+                                Background="YellowGreen">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <md:PackIcon Kind="Trophy"
+                                             Foreground="Black" />
+                                <TextBlock Grid.Column="1"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Text="{lex:LocText Key=ADD_TO_ORDER}" />
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </Border>
+                <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                           TextWrapping="NoWrap"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           TextTrimming="CharacterEllipsis"
+                           Margin="8"
+                           Grid.Row="0"
+                           FontWeight="Bold"
+                           Text="{Binding Name,Converter={StaticResource ToUpperConverter}}" />
+                <Separator Grid.Row="1" />
+                <Separator Grid.Row="4" />
+                <Grid Grid.Row="5"
+                      Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="*"
+                                           SharedSizeGroup="_PRICE" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition  Width="*"
+                                           SharedSizeGroup="_AWARD" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               FontWeight="ExtraBlack"
+                               TextTrimming="CharacterEllipsis"
+                               Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                               Text="{wd:CultureAwareBinding Price,StringFormat=C2}"
+                               Visibility="{Binding CostMoney,Converter={StaticResource BoolToHiddenConverter}}" />
+                    <TextBlock Grid.Column="1"
+                               FontWeight="ExtraBold"
+                               Foreground="YellowGreen"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource MaterialDesignSubheadingTextBlock}">
+                                <Setter Property="Text"
+                                        Value="{lex:LocTextUpper Key=PURCHASE_OPTION_AND}" />
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding CostsPoints,Mode=OneWay}"
+                                                       Value="True" />
+                                            <Condition Binding="{Binding CostMoney,Mode=OneWay}"
+                                                       Value="True" />
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <!--<DataTrigger Binding="{Binding CostsPoints}"
+                                                 Value="True">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
+                                    </DataTrigger>-->
+                                    <DataTrigger Binding="{Binding PurchaseOptions}"
+                                                 Value="Or">
+                                        <Setter Property="Text"
+                                                Value="{lex:LocTextUpper Key=PURCHASE_OPTION_OR}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBlock Grid.Column="2"
+                               TextTrimming="CharacterEllipsis"
+                               FontWeight="ExtraBlack"
+                               Text="{Binding PointsPrice,TargetNullValue=0}"
+                               Foreground="YellowGreen"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource MaterialDesignSubheadingTextBlock}">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CostsPoints}"
+                                                 Value="True">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <md:PackIcon Grid.Column="3"
+                                 Visibility="{Binding CostsPoints,Converter={StaticResource BoolToVisibilityConverter}}"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                 Foreground="YellowGreen"
+                                 Kind="Trophy" />
+                </Grid>
+                <Separator Grid.Row="6" />
+                <Border Grid.Row="7"
+                        Margin="4">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Award,Converter={StaticResource ValueGreaterConverter},ConverterParameter=0}"
+                                                 Value="False">
+                                        <Setter Property="Visibility"
+                                                Value="Hidden" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <TextBlock FontWeight="ExtraBold"
+                                   TextWrapping="NoWrap"
+                                   Margin="2"
+                                   TextTrimming="CharacterEllipsis"
+                                   Text="{lex:LocTextUpper Key=PRODUCT_BUY_AND_GET}"
+                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}">
+                        </TextBlock>
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal">
+                            <TextBlock Foreground="YellowGreen"
+                                       FontWeight="ExtraBold"
+                                       TextWrapping="NoWrap"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                       Text="{Binding Award,TargetNullValue=0}" />
+                            <md:PackIcon Grid.Column="1"
+                                         Foreground="YellowGreen"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Kind="Trophy" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding IsMouseOver,ElementName=_TEMPLATE_ROOT}"
+                         Value="True">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.150"
+                                             To="1"
+                                             Storyboard.TargetName="_ACTIONS_CONTAINER"
+                                             Storyboard.TargetProperty="Opacity" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.150"
+                                             To="0"
+                                             Storyboard.TargetName="_ACTIONS_CONTAINER"
+                                             Storyboard.TargetProperty="Opacity" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.ExitActions>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
     <DataTemplate x:Key="VIDEO_PLAYER_TEMPLATE">
         <DataTemplate.Resources>
             <Style TargetType="Button"
@@ -1481,6 +1909,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Slider Grid.Row="0"
+                        Cursor="Hand"
                         Value="{Binding Position}"
                         IsMoveToPointEnabled="True"
                         IsDirectionReversed="False"
@@ -1544,6 +1973,7 @@
                         </Grid.ColumnDefinitions>
                         <Slider Orientation="Horizontal"
                                 Name="VOLUME_SLIDER"
+                                Cursor="Hand"
                                 Margin="4"
                                 Grid.Column="1"
                                 Foreground="YellowGreen"
@@ -1725,400 +2155,6 @@
                 </ProgressBar.Style>
             </ProgressBar>
         </Grid>
-    </DataTemplate>
-    <DataTemplate x:Key="_PRODUCT_ORDER_LINE_TEMPLATE">
-        <Grid Margin="4">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding Product.Name}"
-                       Style="{StaticResource MaterialDesignTitleTextBlock}"
-                       Margin="0,4,0,4"
-                       TextTrimming="CharacterEllipsis" />
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"
-                                      SharedSizeGroup="_ADD" />
-                    <ColumnDefinition Width="Auto"
-                                      SharedSizeGroup="_QUANTITY" />
-                    <ColumnDefinition Width="Auto"
-                                      SharedSizeGroup="_REMOVE" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto"
-                                      SharedSizeGroup="_DELETE" />
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0"
-                        Width="24"
-                        Height="24"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        Command="{Binding AddCommand}"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
-                    <md:PackIcon Kind="Plus"
-                                 Height="20"
-                                 Width="20" />
-                </Button>
-                <TextBlock Grid.Column="1"
-                           MinWidth="30"
-                           TextAlignment="Center"
-                           Style="{StaticResource MaterialDesignTitleTextBlock}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Text="{Binding Quantity}" />
-                <Button Grid.Column="2"
-                        Width="24"
-                        Height="24"
-                        Command="{Binding RemoveCommand}"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
-                    <md:PackIcon Kind="Minus"
-                                 Height="20"
-                                 Width="20" />
-                </Button>
-                <ContentControl Grid.Column="3">
-                    <ContentControl.Style>
-                        <Style TargetType="ContentControl"
-                               BasedOn="{StaticResource {x:Type ContentControl}}">
-                            <Setter Property="Content">
-                                <Setter.Value>
-                                    <TextBlock Text="{wd:CultureAwareBinding Total,StringFormat=C2}"
-                                               Margin="2"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Center"
-                                               Style="{StaticResource MaterialDesignTitleTextBlock}" />
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding PayType}"
-                                             Value="Points">
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            <Grid VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                <md:PackIcon Grid.Column="1"
-                                                             Kind="Parking"
-                                                             VerticalAlignment="Center"
-                                                             HorizontalAlignment="Center" />
-                                                <TextBlock Grid.Column="0"
-                                                           Text="{Binding TotalPoints,StringFormat=N0}"
-                                                           Margin="2"
-                                                           VerticalAlignment="Center"
-                                                           HorizontalAlignment="Center"
-                                                           Style="{StaticResource MaterialDesignTitleTextBlock}" />
-                                            </Grid>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
-                <Button Grid.Column="4"
-                        Margin="4"
-                        Width="24"
-                        Height="24"
-                        Command="{Binding DeleteCommand}"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
-                    <md:PackIcon Kind="Delete"
-                                 Foreground="Red"
-                                 Height="20"
-                                 Width="20" />
-                </Button>
-            </Grid>
-        </Grid>
-    </DataTemplate>
-    <DataTemplate x:Key="_PRODUCT_DISPLAY_TEMPLATE">
-        <Border Margin="0,0,4,4"
-                x:Name="_TEMPLATE_ROOT"
-                Background="{StaticResource MaterialDesignCardBackground}"
-                Effect="{ss:SkinShadow MaterialDesignShadowDepth1}">
-            <Border.Style>
-                <Style TargetType="Border"
-                       BasedOn="{StaticResource _CARD_BORDER_STYLE}">
-                    <Setter Property="Width"
-                            Value="NaN" />
-                    <Setter Property="Height"
-                            Value="NaN" />
-                    <Setter Property="Cursor"
-                            Value="Arrow" />
-                </Style>
-            </Border.Style>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           TextWrapping="Wrap"
-                           TextTrimming="CharacterEllipsis"
-                           Margin="4,0,4,0"
-                           FontWeight="Light"
-                           Height="50"
-                           MaxHeight="50"
-                           Grid.Row="2">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock"
-                               BasedOn="{StaticResource MaterialDesignBody2TextBlock}">
-                            <Setter Property="Text"
-                                    Value="{Binding Description}" />
-                            <Setter Property="Opacity"
-                                    Value="0.8" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Description}"
-                                             Value="">
-                                    <Setter Property="Text"
-                                            Value="{lex:LocText Key=PRODUCT_NO_DESCRIPTION}" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Description}"
-                                             Value="{x:Null}">
-                                    <Setter Property="Text"
-                                            Value="{lex:LocText Key=PRODUCT_NO_DESCRIPTION}" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-                <md:PackIcon Width="128"
-                             Height="128"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
-                             Grid.Row="3">
-                    <md:PackIcon.Style>
-                        <Style TargetType="md:PackIcon">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Type}"
-                                             Value="ProductTime">
-                                    <Setter Property="Kind"
-                                            Value="Timer" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Type}"
-                                             Value="Product">
-                                    <Setter Property="Kind"
-                                            Value="Food" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Type}"
-                                             Value="ProductBundle">
-                                    <Setter Property="Kind"
-                                            Value="FoodForkDrink" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </md:PackIcon.Style>
-                </md:PackIcon>
-                <Border x:Name="_ACTIONS_CONTAINER"
-                        Opacity="0"
-                        Grid.RowSpan="8">
-                    <Border.Background>
-                        <SolidColorBrush Color="Black"
-                                         Opacity="0.5" />
-                    </Border.Background>
-                    <Grid Margin="4"
-                          VerticalAlignment="Center">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Button Command="{Binding AddToOrderCommand}"
-                                Visibility="Visible"
-                                Grid.Row="0"
-                                BorderThickness="0"
-                                Background="YellowGreen">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <md:PackIcon Kind="CurrencyUsd" />
-                                <TextBlock Grid.Column="1"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Text="{lex:LocText Key=ADD_TO_ORDER}" />
-                            </Grid>
-                        </Button>
-                        <Separator Grid.Row="1"
-                                   Visibility="Hidden" />
-                        <Button Grid.Row="2"
-                                Command="{Binding AddToOrderCommand}"
-                                Visibility="{Binding CanPurchaseWithPoints,Converter={StaticResource BoolToVisibilityConverter}}"
-                                CommandParameter="True"
-                                BorderThickness="0"
-                                Background="YellowGreen">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <md:PackIcon Kind="Parking" />
-                                <TextBlock Grid.Column="1"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Text="{lex:LocText Key=ADD_TO_ORDER}" />
-                            </Grid>
-                        </Button>
-                    </Grid>
-                </Border>
-                <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                           TextWrapping="NoWrap"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           TextTrimming="CharacterEllipsis"
-                           Margin="8"
-                           Grid.Row="0"
-                           FontWeight="Bold"
-                           Text="{Binding Name,Converter={StaticResource ToUpperConverter}}" />
-                <Separator Grid.Row="1" />
-                <Separator Grid.Row="4" />
-                <Grid Grid.Row="5"
-                      Margin="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition  Width="*"
-                                           SharedSizeGroup="_PRICE" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition  Width="*"
-                                           SharedSizeGroup="_AWARD" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock Grid.Column="0"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               FontWeight="ExtraBlack"
-                               TextTrimming="CharacterEllipsis"
-                               Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                               Text="{wd:CultureAwareBinding Price,StringFormat=C2}" />
-                    <TextBlock Grid.Column="1"
-                               FontWeight="ExtraBold"
-                               Foreground="YellowGreen"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock"
-                                   BasedOn="{StaticResource MaterialDesignSubheadingTextBlock}">
-                                <Setter Property="Text"
-                                        Value="{lex:LocTextUpper Key=PURCHASE_OPTION_AND}" />
-                                <Setter Property="Visibility"
-                                        Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding CostsPoints}"
-                                                 Value="True">
-                                        <Setter Property="Visibility"
-                                                Value="Visible" />
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding PurchaseOptions}"
-                                                 Value="Or">
-                                        <Setter Property="Text"
-                                                Value="{lex:LocTextUpper Key=PURCHASE_OPTION_OR}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <TextBlock Grid.Column="2"
-                               TextTrimming="CharacterEllipsis"
-                               FontWeight="ExtraBlack"
-                               Text="{Binding PointsPrice,TargetNullValue=0}"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Right">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock"
-                                   BasedOn="{StaticResource MaterialDesignSubheadingTextBlock}">
-                                <Setter Property="Visibility"
-                                        Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding CostsPoints}"
-                                                 Value="True">
-                                        <Setter Property="Visibility"
-                                                Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <md:PackIcon Grid.Column="3"
-                                 Visibility="{Binding CostsPoints,Converter={StaticResource BoolToVisibilityConverter}}"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Center"
-                                 Kind="Parking" />
-                </Grid>
-                <Separator Grid.Row="6" />
-                <Border Grid.Row="7">
-                    <Grid VerticalAlignment="Center"
-                          HorizontalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.Style>
-                            <Style TargetType="Grid">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Award,Converter={StaticResource ValueGreaterConverter},ConverterParameter=0}"
-                                                 Value="False">
-                                        <Setter Property="Visibility"
-                                                Value="Hidden" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Grid.Style>
-                        <TextBlock FontWeight="ExtraBold"
-                                   TextAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   Margin="2"
-                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}">
-                            <TextBlock.Inlines>
-                                <Run Text="{lex:LocTextUpper Key=PRODUCT_BUY_AND_GET}" />
-                                <Run Foreground="YellowGreen"
-                                     Text="{Binding Award,TargetNullValue=0}" />
-                            </TextBlock.Inlines>
-                        </TextBlock>
-                        <md:PackIcon Grid.Column="1"
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Center"
-                                     Kind="Parking" />
-                    </Grid>
-                </Border>
-            </Grid>
-        </Border>
-        <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding IsMouseOver,ElementName=_TEMPLATE_ROOT}"
-                         Value="True">
-                <DataTrigger.EnterActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Duration="0:0:0.150"
-                                             To="1"
-                                             Storyboard.TargetName="_ACTIONS_CONTAINER"
-                                             Storyboard.TargetProperty="Opacity" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </DataTrigger.EnterActions>
-                <DataTrigger.ExitActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Duration="0:0:0.150"
-                                             To="0"
-                                             Storyboard.TargetName="_ACTIONS_CONTAINER"
-                                             Storyboard.TargetProperty="Opacity" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </DataTrigger.ExitActions>
-            </DataTrigger>
-        </DataTemplate.Triggers>
     </DataTemplate>
     <ControlTemplate x:Key="VIDEO_PLAYER_EMPTY_TEMPLATE">
         <Grid>

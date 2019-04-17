@@ -65,6 +65,7 @@ namespace MaterialDesignSkin.Modules
         #endregion        
     }
 
+    #region MaterialConfig
     /// <summary>
     /// Extended configuration file.
     /// </summary>
@@ -91,7 +92,7 @@ namespace MaterialDesignSkin.Modules
         [DefaultValue(false)]
         public bool HidePoints
         {
-            get;set;
+            get; set;
         }
 
         /// <summary>
@@ -101,9 +102,10 @@ namespace MaterialDesignSkin.Modules
         [DefaultValue(false)]
         public bool HideBalance
         {
-            get;set;
+            get; set;
         }
 
         #endregion
-    }
+    } 
+    #endregion
 }

@@ -285,6 +285,7 @@
                     <ItemsPanelTemplate>
                         <controls:VirtualizingWrapPanel ScrollOffset="220"
                                                         VirtualizingPanel.VirtualizationMode="Recycling"
+                                                        MaxHeight="2092"
                                                         ChildHeight="400"
                                                         ChildWidth="225"
                                                         IsItemsHost="True" />

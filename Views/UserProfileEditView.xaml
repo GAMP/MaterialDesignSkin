@@ -17,13 +17,7 @@
              HorizontalAlignment="Center"
              FontWeight="Medium"
              d:DesignWidth="842.333">
-    <UserControl.Resources>
-        <Style TargetType="TextBox"
-               BasedOn="{StaticResource MaterialDesignTextFieldBoxTextBox}">
-            <Setter Property="Margin"
-                    Value="4" />
-        </Style>
-    </UserControl.Resources>
+
     <Border CornerRadius="4"
             Background="{StaticResource MaterialDesignPaper}">
         <Grid>
