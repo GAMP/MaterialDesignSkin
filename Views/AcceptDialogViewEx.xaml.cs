@@ -7,7 +7,7 @@ namespace MaterialDesignSkin.Views
     /// <summary>
     /// Interaction logic for AcceptDialogViewEx.xaml
     /// </summary>
-    [Export()]
+    [Export(),PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class AcceptDialogViewEx : UserControl,IView
     {
         public AcceptDialogViewEx()

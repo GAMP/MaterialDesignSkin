@@ -252,7 +252,7 @@
                                   md:ComboBoxAssist.ShowSelectedItem="False"
                                   DataContext="{Binding Order}"
                                   SelectedValue="{Binding PaymentMethodId}"
-                                  SelectedValuePath="PaymentMethodId"
+                                  SelectedValuePath="PaymentMethodId"  
                                   ItemsSource="{Binding PaymentMethods}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using SkinInterfaces;
+using MaterialDesignSkin.ViewModels;
 
 namespace MaterialDesignSkin.Views
 {
@@ -257,8 +258,8 @@ namespace MaterialDesignSkin.Views
 
                 await WAIT_HANDLE.WaitAsync(Timeout.InfiniteTimeSpan, LINKED_CT);
 
-                var NEW_STACK = OVERLAY_CONTENT_STACK.Where(o => o != CONTENT_LOCK);
-                OVERLAY_CONTENT_STACK = new ConcurrentStack<ContentLock>(NEW_STACK);
+                OVERLAY_CONTENT_STACK.TryPop(out _);
+
                 if (OVERLAY_CONTENT_STACK.TryPeek(out var CURRENT_LOCK))
                 {
                     await Dispatcher.InvokeAsync(() => _OVERLAY_CONTENT_HOST.Content = CURRENT_LOCK.Content);
@@ -677,59 +678,5 @@ namespace MaterialDesignSkin.Views
         }
 
         #endregion
-
-        [Export(), PartCreationPolicy(CreationPolicy.NonShared)]
-        [Export(typeof(IMessageDialogViewModel))]
-        public class MessageDialogViewModel : SharedLib.PropertyChangedBase, IMessageDialogViewModel
-        {
-            #region FIELDS
-            private string message;
-            private MessageDialogButtons buttons = MessageDialogButtons.Accept;
-            private ICommand acceptCommand, cancelCommand;
-            #endregion
-
-            #region PROPERTIES
-
-            public ICommand AcceptCommand
-            {
-                get { return acceptCommand; }
-                set { SetProperty(ref acceptCommand, value); }
-            }
-
-            public ICommand CancelCommand
-            {
-                get { return cancelCommand; }
-                set { SetProperty(ref cancelCommand, value); }
-            }
-
-            public string Message
-            {
-                get { return message; }
-                set { SetProperty(ref message, value); }
-            }
-
-            public MessageDialogButtons Buttons
-            {
-                get { return buttons; }
-                set
-                {
-                    SetProperty(ref buttons, value);
-                    RaisePropertyChanged(nameof(ShowAccept));
-                    RaisePropertyChanged(nameof(ShowCancel));
-                }
-            }
-
-            public bool ShowAccept
-            {
-                get { return Buttons.HasFlag(MessageDialogButtons.Accept); }
-            }
-
-            public bool ShowCancel
-            {
-                get { return Buttons.HasFlag(MessageDialogButtons.Cancel); }
-            }
-
-            #endregion
-        }
     }
 }

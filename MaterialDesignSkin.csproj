@@ -129,6 +129,7 @@
     <Compile Include="Source\NewsTemplateSelector.cs" />
     <Compile Include="Source\SettingsHelper.cs" />
     <Compile Include="Source\ShadowHelper.cs" />
+    <Compile Include="ViewModels\MessageDialogViewModel.cs" />
     <Compile Include="Views\AcceptDialogViewEx.xaml.cs">
       <DependentUpon>AcceptDialogViewEx.xaml</DependentUpon>
     </Compile>

@@ -324,7 +324,7 @@
                                    HorizontalAlignment="Stretch">
                                 <Popup.IsOpen>
                                     <ss:DelayedMultiBindingExtension Delay="0:0:0.01"
-                                                                     Mode="OneWay"
+                                                                     Mode="TwoWay"
                                                                      Converter="{StaticResource BoolAnyConverter}">
                                         <Binding Path="IsMouseOver"
                                                  RelativeSource="{RelativeSource AncestorType=Grid}"
@@ -501,7 +501,7 @@
                                    HorizontalAlignment="Stretch">
                                 <Popup.IsOpen>
                                     <ss:DelayedMultiBindingExtension Delay="0:0:0.01"
-                                                                     Mode="OneWay"
+                                                                     Mode="TwoWay"
                                                                      Converter="{StaticResource BoolAnyConverter}">
                                         <Binding Path="IsMouseOver"
                                                  RelativeSource="{RelativeSource AncestorType=Grid}"
