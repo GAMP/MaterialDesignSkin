@@ -242,12 +242,28 @@ namespace MaterialDesignSkin.Views
 
                 viewModel.AcceptCommand = new SimpleCommand<object, object>((o) => true, (o) =>
                 {
-                    WAIT_HANDLE.Release();
+                    try
+                    {
+                        WAIT_HANDLE.Release();
+                    }
+                    catch (SemaphoreFullException)
+                    {
+                        //happens sometimes when multiple calls to release are made
+                    }
+
                     result = true;
                 });
                 viewModel.CancelCommand = new SimpleCommand<object, object>((o) => true, (o) =>
                 {
-                    WAIT_HANDLE.Release();
+                    try
+                    {
+                        WAIT_HANDLE.Release();
+                    }
+                    catch (SemaphoreFullException)
+                    {
+                        //happens sometimes when multiple calls to release are made
+                    }
+
                     result = false;
                 });
 

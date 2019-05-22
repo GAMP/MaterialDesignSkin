@@ -9,46 +9,49 @@
              mc:Ignorable="d"
              d:DesignWidth="675"
              d:DesignHeight="318">
-    <!--<md:Transitioner SelectedIndex="{Binding UserLoginViewModel.LoginProgressStateIndex,Mode=OneWay,FallbackValue=0}">
-        <md:Transitioner.Resources>
-            <Style TargetType="md:TransitionerSlide" BasedOn="{StaticResource {x:Type md:TransitionerSlide}}">
-                <Setter Property="BackwardWipe">
-                    <Setter.Value>
-                        <md:SlideWipe Direction="Right"
-                                      Duration="0:0:0.5" />
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="ForwardWipe">
-                    <Setter.Value>
-                        <md:SlideWipe Direction="Right"
-                                      Duration="0:0:0.5" />
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </md:Transitioner.Resources>
-        <md:TransitionerSlide>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Border Grid.Column="0"
-                        Background="{StaticResource MaterialDesignDarkBackground}"
-                        CornerRadius="8,0,0,8">
-                    <Label VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="128"
-                           Margin="16"
-                           Style="{StaticResource MaterialDesignLabel}"
-                           Content="{Binding Client.Number,FallbackValue=?}" />
-                </Border>
-                <Border Grid.Column="1"
-                        Margin="1" />
-                <Border Grid.Column="2"
-                        Background="{StaticResource MaterialDesignDarkBackground}"
-                        CornerRadius="0,8,8,0">
-                    <Grid Grid.Column="1">
+    <Grid>
+
+        <Grid VerticalAlignment="Stretch"
+              HorizontalAlignment="Center">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility"
+                            Value="Hidden" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding UserLoginViewModel.LoginProgressStateIndex,Mode=OneWay}"
+                                     Value="0">
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0"
+                    Background="{StaticResource MaterialDesignDarkBackground}"
+                    CornerRadius="8,0,0,8">
+                <Label VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="128"
+                       Margin="16"
+                       Style="{StaticResource MaterialDesignLabel}"
+                       Content="{Binding Client.Number,FallbackValue=?}" />
+            </Border>
+            <Border Grid.Column="1"
+                    Margin="1" />
+            <Border Grid.Column="2"                   
+                    Background="{StaticResource MaterialDesignDarkBackground}"
+                    CornerRadius="0,8,8,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid VerticalAlignment="Center" Grid.RowSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="200" />
@@ -95,190 +98,16 @@
                                          Kind="LoginVariant" />
                         </Button>
                     </Grid>
-                </Border>
-            </Grid>
-        </md:TransitionerSlide>
-        <md:TransitionerSlide>
-            <Border Background="{StaticResource MaterialDesignDarkBackground}"
-                    CornerRadius="8">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <ProgressBar Grid.Column="0"
-                                 Foreground="YellowGreen"
-                                 Width="64"
-                                 Height="64"
-                                 Margin="8"
-                                 IsIndeterminate="True">
-                        <ProgressBar.Style>
-                            <Style TargetType="ProgressBar"
-                                   BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
-                                <Setter Property="Visibility"
-                                        Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding UserLoginViewModel.LoginProgressStateIndex}"
-                                                 Value="1">
-                                        <Setter Property="Visibility"
-                                                Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ProgressBar.Style>
-                    </ProgressBar>
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               FontSize="72"
-                               Text="{lex:LocTextUpper Key=LOGGING_IN}" />
-                </Grid>
-            </Border>
-        </md:TransitionerSlide>
-        <md:TransitionerSlide>
-            <Border Background="{StaticResource MaterialDesignDarkBackground}"
-                    CornerRadius="8">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0"
-                               Margin="8"
-                               FontSize="18"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               Text="{lex:LocTextUpper Key=LOGIN_FAILED}" />
-                    <TextBlock Grid.Row="0"
-                               Grid.RowSpan="2"
-                               FontSize="72"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Text="{Binding UserLoginViewModel.FailMessage,Converter={StaticResource ToUpperConverter}}" />
-                </Grid>
-            </Border>
-        </md:TransitionerSlide>
-        <md:TransitionerSlide>
-            <Border Background="{StaticResource MaterialDesignDarkBackground}"
-                    CornerRadius="8">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <ProgressBar Grid.Column="0"
-                                 Foreground="YellowGreen"
-                                 Width="64"
-                                 Height="64"
-                                 Margin="8"
-                                 IsIndeterminate="True">
-                        <ProgressBar.Style>
-                            <Style TargetType="ProgressBar"
-                                   BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
-                                <Setter Property="Visibility"
-                                        Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding UserLoginViewModel.LoginProgressStateIndex}"
-                                                 Value="3">
-                                        <Setter Property="Visibility"
-                                                Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ProgressBar.Style>
-                    </ProgressBar>
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               FontSize="72"
-                               Text="{lex:LocTextUpper Key=LOGGING_OUT}" />
-                </Grid>
-            </Border>
-        </md:TransitionerSlide>
-    </md:Transitioner>-->
-    <Grid>
-
-        <Grid VerticalAlignment="Stretch"
-              HorizontalAlignment="Center">
-            <Grid.Style>
-                <Style TargetType="Grid">
-                    <Setter Property="Visibility"
-                            Value="Hidden" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding UserLoginViewModel.LoginProgressStateIndex,Mode=OneWay}"
-                                     Value="0">
-                            <Setter Property="Visibility"
-                                    Value="Visible" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Style>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Border Grid.Column="0"
-                    Background="{StaticResource MaterialDesignDarkBackground}"
-                    CornerRadius="8,0,0,8">
-                <Label VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="128"
-                       Margin="16"
-                       Style="{StaticResource MaterialDesignLabel}"
-                       Content="{Binding Client.Number,FallbackValue=?}" />
-            </Border>
-            <Border Grid.Column="1"
-                    Margin="1" />
-            <Border Grid.Column="2"
-                    Background="{StaticResource MaterialDesignDarkBackground}"
-                    CornerRadius="0,8,8,0">
-                <Grid Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <md:PackIcon Grid.Column="0"
-                                 Width="64"
-                                 Height="64"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Center"
-                                 Kind="Account" />
-                    <TextBox md:TextFieldAssist.DecorationVisibility="Visible"
-                             Text="{Binding UserLoginViewModel.Username,UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Column="1"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Stretch"
-                             md:HintAssist.IsFloating="True"
-                             md:HintAssist.Hint="{lex:LocTextUpper Key=USERNAME}"
-                             FontSize="18"
-                             Margin="8" />
-                    <PasswordBox md:TextFieldAssist.DecorationVisibility="Visible"
-                                 Grid.Column="2"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Stretch"
-                                 md:HintAssist.IsFloating="True"
-                                 FontSize="18"
-                                 Margin="0,8,8,8"
-                                 md:HintAssist.Hint="{lex:LocTextUpper Key=PASSWORD}"
-                                 sif:PasswordBoxAssistant.BindPassword="True"
-                                 sif:PasswordBoxAssistant.BoundPassword="{Binding Path=UserLoginViewModel.Password,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
-                    <Button Width="72"
-                            Height="72"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}"
-                            Grid.Column="4"
-                            Padding="0"
-                            IsDefault="True"
-                            Command="{Binding UserLoginViewModel.LoginCommand}"
-                            VerticalContentAlignment="Center"
-                            HorizontalContentAlignment="Center">
-                        <md:PackIcon Width="64"
-                                     Height="64"
-                                     Kind="LoginVariant" />
-                    </Button>
+                    <TextBlock Grid.Row="1" VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               FontSize="16"
+                               FontWeight="Medium"
+                               Visibility="{Binding UserLoginViewModel.IsRegistrationEnabled,Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}"
+                               Margin="16,0,16,16">
+                        <Hyperlink Command="{Binding UserLoginViewModel.RegisterCommand}">
+                            <TextBlock Text="{lex:LocText Key=REGISTER_ACTION_REGISTER_ACCOUNT}" />
+                        </Hyperlink>
+                    </TextBlock>
                 </Grid>
             </Border>
         </Grid>

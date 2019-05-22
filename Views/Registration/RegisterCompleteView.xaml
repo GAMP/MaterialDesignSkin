@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="MaterialDesignSkin.Views.RegisterCompleteView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:lex="clr-namespace:Localization.Extensions;assembly=DataInterfaces"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <md:TransitioningContent RunHint="IsVisibleChanged">
+        <md:TransitioningContent.OpeningEffect>
+            <md:TransitionEffect Kind="FadeIn" />
+        </md:TransitioningContent.OpeningEffect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <md:PackIcon Kind="Check"
+                         Foreground="YellowGreen"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Center"
+                         Width="128"
+                         Height="128" />
+            <TextBlock Text="{lex:LocText Key=REGISTER_SUCCESS_MESSAGE}"
+                       Grid.Row="1"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" />
+            <Button Content="{lex:LocText Key=REGISTRATION_ACTION_FINISH}"
+                    Command="{Binding FinishCommand}"
+                    Grid.Row="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="8" />
+        </Grid>
+    </md:TransitioningContent>
+
+</UserControl>

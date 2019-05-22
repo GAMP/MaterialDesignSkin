@@ -1,0 +1,353 @@
+﻿<UserControl x:Class="MaterialDesignSkin.Views.RegisterProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sif="clr-namespace:SkinInterfaces;assembly=DataInterfaces"
+             xmlns:enums="clr-namespace:SharedLib;assembly=DataInterfaces"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:lex="clr-namespace:Localization.Extensions;assembly=DataInterfaces"
+             FontSize="20"
+             mc:Ignorable="d">
+
+    <Grid Grid.IsSharedSizeScope="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="{lex:LocText Key=REGISTER_HEADER_ACCOUNT_INFO}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" />
+            <TextBox Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Text="{Binding Username,UpdateSourceTrigger=PropertyChanged}"
+                     md:HintAssist.IsFloating="True"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Stretch">
+                <md:HintAssist.Hint>
+                    <StackPanel Orientation="Horizontal"
+                                Opacity="0.5">
+                        <md:PackIcon Kind="User"
+                                     Width="24"
+                                     Height="24"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center" />
+                        <TextBlock Text="{lex:LocText Key=USERNAME}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </md:HintAssist.Hint>
+            </TextBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <PasswordBox Grid.Column="0"
+                             Margin="0,4,0,4"
+                             md:HintAssist.IsFloating="True"
+                             VerticalAlignment="Center"
+                             sif:PasswordBoxAssistant.BindPassword="True"
+                             sif:PasswordBoxAssistant.BoundPassword="{Binding Password,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                             HorizontalAlignment="Stretch">
+                    <md:HintAssist.Hint>
+                        <StackPanel Orientation="Horizontal"
+                                    Opacity="0.5">
+                            <md:PackIcon Kind="Lock"
+                                         Width="24"
+                                         Height="24"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center" />
+                            <TextBlock Text="{lex:LocText Key=PASSWORD}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                        </StackPanel>
+
+                    </md:HintAssist.Hint>
+                </PasswordBox>
+                <PasswordBox Grid.Column="1"
+                             Margin="4,4,0,4"
+                             md:HintAssist.IsFloating="True"
+                             sif:PasswordBoxAssistant.BindPassword="True"
+                             sif:PasswordBoxAssistant.BoundPassword="{Binding RepeatPassword,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Stretch">
+                    <md:HintAssist.Hint>
+                        <StackPanel Orientation="Horizontal"
+                                    Opacity="0.5">
+                            <md:PackIcon Kind="LockAlert"
+                                         Width="24"
+                                         Height="24"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center" />
+                            <TextBlock Text="{lex:LocText Key=IF_REPEAT_PASSWORD}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                        </StackPanel>
+
+                    </md:HintAssist.Hint>
+                </PasswordBox>
+            </Grid>
+            <TextBlock Text="{lex:LocText Key=REGISTER_HEADER_PERSONAL_INFO}"
+                       Margin="0,16,0,0"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Visibility="{Binding IsPersonalInfoRequired,Converter={StaticResource BoolToVisibilityConverter}}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"
+                         Margin="0,4,0,4"
+                         Text="{Binding FirstName,UpdateSourceTrigger=PropertyChanged}"
+                         Visibility="{Binding RequiredPersonalInfo,Converter={StaticResource FlagsEnumValueVisibilityConverter},ConverterParameter={x:Static enums:UserInfoTypes.FirstName}}"
+                         md:HintAssist.IsFloating="True"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Stretch">
+                    <md:HintAssist.Hint>
+                        <StackPanel Orientation="Horizontal"
+                                    Opacity="0.5">
+                            <md:PackIcon Kind="User"
+                                         Width="24"
+                                         Height="24"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center" />
+                            <TextBlock Text="{lex:LocText Key=IF_FIRST_NAME}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                        </StackPanel>
+
+                    </md:HintAssist.Hint>
+                </TextBox>
+                <TextBox Grid.Column="1"
+                         Margin="4,4,0,4"
+                         Text="{Binding LastName,UpdateSourceTrigger=PropertyChanged}"
+                         md:HintAssist.IsFloating="True"
+                         VerticalAlignment="Center"
+                         Visibility="{Binding RequiredPersonalInfo,Converter={StaticResource FlagsEnumValueVisibilityConverter},ConverterParameter={x:Static enums:UserInfoTypes.LastName}}"
+                         HorizontalAlignment="Stretch">
+                    <md:HintAssist.Hint>
+                        <StackPanel Orientation="Horizontal"
+                                    Opacity="0.5">
+                            <md:PackIcon Kind="User"
+                                         Width="24"
+                                         Height="24"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center" />
+                            <TextBlock Text="{lex:LocText Key=IF_LAST_NAME}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </md:HintAssist.Hint>
+                </TextBox>
+            </Grid>
+            <TextBox Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     IsEnabled="{Binding CanSetEmailAddress}"
+                     Margin="0,4,0,4"
+                     Visibility="{Binding RequiredPersonalInfo,Converter={StaticResource FlagsEnumValueVisibilityConverter},ConverterParameter={x:Static enums:UserInfoTypes.Email}}"
+                     Text="{Binding EmailAddress,UpdateSourceTrigger=PropertyChanged}"
+                     md:HintAssist.IsFloating="True"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Stretch">
+                <md:HintAssist.Hint>
+                    <StackPanel Orientation="Horizontal"
+                                Opacity="0.5">
+                        <md:PackIcon Kind="Email"
+                                     Width="24"
+                                     Height="24"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center" />
+                        <TextBlock Text="{lex:LocText Key=IF_EMAIL}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                </md:HintAssist.Hint>
+            </TextBox>
+            <TextBox Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Margin="0,4,0,4"
+                     IsEnabled="{Binding CanSetMobilePhone}"
+                     Text="{Binding MobilePhone,UpdateSourceTrigger=PropertyChanged}"
+                     Visibility="{Binding RequiredPersonalInfo,Converter={StaticResource FlagsEnumValueVisibilityConverter},ConverterParameter={x:Static enums:UserInfoTypes.Mobile}}"
+                     md:HintAssist.IsFloating="True"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Stretch">
+                <md:HintAssist.Hint>
+                    <StackPanel Orientation="Horizontal"
+                                Opacity="0.5">
+                        <md:PackIcon Kind="MobilePhone"
+                                     Width="24"
+                                     Height="24"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center" />
+                        <TextBlock Text="{lex:LocText Key=IF_MOBILE_PHONE}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                </md:HintAssist.Hint>
+            </TextBox>
+            <TextBox Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Margin="0,4,0,4"
+                     Text="{Binding Phone,UpdateSourceTrigger=PropertyChanged}"
+                     md:HintAssist.IsFloating="True"
+                     Visibility="{Binding RequiredPersonalInfo,Converter={StaticResource FlagsEnumValueVisibilityConverter},ConverterParameter={x:Static enums:UserInfoTypes.Phone}}"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Stretch">
+                <md:HintAssist.Hint>
+                    <StackPanel Orientation="Horizontal"
+                                Opacity="0.5">
+                        <md:PackIcon Kind="Phone"
+                                     Width="24"
+                                     Height="24"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center" />
+                        <TextBlock Text="{lex:LocText Key=IF_PHONE}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                </md:HintAssist.Hint>
+            </TextBox>
+            <TextBox Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Margin="0,4,0,4"
+                     Visibility="{Binding RequiredPersonalInfo,Converter={StaticResource FlagsEnumValueVisibilityConverter},ConverterParameter={x:Static enums:UserInfoTypes.City}}"
+                     Text="{Binding City,UpdateSourceTrigger=PropertyChanged}"
+                     md:HintAssist.IsFloating="True"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Stretch">
+                <md:HintAssist.Hint>
+                    <StackPanel Orientation="Horizontal"
+                                Opacity="0.5">
+                        <md:PackIcon Kind="City"
+                                     Width="24"
+                                     Height="24"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center" />
+                        <TextBlock Text="{lex:LocText Key=IF_CITY}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                </md:HintAssist.Hint>
+            </TextBox>
+            <TextBox Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Margin="0,4,0,4"
+                     Visibility="{Binding RequiredPersonalInfo,Converter={StaticResource FlagsEnumValueVisibilityConverter},ConverterParameter={x:Static enums:UserInfoTypes.Address}}"
+                     Text="{Binding Address,UpdateSourceTrigger=PropertyChanged}"
+                     md:HintAssist.IsFloating="True"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Stretch">
+                <md:HintAssist.Hint>
+                    <StackPanel Orientation="Horizontal"
+                                Opacity="0.5">
+                        <md:PackIcon Kind="AddressMarker"
+                                     Width="24"
+                                     Height="24"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center" />
+                        <TextBlock Text="{lex:LocText Key=IF_ADDRESS}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                </md:HintAssist.Hint>
+            </TextBox>
+            <TextBox Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Margin="0,4,0,4"
+                     Visibility="{Binding RequiredPersonalInfo,Converter={StaticResource FlagsEnumValueVisibilityConverter},ConverterParameter={x:Static enums:UserInfoTypes.PostCode}}"
+                     Text="{Binding PostCode,UpdateSourceTrigger=PropertyChanged}"
+                     md:HintAssist.IsFloating="True"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Stretch">
+                <md:HintAssist.Hint>
+                    <StackPanel Orientation="Horizontal"
+                                Opacity="0.5">
+                        <md:PackIcon Kind="Mailbox"
+                                     Width="24"
+                                     Height="24"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center" />
+                        <TextBlock Text="{lex:LocText Key=IF_POSTCODE}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                </md:HintAssist.Hint>
+            </TextBox>
+            <ComboBox ItemsSource="{Binding ItemsView}"
+                      SelectedValue="{Binding Country}"
+                      Visibility="{Binding RequiredPersonalInfo,Converter={StaticResource FlagsEnumValueVisibilityConverter},ConverterParameter={x:Static enums:UserInfoTypes.Country}}"
+                      SelectedValuePath="CountryName"
+                      TextSearch.TextPath="CountryName">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="32"
+                                   Height="32"
+                                   Margin="4"
+                                   Source="{Binding CountryImageTask.Result,Converter={StaticResource NullImageSourceConverter}}" />
+                            <TextBlock FontWeight="SemiBold"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding CountryName,FallbackValue=GR,Converter={StaticResource ToUpperConverter}}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <DatePicker Margin="0,4,0,4"
+                        Visibility="{Binding RequiredPersonalInfo,Converter={StaticResource FlagsEnumValueVisibilityConverter},ConverterParameter={x:Static enums:UserInfoTypes.BirthDate}}"
+                        SelectedDate="{Binding BirthDate,UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                <md:HintAssist.Hint>
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="DateRange"
+                                     Width="24"
+                                     Height="24"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center" />
+                        <TextBlock Text="{lex:LocText Key=IF_BIRTH_DATE}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </md:HintAssist.Hint>
+            </DatePicker>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Visibility="{Binding RequiredPersonalInfo,Converter={StaticResource FlagsEnumValueVisibilityConverter},ConverterParameter={x:Static enums:UserInfoTypes.Sex}}">
+                <TextBlock Text="{lex:LocText Key=IF_SEX}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="2" />
+                <RadioButton Content="{lex:LocText Key=IF_MALE}"
+                             IsChecked="{Binding IsMale}"
+                             VerticalContentAlignment="Center"
+                             VerticalAlignment="Center"
+                             Margin="2"
+                             HorizontalAlignment="Center" />
+                <RadioButton Content="{lex:LocText Key=IF_FEMALE}"
+                             IsChecked="{Binding IsFemale}"
+                             VerticalAlignment="Center"
+                             Margin="2"
+                             HorizontalAlignment="Center"
+                             VerticalContentAlignment="Center" />
+            </StackPanel>
+        </StackPanel>
+        <Button Grid.Row="1"
+                IsDefault="True"
+                Command="{Binding RegisterCommand}"
+                Content="{lex:LocTextUpper Key=REGISTER_ACTION_REGISTER}" />
+    </Grid>
+</UserControl>

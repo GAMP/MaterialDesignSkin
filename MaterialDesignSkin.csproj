@@ -75,6 +75,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Registration\RegisterCompleteView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Registration\RegisterConfirmErrorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Registration\RegisterProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Registration\RegisterConfirmationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Registration\RegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShopView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +152,21 @@
     <Compile Include="ViewModels\MessageDialogViewModel.cs" />
     <Compile Include="Views\AcceptDialogViewEx.xaml.cs">
       <DependentUpon>AcceptDialogViewEx.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Registration\RegisterCompleteView.xaml.cs">
+      <DependentUpon>RegisterCompleteView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Registration\RegisterConfirmErrorView.xaml.cs">
+      <DependentUpon>RegisterConfirmErrorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Registration\RegisterProfileView.xaml.cs">
+      <DependentUpon>RegisterProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Registration\RegisterConfirmationView.xaml.cs">
+      <DependentUpon>RegisterConfirmationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Registration\RegisterView.xaml.cs">
+      <DependentUpon>RegisterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShopView.xaml.cs">
       <DependentUpon>ShopView.xaml</DependentUpon>
