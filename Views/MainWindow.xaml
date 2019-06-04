@@ -989,9 +989,6 @@
                 </Label.Style>
             </Label>
         </Grid>
-        <!--</md:TransitionerSlide>
-        </md:Transitioner>-->
-        <!--</md:DialogHost>-->
         <StackPanel Margin="8"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"

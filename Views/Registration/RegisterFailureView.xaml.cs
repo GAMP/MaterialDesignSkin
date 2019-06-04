@@ -5,12 +5,12 @@ using System.Windows.Controls;
 namespace MaterialDesignSkin.Views
 {
     /// <summary>
-    /// Interaction logic for RegisterConfirmErrorView.xaml
+    /// Interaction logic for RegisterFailureView.xaml
     /// </summary>
     [Export()]
-    public partial class RegisterConfirmErrorView : UserControl, IView
+    public partial class RegisterFailureView : UserControl, IView
     {
-        public RegisterConfirmErrorView()
+        public RegisterFailureView()
         {
             InitializeComponent();
         }

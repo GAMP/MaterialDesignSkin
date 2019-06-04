@@ -350,4 +350,5 @@
                 Command="{Binding RegisterCommand}"
                 Content="{lex:LocTextUpper Key=REGISTER_ACTION_REGISTER}" />
     </Grid>
+
 </UserControl>

@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="MaterialDesignSkin.Views.RegsiterAgreementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lex="clr-namespace:Localization.Extensions;assembly=DataInterfaces"
+             mc:Ignorable="d"
+             d:DesignWidth="1054"
+             d:DesignHeight="1093">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0,0,0,1"
+                BorderBrush="YellowGreen">
+            <TextBlock VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       Text="{lex:LocTextUpper Key=HEADER_SERVICE_AGREEMENT}" />
+        </Border>
+        <ScrollViewer Grid.Row="1"
+                      MaxHeight="600"
+                      Margin="8"
+                      VerticalScrollBarVisibility="Auto">
+            <TextBlock TextWrapping="WrapWithOverflow"
+                       Text="I agree to sell my kidney I agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidney I agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidney I agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidney I agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidney I agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidney I agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidneyI agree to sell my kidney" />
+        </ScrollViewer>
+        <StackPanel Grid.Row="2">
+            <Button VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Content="{lex:LocText Key=UI_AGREE}"
+                    Command="{Binding AcceptAgreementCommand}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

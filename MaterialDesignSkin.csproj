@@ -79,7 +79,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Registration\RegisterConfirmErrorView.xaml">
+    <Page Include="Views\Registration\RegisterFailureView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -92,6 +92,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Registration\RegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Registration\RegsiterAgreementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -156,8 +160,8 @@
     <Compile Include="Views\Registration\RegisterCompleteView.xaml.cs">
       <DependentUpon>RegisterCompleteView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Registration\RegisterConfirmErrorView.xaml.cs">
-      <DependentUpon>RegisterConfirmErrorView.xaml</DependentUpon>
+    <Compile Include="Views\Registration\RegisterFailureView.xaml.cs">
+      <DependentUpon>RegisterFailureView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Registration\RegisterProfileView.xaml.cs">
       <DependentUpon>RegisterProfileView.xaml</DependentUpon>
@@ -167,6 +171,9 @@
     </Compile>
     <Compile Include="Views\Registration\RegisterView.xaml.cs">
       <DependentUpon>RegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Registration\RegsiterAgreementView.xaml.cs">
+      <DependentUpon>RegsiterAgreementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShopView.xaml.cs">
       <DependentUpon>ShopView.xaml</DependentUpon>

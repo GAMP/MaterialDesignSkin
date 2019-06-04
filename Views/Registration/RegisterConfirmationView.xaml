@@ -195,18 +195,21 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock Text="{lex:LocText Key=REGISTER_HEADER_ENTER_CONFIRMATION_CODE}"
-                       FontWeight="Light"
                        Foreground="YellowGreen"
                        FontSize="16">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="Opacity"
                                 Value="0.5" />
+                        <Setter Property="FontWeight"
+                                Value="Light" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding HasConfirmCode}"
                                          Value="True">
                                 <Setter Property="Opacity"
                                         Value="1" />
+                                <Setter Property="FontWeight"
+                                        Value="Bold" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
