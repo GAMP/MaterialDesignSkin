@@ -91,6 +91,7 @@
                                      IsEnabled="False"
                                      Margin="4,0,4,0"
                                      Grid.Column="0"
+                                     MaxLength="2"
                                      md:TextFieldAssist.DecorationVisibility="Visible"
                                      Text="{Binding SelectedItem.CountryCallingCode, Mode=OneWay}" />
                             <TextBox VerticalAlignment="Center"
