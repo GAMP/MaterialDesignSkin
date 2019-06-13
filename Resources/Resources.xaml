@@ -559,16 +559,28 @@
     </DataTemplate>
     <DataTemplate x:Key="_APP_EXE_TEMPLATE">
         <Grid Background="Transparent">
-            <Button Style="{StaticResource MaterialDesignFlatButton}"
-                    md:RippleAssist.IsDisabled="True"
+            <Button md:RippleAssist.IsDisabled="True"
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="500"
                     Padding="0"
                     Width="64"
                     Height="64"
                     x:Name="_TEMPLATE_BUTTON"
-                    Visibility="{Binding ExecutableFileExists.Result,Converter={StaticResource BoolToVisibilityConverter}}"
                     Command="{Binding ExecuteCommand}">
+                <Button.Style>
+                    <Style TargetType="Button"
+                           BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Setter Property="Visibility"
+                                Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ExecutableFileExists.IsCompleted}"
+                                         Value="True">
+                                <Setter Property="Visibility"
+                                        Value="{Binding ExecutableFileExists.Result,Converter={StaticResource BoolToVisibilityConverter}}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
                 <Grid>
                     <Grid x:Name="_ICON_IMAGE">
                         <Grid.RenderTransform>

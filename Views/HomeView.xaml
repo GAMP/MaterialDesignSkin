@@ -14,145 +14,6 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ScrollViewer Grid.Column="1"
-                      VerticalAlignment="Top"
-                      HorizontalAlignment="Right"
-                      PreviewMouseWheel="OnPreviewMouseWheel"
-                      ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <Viewbox StretchDirection="Both"
-                     VerticalAlignment="Top"
-                     HorizontalAlignment="Right">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0"
-                                   Text="{lex:LocTextUpper HEADER_NEW_APPS}"
-                                   Margin="4,0,0,8"
-                                   TextTrimming="None"
-                                   TextWrapping="NoWrap"
-                                   FontWeight="SemiBold"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Foreground="{StaticResource MaterialDesignBody}"
-                                   Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
-                        <ItemsControl Grid.Row="1"
-                                      ItemsSource="{Binding Apps.RecentlyAddedApps}"
-                                      ItemTemplate="{StaticResource _APP_DISPLAY_NEW_TEMPLATE}" />
-                        <TextBlock Grid.Row="1"
-                                   Text="{lex:LocTextUpper Key=INFO_TOP_NEW_APPS_EMPTY}"
-                                   TextWrapping="WrapWithOverflow"
-                                   FontWeight="SemiBold"
-                                   FontSize="20"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock"
-                                       BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
-                                    <Setter Property="Visibility"
-                                            Value="Collapsed" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Apps.RecentlyAddedApps.Count,FallbackValue=Collapsed}"
-                                                     Value="0">
-                                            <Setter Property="Visibility"
-                                                    Value="Visible" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style></TextBlock>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0"
-                                   Text="{lex:LocTextUpper HEADER_TOP_RATED_APPS}"
-                                   Margin="4,0,0,8"
-                                   TextTrimming="None"
-                                   TextWrapping="NoWrap"
-                                   FontWeight="SemiBold"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Foreground="{StaticResource MaterialDesignBody}"
-                                   Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
-                        <ItemsControl Grid.Row="1"
-                                      ItemsSource="{Binding Apps.TopRatedApps}"
-                                      ItemTemplate="{StaticResource _APP_DISPLAY_TOP_RATED_TEMPLATE}" />
-                        <TextBlock Grid.Row="1"
-                                   Text="{lex:LocTextUpper Key=INFO_TOP_RATED_APPS_EMPTY}"
-                                   TextWrapping="WrapWithOverflow"
-                                   FontWeight="SemiBold"
-                                   FontSize="20"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock"
-                                       BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
-                                    <Setter Property="Visibility"
-                                            Value="Collapsed" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Apps.TopRatedApps.Count,FallbackValue=Collapsed}"
-                                                     Value="0">
-                                            <Setter Property="Visibility"
-                                                    Value="Visible" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style></TextBlock>
-                    </Grid>
-                    <Grid Grid.Row="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0"
-                                   Text="{lex:LocTextUpper HEADER_POPULAR_APPS}"
-                                   Margin="4,0,0,8"
-                                   TextTrimming="None"
-                                   TextWrapping="NoWrap"
-                                   FontWeight="SemiBold"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Foreground="{StaticResource MaterialDesignBody}"
-                                   Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
-                        <ItemsControl Grid.Row="1"
-                                      ItemsSource="{Binding Apps.TopUsedApps}"
-                                      ItemTemplate="{StaticResource _APP_DISPLAY_MOST_POPULAR_TEMPLATE}" />
-                        <TextBlock Grid.Row="1"
-                                   Text="{lex:LocTextUpper Key=INFO_TOP_USE_APPS_EMPTY}"
-                                   TextWrapping="WrapWithOverflow"
-                                   FontWeight="SemiBold"
-                                   FontSize="20"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock"
-                                       BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
-                                    <Setter Property="Visibility"
-                                            Value="Collapsed" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Apps.TopUsedApps.Count,FallbackValue=Collapsed}"
-                                                     Value="0">
-                                            <Setter Property="Visibility"
-                                                    Value="Visible" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style></TextBlock>
-                    </Grid>
-                </Grid>
-            </Viewbox>
-        </ScrollViewer>
         <Grid Grid.Column="0"
               Margin="4,0,32,0"
               HorizontalAlignment="Stretch"
@@ -245,5 +106,164 @@
                 </EventTrigger>
             </Grid.Triggers>
         </Grid>
+        <ScrollViewer Grid.Column="1"
+                      VerticalAlignment="Top"
+                      HorizontalAlignment="Right"
+                      PreviewMouseWheel="OnPreviewMouseWheel"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <Viewbox StretchDirection="Both"
+                     VerticalAlignment="Top"                     
+                     MaxWidth="1048"
+                     MinWidth="360"
+                     HorizontalAlignment="Right">
+                <Grid MaxWidth="1048">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
+                                   Text="{lex:LocTextUpper HEADER_NEW_APPS}"
+                                   Margin="4,0,0,8"
+                                   TextTrimming="None"
+                                   TextWrapping="NoWrap"
+                                   FontWeight="SemiBold"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource MaterialDesignBody}"
+                                   Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
+                        <ItemsControl Grid.Row="1"
+                                      ItemsSource="{Binding Apps.RecentlyAddedApps}"
+                                      ItemTemplate="{StaticResource _APP_DISPLAY_NEW_TEMPLATE}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        <TextBlock Grid.Row="1"
+                                   Text="{lex:LocTextUpper Key=INFO_TOP_NEW_APPS_EMPTY}"
+                                   TextWrapping="WrapWithOverflow"
+                                   FontWeight="SemiBold"
+                                   FontSize="20"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Apps.RecentlyAddedApps.Count,FallbackValue=Collapsed}"
+                                                     Value="0">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style></TextBlock>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
+                                   Text="{lex:LocTextUpper HEADER_TOP_RATED_APPS}"
+                                   Margin="4,0,0,8"
+                                   TextTrimming="None"
+                                   TextWrapping="NoWrap"
+                                   FontWeight="SemiBold"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource MaterialDesignBody}"
+                                   Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
+                        <ItemsControl Grid.Row="1"
+                                      ItemsSource="{Binding Apps.TopRatedApps}"
+                                      ItemTemplate="{StaticResource _APP_DISPLAY_TOP_RATED_TEMPLATE}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        <TextBlock Grid.Row="1"
+                                   Text="{lex:LocTextUpper Key=INFO_TOP_RATED_APPS_EMPTY}"
+                                   TextWrapping="WrapWithOverflow"
+                                   FontWeight="SemiBold"
+                                   FontSize="20"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Apps.TopRatedApps.Count,FallbackValue=Collapsed}"
+                                                     Value="0">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style></TextBlock>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
+                                   Text="{lex:LocTextUpper HEADER_POPULAR_APPS}"
+                                   Margin="4,0,0,8"
+                                   TextTrimming="None"
+                                   TextWrapping="NoWrap"
+                                   FontWeight="SemiBold"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource MaterialDesignBody}"
+                                   Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
+                        <ItemsControl Grid.Row="1"
+                                      ItemsSource="{Binding Apps.TopUsedApps}"
+                                      ItemTemplate="{StaticResource _APP_DISPLAY_MOST_POPULAR_TEMPLATE}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        <TextBlock Grid.Row="1"
+                                   Text="{lex:LocTextUpper Key=INFO_TOP_USE_APPS_EMPTY}"
+                                   TextWrapping="WrapWithOverflow"
+                                   FontWeight="SemiBold"
+                                   FontSize="20"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Apps.TopUsedApps.Count,FallbackValue=Collapsed}"
+                                                     Value="0">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style></TextBlock>
+                    </Grid>
+                </Grid>
+            </Viewbox>
+        </ScrollViewer>
     </Grid>
 </UserControl>

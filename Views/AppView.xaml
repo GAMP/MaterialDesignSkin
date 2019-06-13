@@ -278,7 +278,7 @@
                           Name="_LIST_PRESENTER"
                           VerticalAlignment="Top"
                           HorizontalAlignment="Stretch"
-                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           ItemTemplate="{StaticResource _APP_DISPLAY_LIST_TEMPLATE}">
                 <ItemsControl.ItemsPanel>
