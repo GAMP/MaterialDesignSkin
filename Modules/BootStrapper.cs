@@ -54,6 +54,7 @@ namespace MaterialDesignSkin.Modules
 
             var wpfApp = Application.Current;
 
+            //include your resources here
             await wpfApp.Dispatcher.InvokeAsync(() =>
             {
                 wpfApp.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(@"pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml", UriKind.Absolute) });
