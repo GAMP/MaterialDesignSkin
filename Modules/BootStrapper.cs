@@ -11,6 +11,9 @@ using System.Windows.Media;
 
 namespace MaterialDesignSkin.Modules
 {
+    /// <summary>
+    /// Material skin bootstrapper.
+    /// </summary>
     [Export(typeof(ISkinBootStrapper))]
     public class BootStrapper : ISkinBootStrapper
     {
@@ -61,7 +64,7 @@ namespace MaterialDesignSkin.Modules
                 wpfApp.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(@"pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml", UriKind.Absolute) });
                 wpfApp.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(@"pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml", UriKind.Absolute) });
                 wpfApp.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(@"/MaterialDesignSkin;component/Resources/Resources.xaml", UriKind.RelativeOrAbsolute) });
-            });
+            });          
         }
         #endregion        
     }

@@ -30,6 +30,11 @@
     <sifc:HTMLToFlowDocumentConverter x:Key="HTMLConverter" />
     <sc:AppExePopupConverter x:Key="AppExePopupConverter" />
     <ss:NewsTemplateSelector x:Key="NewsTemplateSelector" />
+
+    <!--<SolidColorBrush x:Key="MaterialDesignCardBackground" Color="#295383"/>
+    <SolidColorBrush x:Key="MaterialDesignDarkBackground" Color="#2953b4"/>-->
+    <!--<FontFamily x:Key="MaterialDesignFont">../Fonts/Play/#Play</FontFamily>-->
+
     <BitmapImage x:Key="_BACKGROUND_LOGIN"
                  UriSource="Images/BACKGROUND_LOGIN.jpg" />
     <BitmapImage x:Key="_BACKGROUND_DESKTOP"
