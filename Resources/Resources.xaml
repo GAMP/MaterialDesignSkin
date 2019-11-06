@@ -8,7 +8,6 @@
                     xmlns:sc="clr-namespace:MaterialDesignSkin.Converters"
                     xmlns:lc="clr-namespace:MaterialDesignSkin.Controls"
                     xmlns:ss="clr-namespace:MaterialDesignSkin.Source">
-
     <sifc:FlagsEnumValueConverter x:Key="FlagsEnumValueConverter"
                                   x:Shared="False" />
     <sifc:FlagsEnumValueVisibilityConverter x:Key="FlagsEnumValueVisibilityConverter"
@@ -28,13 +27,12 @@
     <sifc:ValueLessConverter x:Key="ValueLessConverter" />
     <sifc:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
     <sifc:HTMLToFlowDocumentConverter x:Key="HTMLConverter" />
+    <sc:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
     <sc:AppExePopupConverter x:Key="AppExePopupConverter" />
     <ss:NewsTemplateSelector x:Key="NewsTemplateSelector" />
-
     <!--<SolidColorBrush x:Key="MaterialDesignCardBackground" Color="#295383"/>
     <SolidColorBrush x:Key="MaterialDesignDarkBackground" Color="#2953b4"/>-->
     <!--<FontFamily x:Key="MaterialDesignFont">../Fonts/Play/#Play</FontFamily>-->
-
     <BitmapImage x:Key="_BACKGROUND_LOGIN"
                  UriSource="Images/BACKGROUND_LOGIN.jpg" />
     <BitmapImage x:Key="_BACKGROUND_DESKTOP"
@@ -1552,8 +1550,7 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                    </TextBlock.Style></TextBlock>
                 <Grid Grid.Row="3"
                       Margin="8"
                       VerticalAlignment="Center"
@@ -1717,8 +1714,7 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                        </TextBlock.Style></TextBlock>
                     <TextBlock Grid.Column="2"
                                TextTrimming="CharacterEllipsis"
                                FontWeight="ExtraBlack"
@@ -1739,8 +1735,7 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                        </TextBlock.Style></TextBlock>
                     <md:PackIcon Grid.Column="3"
                                  Visibility="{Binding CostsPoints,Converter={StaticResource BoolToVisibilityConverter}}"
                                  VerticalAlignment="Center"
@@ -1755,7 +1750,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>   
+                        </Grid.ColumnDefinitions>
                         <Grid.Style>
                             <Style TargetType="Grid">
                                 <Style.Triggers>
@@ -1772,8 +1767,7 @@
                                    Margin="2"
                                    TextTrimming="CharacterEllipsis"
                                    Text="{lex:LocTextUpper Key=PRODUCT_BUY_AND_GET}"
-                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}">
-                        </TextBlock>
+                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}"></TextBlock>
                         <StackPanel Grid.Column="1"
                                     Orientation="Horizontal">
                             <TextBlock Foreground="YellowGreen"

@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="MaterialDesignSkin.Views.ReservationScreenView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ss="clr-namespace:MaterialDesignSkin.Source"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="331.5"
+             d:DesignWidth="476">
+    <Border BorderThickness="1,0,1,1"
+            BorderBrush="Black"
+            CornerRadius="0,0,2,2"
+            Effect="{ss:SkinShadow MaterialDesignShadowDepth1}">
+        <Border.Background>
+            <SolidColorBrush Color="Black"
+                             Opacity="0.6" />
+        </Border.Background>
+        <Grid Margin="4">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Text="RESERVED"
+                       Grid.Column="1"
+                       Foreground="Red"
+                       FontWeight="Bold"
+                       FontSize="24"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Center"
+                       Margin="8" />
+            <TextBlock Text="{Binding ReservationViewModel.Time,StringFormat=HH:mm,FallbackValue=00:00}"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Foreground="Red"
+                       FontWeight="Bold"
+                       FontSize="24"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Margin="8" />
+            <Border CornerRadius="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="8"
+                    Background="White"
+                    Grid.Row="2">
+                <Grid Margin="4"
+                      TextBlock.Foreground="Black"
+                      TextBlock.FontWeight="SemiBold">
+                    <TextBlock Text="Login is currently blocked"
+                               Visibility="{Binding ReservationViewModel.IsLoginBlocked,Converter={StaticResource BoolToVisibilityConverter}}"
+                               Grid.ColumnSpan="2"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center" />
+                    <TextBlock Text="Login is currently un-blocked"
+                               Visibility="{Binding ReservationViewModel.IsLoginBlocked,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=true}"
+                               Grid.ColumnSpan="2"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Grid.Row="2" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

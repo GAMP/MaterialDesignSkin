@@ -34,6 +34,7 @@ namespace MaterialDesignSkin.Modules
             {
                 if (File.Exists(configFileName))
                 {
+                    //deserialize configuration
                     var materialConfig = Client.JsonDeserializeConfig<MaterialConfig>(configFileName);
 
                     //set render mode
@@ -47,6 +48,9 @@ namespace MaterialDesignSkin.Modules
 
                     //hide balance if configured
                     SettingsHelper.HideBalance = materialConfig.HideBalance;
+
+                    //hide active applications if enabled
+                    SettingsHelper.HideActiveApplications = materialConfig.HideActiveApplications;
                 }
             }
             catch(Exception ex)
@@ -107,6 +111,16 @@ namespace MaterialDesignSkin.Modules
         public bool HideBalance
         {
             get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets if active applications should be hidden.
+        /// </summary>
+        [DataMember()]
+        [DefaultValue(false)]
+        public bool HideActiveApplications
+        {
+            get;set;
         }
 
         #endregion

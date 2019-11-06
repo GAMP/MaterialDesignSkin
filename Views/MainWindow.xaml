@@ -26,7 +26,6 @@
         ResizeMode="NoResize"
         SizeToContent="Manual"
         mc:Ignorable="d">
-
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -37,7 +36,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
     <Grid>
         <Grid x:Name="_CONTENT_PRESENTER">
             <Grid.Effect>
@@ -85,18 +83,18 @@
                         </Grid.RowDefinitions>
                         <Border>
                             <TextBlock Text="{lex:LocTextUpper Key=HEADER_ACTIVE_APPLICATIONS}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Style="{StaticResource MaterialDesignTitleTextBlock}"
-                                   Margin="8" />
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignTitleTextBlock}"
+                                       Margin="8" />
                         </Border>
                         <ItemsControl Grid.Row="1"
-                                  ItemTemplate="{StaticResource _APP_EXE_DETAIL_TEMPLATE}"
-                                  ItemsSource="{Binding Apps.ActiveExecutables}">
+                                      ItemTemplate="{StaticResource _APP_EXE_DETAIL_TEMPLATE}"
+                                      ItemsSource="{Binding Apps.ActiveExecutables}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel Orientation="Vertical"
-                                                        IsItemsHost="True" />
+                                                            IsItemsHost="True" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
@@ -104,19 +102,19 @@
                 </md:DrawerHost.RightDrawerContent>
                 <Grid>
                     <Image VerticalAlignment="Stretch"
-                       RenderOptions.BitmapScalingMode="LowQuality"
-                       HorizontalAlignment="Stretch"
-                       Stretch="UniformToFill"
-                       Opacity="0.1"
-                       Source="{Binding LoginRotator.Wallpaper,Converter={StaticResource NullImageSourceConverter},FallbackValue={StaticResource _BACKGROUND_DESKTOP}}" />
+                           RenderOptions.BitmapScalingMode="LowQuality"
+                           HorizontalAlignment="Stretch"
+                           Stretch="UniformToFill"
+                           Opacity="0.1"
+                           Source="{Binding LoginRotator.Wallpaper,Converter={StaticResource NullImageSourceConverter},FallbackValue={StaticResource _BACKGROUND_DESKTOP}}" />
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0"
-                          Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
-                          Background="{StaticResource MaterialDesignDarkBackground}">
+                              Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
+                              Background="{StaticResource MaterialDesignDarkBackground}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="Auto" />
@@ -125,33 +123,33 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <ListBox Grid.Column="0"
-                                 BorderThickness="0"
-                                 Margin="42,0,0,0"
-                                 ItemsSource="{Binding ItemsView}"
-                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                 VerticalContentAlignment="Stretch"
-                                 SelectionMode="Single"
-                                 SelectedItem="{Binding SelectedItem}">
+                                     BorderThickness="0"
+                                     Margin="42,0,0,0"
+                                     ItemsSource="{Binding ItemsView}"
+                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                     VerticalContentAlignment="Stretch"
+                                     SelectionMode="Single"
+                                     SelectedItem="{Binding SelectedItem}">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel Orientation="Horizontal"
-                                                            IsItemsHost="True" />
+                                                                IsItemsHost="True" />
                                     </ItemsPanelTemplate>
                                 </ListBox.ItemsPanel>
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem"
-                                       BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                           BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                         <Setter Property="IsSelected"
-                                            Value="{Binding IsSelected,Mode=TwoWay}" />
+                                                Value="{Binding IsSelected,Mode=TwoWay}" />
                                         <Setter Property="Padding"
-                                            Value="0" />
+                                                Value="0" />
                                         <Setter Property="Margin"
-                                            Value="0" />
+                                                Value="0" />
                                         <Style.Triggers>
                                             <Trigger Property="IsSelected"
-                                                 Value="False">
+                                                     Value="False">
                                                 <Setter Property="Opacity"
-                                                    Value="0.5" />
+                                                        Value="0.5" />
                                             </Trigger>
                                         </Style.Triggers>
                                     </Style>
@@ -159,21 +157,21 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Border x:Name="BORDER"
-                                            BorderThickness="0,0,0,2">
+                                                BorderThickness="0,0,0,2">
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Setter Property="BorderBrush"
-                                                        Value="Transparent" />
+                                                            Value="Transparent" />
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding IsSelected}"
-                                                                 Value="True">
+                                                                     Value="True">
                                                             <DataTrigger.EnterActions>
                                                                 <BeginStoryboard>
                                                                     <Storyboard>
                                                                         <ColorAnimation Duration="0:0:0.250"
-                                                                                    From="Transparent"
-                                                                                    To="YellowGreen"
-                                                                                    Storyboard.TargetProperty="BorderBrush.Color" />
+                                                                                        From="Transparent"
+                                                                                        To="YellowGreen"
+                                                                                        Storyboard.TargetProperty="BorderBrush.Color" />
                                                                     </Storyboard>
                                                                 </BeginStoryboard>
                                                             </DataTrigger.EnterActions>
@@ -181,9 +179,9 @@
                                                                 <BeginStoryboard>
                                                                     <Storyboard>
                                                                         <ColorAnimation Duration="0:0:0.250"
-                                                                                    From="YellowGreen"
-                                                                                    To="Transparent"
-                                                                                    Storyboard.TargetProperty="BorderBrush.Color" />
+                                                                                        From="YellowGreen"
+                                                                                        To="Transparent"
+                                                                                        Storyboard.TargetProperty="BorderBrush.Color" />
                                                                     </Storyboard>
                                                                 </BeginStoryboard>
                                                             </DataTrigger.ExitActions>
@@ -197,25 +195,25 @@
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
                                                 <md:PackIcon VerticalAlignment="Center"
-                                                         HorizontalAlignment="Left"
-                                                         Margin="2"
-                                                         Width="24"
-                                                         Height="24"
-                                                         Kind="{Binding IconResource}" />
+                                                             HorizontalAlignment="Left"
+                                                             Margin="2"
+                                                             Width="24"
+                                                             Height="24"
+                                                             Kind="{Binding IconResource}" />
                                                 <TextBlock Grid.Column="1"
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Left"
-                                                       Margin="0,8,0,8"
-                                                       FontWeight="SemiBold"
-                                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                                       Text="{Binding Title,Converter={StaticResource ToUpperConverter}}" />
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Left"
+                                                           Margin="0,8,0,8"
+                                                           FontWeight="SemiBold"
+                                                           Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                                           Text="{Binding Title,Converter={StaticResource ToUpperConverter}}" />
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
                             <Grid Grid.Column="1"
-                              Margin="8">
+                                  Margin="8">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
@@ -225,63 +223,63 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <md:PackIcon VerticalAlignment="Center"
-                                         HorizontalAlignment="Center"
-                                         Padding="0"
-                                         Margin="2"
-                                         Width="32"
-                                         Height="32"
-                                         Grid.Row="0"
-                                         Grid.RowSpan="2"
-                                         Grid.Column="0"
-                                         Kind="AccountCircle" />
+                                             HorizontalAlignment="Center"
+                                             Padding="0"
+                                             Margin="2"
+                                             Width="32"
+                                             Height="32"
+                                             Grid.Row="0"
+                                             Grid.RowSpan="2"
+                                             Grid.Column="0"
+                                             Kind="AccountCircle" />
                                 <TextBlock Grid.Row="0"
-                                       Grid.Column="1"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       Opacity="0.5"
-                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                       Text="{Binding Client.Number,StringFormat=PC{0}}" />
+                                           Grid.Column="1"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Opacity="0.5"
+                                           Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                           Text="{Binding Client.Number,StringFormat=PC{0}}" />
                                 <TextBlock Grid.Row="1"
-                                       Grid.Column="1"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       Style="{StaticResource MaterialDesignHeadlineTextBlock}"
-                                       TextWrapping="Wrap"
-                                       MaxHeight="60"
-                                       TextTrimming="CharacterEllipsis"
-                                       MaxWidth="200"
-                                       Text="{Binding UserViewModel.Username,TargetNullValue=UNKNOWN,Converter={StaticResource ToUpperConverter}}" />
+                                           Grid.Column="1"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Style="{StaticResource MaterialDesignHeadlineTextBlock}"
+                                           TextWrapping="Wrap"
+                                           MaxHeight="60"
+                                           TextTrimming="CharacterEllipsis"
+                                           MaxWidth="200"
+                                           Text="{Binding UserViewModel.Username,TargetNullValue=UNKNOWN,Converter={StaticResource ToUpperConverter}}" />
                             </Grid>
                             <Grid Grid.Column="2"
-                              x:Name="_USER_TIME_CONTAINER"
-                              Background="Transparent">
+                                  x:Name="_USER_TIME_CONTAINER"
+                                  Background="Transparent">
                                 <md:PackIcon VerticalAlignment="Center"
-                                         HorizontalAlignment="Center"
-                                         Padding="0"
-                                         Width="32"
-                                         Margin="2"
-                                         Height="32"
-                                         Grid.Column="0"
-                                         Kind="Timer" />
+                                             HorizontalAlignment="Center"
+                                             Padding="0"
+                                             Width="32"
+                                             Margin="2"
+                                             Height="32"
+                                             Grid.Column="0"
+                                             Kind="Timer" />
                                 <Popup x:Name="_USER_TIME_PRODUCT_POPUP"
-                                   Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
-                                   PopupAnimation="Fade"
-                                   AllowsTransparency="True"
-                                   HorizontalAlignment="Stretch">
+                                       Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
+                                       PopupAnimation="Fade"
+                                       AllowsTransparency="True"
+                                       HorizontalAlignment="Stretch">
                                     <Popup.IsOpen>
                                         <ss:DelayedMultiBindingExtension Delay="0:0:0.01"
-                                                                     Mode="TwoWay"
-                                                                     Converter="{StaticResource BoolAnyConverter}">
+                                                                         Mode="TwoWay"
+                                                                         Converter="{StaticResource BoolAnyConverter}">
                                             <Binding Path="IsMouseOver"
-                                                 RelativeSource="{RelativeSource AncestorType=Grid}"
-                                                 Mode="OneWay" />
+                                                     RelativeSource="{RelativeSource AncestorType=Grid}"
+                                                     Mode="OneWay" />
                                             <Binding Path="IsMouseOver"
-                                                 RelativeSource="{RelativeSource Self}"
-                                                 Mode="OneWay" />
+                                                     RelativeSource="{RelativeSource Self}"
+                                                     Mode="OneWay" />
                                         </ss:DelayedMultiBindingExtension>
                                     </Popup.IsOpen>
                                     <Border CornerRadius="0,0,4,4"
-                                        Background="{StaticResource MaterialDesignDarkBackground}">
+                                            Background="{StaticResource MaterialDesignDarkBackground}">
                                         <StackPanel Margin="8">
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -289,24 +287,24 @@
                                                     <RowDefinition />
                                                 </Grid.RowDefinitions>
                                                 <TextBlock Grid.Row="0"
-                                                       Text="{lex:LocTextUpper Key=HEADER_USER_TIME_SOURCE}"
-                                                       Opacity="0.5"
-                                                       TextWrapping="NoWrap"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                                           Text="{lex:LocTextUpper Key=HEADER_USER_TIME_SOURCE}"
+                                                           Opacity="0.5"
+                                                           TextWrapping="NoWrap"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
                                                 <TextBlock Grid.Row="1"
-                                                       TextWrapping="NoWrap"
-                                                       TextTrimming="CharacterEllipsis">
+                                                           TextWrapping="NoWrap"
+                                                           TextTrimming="CharacterEllipsis">
                                                     <TextBlock.Style>
                                                         <Style TargetType="TextBlock"
-                                                           BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
+                                                               BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
                                                             <Setter Property="Text"
-                                                                Value="{Binding UserViewModel.ActiveTimeSourceName,Converter={StaticResource ToUpperConverter}}" />
+                                                                    Value="{Binding UserViewModel.ActiveTimeSourceName,Converter={StaticResource ToUpperConverter}}" />
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding UserViewModel.ActiveUsageType}"
-                                                                         Value="1">
+                                                                             Value="1">
                                                                     <Setter Property="Text"
-                                                                        Value="{lex:LocTextUpper Key=BILLING_PROFILE}" />
+                                                                            Value="{lex:LocTextUpper Key=BILLING_PROFILE}" />
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>
@@ -317,34 +315,34 @@
                                 </Popup>
                             </Grid>
                             <Grid x:Name="_BALANCE_INFO_CONTAINER"
-                              Grid.Column="3"
-                              Background="Transparent">
+                                  Grid.Column="3"
+                                  Background="Transparent">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Grid Margin="8"
-                                  VerticalAlignment="Center">
+                                      VerticalAlignment="Center">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0"
-                                           Text="{lex:LocTextUpper Key=HEADER_USER_TIME}"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Opacity="0.5"
-                                           Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                               Text="{lex:LocTextUpper Key=HEADER_USER_TIME}"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Opacity="0.5"
+                                               Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
                                     <TextBlock Grid.Row="1"
-                                           Text="{Binding UserViewModel.TimeFormatted,TargetNullValue=∞}"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
+                                               Text="{Binding UserViewModel.TimeFormatted,TargetNullValue=∞}"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
                                 </Grid>
                                 <Grid Grid.Column="1"
-                                  Margin="8"
-                                  VerticalAlignment="Center">
+                                      Margin="8"
+                                      VerticalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition />
@@ -354,59 +352,58 @@
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <md:PackIcon VerticalAlignment="Center"
-                                             HorizontalAlignment="Center"
-                                             Padding="0"
-                                             Margin="2"
-                                             Width="32"
-                                             Height="32"
-                                             Grid.Column="0"
-                                             Grid.Row="0"
-                                             Grid.RowSpan="2"
-                                             Visibility="{Binding Source={x:Static ss:SettingsHelper.HideBalance},Converter={StaticResource BoolToVisibilityConverter}}"
-                                             Kind="Wallet" />
+                                                 HorizontalAlignment="Center"
+                                                 Padding="0"
+                                                 Margin="2"
+                                                 Width="32"
+                                                 Height="32"
+                                                 Grid.Column="0"
+                                                 Grid.Row="0"
+                                                 Grid.RowSpan="2"
+                                                 Visibility="{Binding Source={x:Static ss:SettingsHelper.HideBalance},Converter={StaticResource BoolToVisibilityConverter}}"
+                                                 Kind="Wallet" />
                                     <TextBlock Grid.Row="0"
-                                           Grid.Column="1"
-                                           Text="{lex:LocTextUpper Key=HEADER_USER_BALANCE}"
-                                           Opacity="0.5"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left">
+                                               Grid.Column="1"
+                                               Text="{lex:LocTextUpper Key=HEADER_USER_BALANCE}"
+                                               Opacity="0.5"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock"
-                                               BasedOn="{StaticResource MaterialDesignSubheadingTextBlock}">
+                                                   BasedOn="{StaticResource MaterialDesignSubheadingTextBlock}">
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Source={x:Static ss:SettingsHelper.HideBalance}}"
-                                                             Value="True">
+                                                                 Value="True">
                                                         <Setter Property="Grid.RowSpan"
-                                                            Value="2" />
+                                                                Value="2" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
+                                        </TextBlock.Style></TextBlock>
                                     <TextBlock Grid.Row="1"
-                                           Grid.Column="1"
-                                           Visibility="{Binding Source={x:Static ss:SettingsHelper.HideBalance},Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left">
+                                               Grid.Column="1"
+                                               Visibility="{Binding Source={x:Static ss:SettingsHelper.HideBalance},Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock"
-                                               BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
+                                                   BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
                                                 <Setter Property="Text"
-                                                    Value="{wd:CultureAwareBinding UserViewModel.Balance,StringFormat=C}" />
+                                                        Value="{wd:CultureAwareBinding UserViewModel.Balance,StringFormat=C}" />
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding UserViewModel.Balance,Converter={StaticResource ValueLessConverter},ConverterParameter=0}"
-                                                             Value="True">
+                                                                 Value="True">
                                                         <Setter Property="Foreground"
-                                                            Value="Red" />
+                                                                Value="Red" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </TextBlock.Style></TextBlock>
                                 </Grid>
                                 <Grid Grid.Column="2"
-                                  Margin="8"
-                                  VerticalAlignment="Center"
-                                  Visibility="{Binding Source={x:Static ss:SettingsHelper.HidePoints},Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}">
+                                      Margin="8"
+                                      VerticalAlignment="Center"
+                                      Visibility="{Binding Source={x:Static ss:SettingsHelper.HidePoints},Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
@@ -416,49 +413,49 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <md:PackIcon VerticalAlignment="Center"
-                                             HorizontalAlignment="Center"
-                                             Padding="0"
-                                             Width="32"
-                                             Height="32"
-                                             Margin="2"
-                                             Grid.Column="0"
-                                             Grid.Row="0"
-                                             Grid.RowSpan="2"
-                                             Kind="Trophy" />
+                                                 HorizontalAlignment="Center"
+                                                 Padding="0"
+                                                 Width="32"
+                                                 Height="32"
+                                                 Margin="2"
+                                                 Grid.Column="0"
+                                                 Grid.Row="0"
+                                                 Grid.RowSpan="2"
+                                                 Kind="Trophy" />
                                     <TextBlock Grid.Row="0"
-                                           Grid.Column="1"
-                                           Text="{lex:LocTextUpper Key=HEADER_USER_POINTS}"
-                                           Opacity="0.5"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                               Grid.Column="1"
+                                               Text="{lex:LocTextUpper Key=HEADER_USER_POINTS}"
+                                               Opacity="0.5"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
                                     <TextBlock Grid.Row="1"
-                                           Grid.Column="1"
-                                           Text="{Binding UserViewModel.Points}"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
+                                               Grid.Column="1"
+                                               Text="{Binding UserViewModel.Points}"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
                                 </Grid>
                                 <Popup x:Name="_USER_BALANCE_POPUP"
-                                   Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
-                                   Width="{Binding ActualWidth,RelativeSource={RelativeSource AncestorType=Grid}}"
-                                   PopupAnimation="Fade"
-                                   AllowsTransparency="True"
-                                   HorizontalAlignment="Stretch">
+                                       Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
+                                       Width="{Binding ActualWidth,RelativeSource={RelativeSource AncestorType=Grid}}"
+                                       PopupAnimation="Fade"
+                                       AllowsTransparency="True"
+                                       HorizontalAlignment="Stretch">
                                     <Popup.IsOpen>
                                         <ss:DelayedMultiBindingExtension Delay="0:0:0.01"
-                                                                     Mode="TwoWay"
-                                                                     Converter="{StaticResource BoolAnyConverter}">
+                                                                         Mode="TwoWay"
+                                                                         Converter="{StaticResource BoolAnyConverter}">
                                             <Binding Path="IsMouseOver"
-                                                 RelativeSource="{RelativeSource AncestorType=Grid}"
-                                                 Mode="OneWay" />
+                                                     RelativeSource="{RelativeSource AncestorType=Grid}"
+                                                     Mode="OneWay" />
                                             <Binding Path="IsMouseOver"
-                                                 RelativeSource="{RelativeSource Self}"
-                                                 Mode="OneWay" />
+                                                     RelativeSource="{RelativeSource Self}"
+                                                     Mode="OneWay" />
                                         </ss:DelayedMultiBindingExtension>
                                     </Popup.IsOpen>
                                     <Border CornerRadius="0,0,4,4"
-                                        Background="{StaticResource MaterialDesignDarkBackground}">
+                                            Background="{StaticResource MaterialDesignDarkBackground}">
                                         <StackPanel Margin="8">
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -466,16 +463,16 @@
                                                     <RowDefinition />
                                                 </Grid.RowDefinitions>
                                                 <TextBlock Grid.Row="0"
-                                                       Text="{lex:LocTextUpper Key=HEADER_USER_DEPOSITS}"
-                                                       Opacity="0.5"
-                                                       TextWrapping="NoWrap"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                                           Text="{lex:LocTextUpper Key=HEADER_USER_DEPOSITS}"
+                                                           Opacity="0.5"
+                                                           TextWrapping="NoWrap"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
                                                 <TextBlock Grid.Row="1"
-                                                       TextWrapping="NoWrap"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       Text="{wd:CultureAwareBinding UserViewModel.Deposits,StringFormat=C}"
-                                                       Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
+                                                           TextWrapping="NoWrap"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Text="{wd:CultureAwareBinding UserViewModel.Deposits,StringFormat=C}"
+                                                           Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
                                             </Grid>
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -483,23 +480,23 @@
                                                     <RowDefinition />
                                                 </Grid.RowDefinitions>
                                                 <TextBlock Grid.Row="0"
-                                                       Text="{lex:LocTextUpper Key=HEADER_USER_OUTSTANDING}"
-                                                       Opacity="0.5"
-                                                       TextWrapping="NoWrap"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                                           Text="{lex:LocTextUpper Key=HEADER_USER_OUTSTANDING}"
+                                                           Opacity="0.5"
+                                                           TextWrapping="NoWrap"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
                                                 <TextBlock Grid.Row="1"
-                                                       TextWrapping="NoWrap"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       Text="{wd:CultureAwareBinding UserViewModel.Outstanding,StringFormat=C}">
+                                                           TextWrapping="NoWrap"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Text="{wd:CultureAwareBinding UserViewModel.Outstanding,StringFormat=C}">
                                                     <TextBlock.Style>
                                                         <Style TargetType="TextBlock"
-                                                           BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
+                                                               BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding UserViewModel.Outstanding,Converter={StaticResource ValueGreaterConverter},ConverterParameter=0}"
-                                                                         Value="True">
+                                                                             Value="True">
                                                                     <Setter Property="Foreground"
-                                                                        Value="Red" />
+                                                                            Value="Red" />
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>
@@ -510,69 +507,69 @@
                                 </Popup>
                             </Grid>
                             <StackPanel x:Name="_USER_ACTIONS_CONTAINER"
-                                    Grid.Column="4"
-                                    VerticalAlignment="Center"
-                                    Orientation="Horizontal">
+                                        Grid.Column="4"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
                                 <Button Command="{Binding UserViewModel.UserSettingsCommand}"
-                                    Padding="0"
-                                    Visibility="Collapsed"
-                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                        Padding="0"
+                                        Visibility="Collapsed"
+                                        Style="{StaticResource MaterialDesignFlatButton}">
                                     <Button.ToolTip>
                                         <ToolTip>
                                             <ToolTip.Style>
                                                 <Style TargetType="ToolTip"
-                                                   BasedOn="{StaticResource {x:Type ToolTip}}">
+                                                       BasedOn="{StaticResource {x:Type ToolTip}}">
                                                     <Setter Property="Background"
-                                                        Value="{StaticResource MaterialDesignDarkBackground}" />
+                                                            Value="{StaticResource MaterialDesignDarkBackground}" />
                                                 </Style>
                                             </ToolTip.Style>
                                             <TextBlock Grid.Row="0"
-                                                   TextWrapping="Wrap"
-                                                   FontWeight="Medium"
-                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                                   Foreground="White"
-                                                   Text="{lex:LocText Key=USER_SETTINGS}" />
+                                                       TextWrapping="Wrap"
+                                                       FontWeight="Medium"
+                                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                                       Foreground="White"
+                                                       Text="{lex:LocText Key=USER_SETTINGS}" />
                                         </ToolTip>
                                     </Button.ToolTip>
                                     <md:PackIcon Width="24"
-                                             Height="24"
-                                             Kind="Settings" />
+                                                 Height="24"
+                                                 Kind="Settings" />
                                 </Button>
                                 <Button Grid.Column="3"
-                                    Margin="8"
-                                    Visibility="{Binding UserLoginViewModel.CanLogout,Converter={StaticResource BoolToVisibilityConverter}}"
-                                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                    Command="{Binding UserLoginViewModel.LogoutCommand}">
+                                        Margin="8"
+                                        Visibility="{Binding UserLoginViewModel.CanLogout,Converter={StaticResource BoolToVisibilityConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                        Command="{Binding UserLoginViewModel.LogoutCommand}">
                                     <Grid ClipToBounds="False">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <md:PackIcon Grid.Column="0"
-                                                 Kind="Logout" />
+                                                     Kind="Logout" />
                                         <TextBlock Text="{lex:LocTextUpper Key=LOGOUT}"
-                                               Grid.Column="1"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Center"
-                                               FontWeight="Medium"
-                                               Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                                   Grid.Column="1"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   FontWeight="Medium"
+                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
                                     </Grid>
                                 </Button>
                             </StackPanel>
                         </Grid>
                         <Grid Grid.Row="1"
-                          Margin="42,0,42,0">
+                              Margin="42,0,42,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0"
-                              DataContext="{Binding Apps}"
-                              Margin="0,16,0,16">
+                                  DataContext="{Binding Apps}"
+                                  Margin="0,16,0,16">
                                 <Border Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
-                                    CornerRadius="4"
-                                    MinHeight="76"
-                                    Background="{StaticResource MaterialDesignCardBackground}">
+                                        CornerRadius="4"
+                                        MinHeight="76"
+                                        Background="{StaticResource MaterialDesignCardBackground}">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
@@ -581,82 +578,81 @@
                                             <ColumnDefinition  Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0"
-                                          Margin="8">
+                                              Margin="8">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <md:PackIcon Width="24"
-                                                     Height="24"
-                                                     VerticalAlignment="Center"
-                                                     Margin="4"
-                                                     Opacity="0.5"
-                                                     Kind="Rocket" />
+                                                         Height="24"
+                                                         VerticalAlignment="Center"
+                                                         Margin="4"
+                                                         Opacity="0.5"
+                                                         Kind="Rocket" />
                                             <TextBlock Grid.Column="1"
-                                                   Text="{lex:LocTextUpper Key=HEADER_QUICK_LAUNCH}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"
-                                                   Margin="0,8,0,8"
-                                                   FontWeight="Medium"
-                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                                   Opacity="0.5" />
+                                                       Text="{lex:LocTextUpper Key=HEADER_QUICK_LAUNCH}"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Margin="0,8,0,8"
+                                                       FontWeight="Medium"
+                                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                                       Opacity="0.5" />
                                             <ItemsControl Grid.Column="2"
-                                                      ItemsSource="{Binding QuickLaunchExecutables}"
-                                                      ItemTemplate="{StaticResource _APP_EXE_TEMPLATE}" />
+                                                          ItemsSource="{Binding QuickLaunchExecutables}"
+                                                          ItemTemplate="{StaticResource _APP_EXE_TEMPLATE}" />
                                             <TextBlock Grid.Column="2"
-                                                   Text="{lex:LocTextUpper Key=INFO_QUICK_LAUNCH_EMPTY}"
-                                                   TextWrapping="WrapWithOverflow"
-                                                   FontWeight="SemiBold"
-                                                   FontSize="20"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center">
+                                                       Text="{lex:LocTextUpper Key=INFO_QUICK_LAUNCH_EMPTY}"
+                                                       TextWrapping="WrapWithOverflow"
+                                                       FontWeight="SemiBold"
+                                                       FontSize="20"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock"
-                                                       BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
+                                                           BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
                                                         <Setter Property="Visibility"
-                                                            Value="Collapsed" />
+                                                                Value="Collapsed" />
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding QuickLaunchExecutables.Count}"
-                                                                     Value="0">
+                                                                         Value="0">
                                                                 <Setter Property="Visibility"
-                                                                    Value="Visible" />
+                                                                        Value="Visible" />
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
+                                                </TextBlock.Style></TextBlock>
                                         </Grid>
                                         <GridSplitter Grid.Column="1"
-                                                  Visibility="Visible"
-                                                  VerticalAlignment="Stretch"
-                                                  Background="Black"
-                                                  Width="1"
-                                                  HorizontalAlignment="Center" />
+                                                      Visibility="Visible"
+                                                      VerticalAlignment="Stretch"
+                                                      Background="Black"
+                                                      Width="1"
+                                                      HorizontalAlignment="Center" />
                                         <Grid Grid.Column="2"
-                                          Margin="8">
+                                              Margin="8">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <md:PackIcon Width="24"
-                                                     Height="24"
-                                                     VerticalAlignment="Center"
-                                                     Margin="4"
-                                                     Opacity="0.5"
-                                                     Kind="Heart" />
+                                                         Height="24"
+                                                         VerticalAlignment="Center"
+                                                         Margin="4"
+                                                         Opacity="0.5"
+                                                         Kind="Heart" />
                                             <TextBlock Grid.Column="1"
-                                                   Text="{lex:LocTextUpper Key=HEADER_FAVORITES}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"
-                                                   Margin="0,8,0,8"
-                                                   FontWeight="Medium"
-                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                                   Opacity="0.5" />
+                                                       Text="{lex:LocTextUpper Key=HEADER_FAVORITES}"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Margin="0,8,0,8"
+                                                       FontWeight="Medium"
+                                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                                       Opacity="0.5" />
                                             <ItemsControl Grid.Column="2"
-                                                      ItemsSource="{Binding TopExecutables}"
-                                                      ItemTemplate="{StaticResource _APP_EXE_TEMPLATE}">
+                                                          ItemsSource="{Binding TopExecutables}"
+                                                          ItemTemplate="{StaticResource _APP_EXE_TEMPLATE}">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
                                                         <VirtualizingStackPanel Orientation="Horizontal" />
@@ -664,59 +660,62 @@
                                                 </ItemsControl.ItemsPanel>
                                             </ItemsControl>
                                             <TextBlock Grid.Column="2"
-                                                   Text="{lex:LocTextUpper Key=INFO_FAVORITES_EMPTY}"
-                                                   TextWrapping="WrapWithOverflow"
-                                                   FontWeight="SemiBold"
-                                                   FontSize="20"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center">
+                                                       Text="{lex:LocTextUpper Key=INFO_FAVORITES_EMPTY}"
+                                                       TextWrapping="WrapWithOverflow"
+                                                       FontWeight="SemiBold"
+                                                       FontSize="20"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock"
-                                                       BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
+                                                           BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
                                                         <Setter Property="Visibility"
-                                                            Value="Collapsed" />
+                                                                Value="Collapsed" />
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding TopExecutables.Count}"
-                                                                     Value="0">
+                                                                         Value="0">
                                                                 <Setter Property="Visibility"
-                                                                    Value="Visible" />
+                                                                        Value="Visible" />
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
                                                 </TextBlock.Style></TextBlock>
                                         </Grid>
                                         <Border CornerRadius="0,4,4,0"
-                                            ClipToBounds="True"
-                                            Background="{StaticResource MaterialDesignDarkBackground}"
-                                            Grid.Column="3">
+                                                Visibility="{Binding Source={x:Static ss:SettingsHelper.HideActiveApplications},Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}"
+                                                ClipToBounds="True"
+                                                Background="{StaticResource MaterialDesignDarkBackground}"
+                                                Grid.Column="3">
                                             <Button Style="{StaticResource MaterialDesignFlatButton}"
-                                                md:RippleAssist.IsDisabled="True"
-                                                Margin="4"
-                                                Command="{x:Static md:DrawerHost.OpenDrawerCommand}"
-                                                CommandParameter="{x:Static Dock.Right}">
+                                                    md:RippleAssist.IsDisabled="True"
+                                                    Margin="4"
+                                                    Command="{x:Static md:DrawerHost.OpenDrawerCommand}"
+                                                    CommandParameter="{x:Static Dock.Right}">
                                                 <Grid ClipToBounds="False">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto" />
                                                         <ColumnDefinition Width="*" />
                                                     </Grid.ColumnDefinitions>
                                                     <md:PackIcon Width="24"
-                                                             Height="24"
-                                                             Margin="2"
-                                                             VerticalAlignment="Center"
-                                                             Kind="Application" />
+                                                                 Height="24"
+                                                                 Margin="2"
+                                                                 VerticalAlignment="Center"
+                                                                 Kind="Application" />
                                                     <TextBlock Text="{lex:LocTextUpper Key=HEADER_ACTIVE_APPLICATIONS}"
-                                                           Grid.Column="1"
-                                                           VerticalAlignment="Center"
-                                                           HorizontalAlignment="Center"
-                                                           FontWeight="Medium"
-                                                           Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                                               Grid.Column="1"
+                                                               VerticalAlignment="Center"
+                                                               HorizontalAlignment="Center"
+                                                               FontWeight="Medium"
+                                                               Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
                                                 </Grid>
                                             </Button>
                                         </Border>
                                     </Grid>
                                 </Border>
                             </Grid>
-                            <md:Transitioner Grid.Row="1"
+                            <ContentControl Content="{Binding SelectedItem.Module.View,IsAsync=True}"
+                                            Grid.Row="1" />
+                            <!--<md:Transitioner Grid.Row="1"
                                          ClipToBounds="False"
                                          SelectedItem="{Binding SelectedItem}"
                                          ItemsSource="{Binding ItemsView}">
@@ -740,30 +739,30 @@
                                         <ContentControl Content="{Binding Module.View}" />
                                     </DataTemplate>
                                 </md:Transitioner.ItemTemplate>
-                            </md:Transitioner>
+                            </md:Transitioner>-->
                         </Grid>
                     </Grid>
                 </Grid>
             </md:DrawerHost>
             <Grid Background="Black"
-              Visibility="{Binding UserViewModel.IsLoggedIn,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}">
+                  Visibility="{Binding UserViewModel.IsLoggedIn,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <md:Transitioner Grid.RowSpan="2"
-                             DataContext="{Binding LoginRotator}"
-                             SelectedIndex="{Binding CurrentIndex,Mode=OneWay}"
-                             ItemsSource="{Binding Items}">
+                                 DataContext="{Binding LoginRotator}"
+                                 SelectedIndex="{Binding CurrentIndex,Mode=OneWay}"
+                                 ItemsSource="{Binding Items}">
                     <md:Transitioner.Style>
                         <Style TargetType="md:Transitioner">
                             <Setter Property="Visibility"
-                                Value="Collapsed" />
+                                    Value="Collapsed" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Items.Count,Converter={StaticResource ValueGreaterConverter},ConverterParameter=0}"
-                                         Value="True">
+                                             Value="True">
                                     <Setter Property="Visibility"
-                                        Value="Visible" />
+                                            Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -777,29 +776,29 @@
                                             <Setter.Value>
                                                 <DataTemplate>
                                                     <Image VerticalAlignment="Stretch"
-                                                       RenderOptions.BitmapScalingMode="LowQuality"
-                                                       HorizontalAlignment="Stretch"
-                                                       Grid.RowSpan="2"
-                                                       Stretch="Uniform"
-                                                       StretchDirection="Both"
-                                                       Source="{Binding MediaPath,Converter={StaticResource NullImageSourceConverter}}" />
+                                                           RenderOptions.BitmapScalingMode="LowQuality"
+                                                           HorizontalAlignment="Stretch"
+                                                           Grid.RowSpan="2"
+                                                           Stretch="Uniform"
+                                                           StretchDirection="Both"
+                                                           Source="{Binding MediaPath,Converter={StaticResource ImageSourceToBitmapConverter}}" />
                                                 </DataTemplate>
                                             </Setter.Value>
                                         </Setter>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsVideo}"
-                                                     Value="True">
+                                                         Value="True">
                                                 <Setter Property="ContentTemplate">
                                                     <Setter.Value>
                                                         <DataTemplate>
                                                             <MediaElement sif:MediaElementBehaviour.MediaEndedCommand="{Binding MediaEndedCommand,Mode=OneWay}"
-                                                                      sif:MediaElementBehaviour.IsPlaying="{Binding IsPlaying,Mode=OneWay}"
-                                                                      sif:MediaElementBehaviour.Position="{Binding Position,Mode=OneWay}"
-                                                                      LoadedBehavior="Manual"
-                                                                      Stretch="Uniform"
-                                                                      StretchDirection="Both"
-                                                                      Volume="0"
-                                                                      Source="{Binding MediaUri}" />
+                                                                          sif:MediaElementBehaviour.IsPlaying="{Binding IsPlaying,Mode=OneWay}"
+                                                                          sif:MediaElementBehaviour.Position="{Binding Position,Mode=OneWay}"
+                                                                          LoadedBehavior="Manual"
+                                                                          Stretch="Uniform"
+                                                                          StretchDirection="Both"
+                                                                          Volume="0"
+                                                                          Source="{Binding MediaUri}" />
                                                         </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
@@ -812,46 +811,46 @@
                     </md:Transitioner.ItemTemplate>
                 </md:Transitioner>
                 <Image VerticalAlignment="Stretch"
-                   HorizontalAlignment="Stretch"
-                   RenderOptions.BitmapScalingMode="LowQuality"
-                   DataContext="{Binding LoginRotator}"
-                   Grid.RowSpan="2"
-                   Stretch="Uniform"
-                   Source="{Binding Wallpaper,Converter={StaticResource NullImageSourceConverter},FallbackValue={StaticResource _BACKGROUND_LOGIN}}">
+                       HorizontalAlignment="Stretch"
+                       RenderOptions.BitmapScalingMode="LowQuality"
+                       DataContext="{Binding LoginRotator}"
+                       Grid.RowSpan="2"
+                       Stretch="Uniform"
+                       Source="{Binding Wallpaper,Converter={StaticResource NullImageSourceConverter},FallbackValue={StaticResource _BACKGROUND_LOGIN}}">
                     <Image.Style>
                         <Style TargetType="Image">
                             <Setter Property="Visibility"
-                                Value="Collapsed" />
+                                    Value="Collapsed" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Items.Count}"
-                                         Value="0">
+                                             Value="0">
                                     <Setter Property="Visibility"
-                                        Value="Visible" />
+                                            Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Image.Style>
                 </Image>
                 <local:LoginControl Effect="{ss:SkinShadow MaterialDesignShadowDepth5}"
-                                Grid.RowSpan="2"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center">
+                                    Grid.RowSpan="2"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
                     <local:LoginControl.Style>
                         <Style TargetType="local:LoginControl">
                             <Style.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding UserViewModel.IsLoggedIn}"
-                                               Value="False" />
+                                                   Value="False" />
                                         <Condition Binding="{Binding UserViewModel.IsIdle}"
-                                               Value="True" />
+                                                   Value="True" />
                                     </MultiDataTrigger.Conditions>
                                     <MultiDataTrigger.EnterActions>
                                         <BeginStoryboard>
                                             <Storyboard>
                                                 <DoubleAnimation Duration="0:0:0.250"
-                                                             To="0"
-                                                             Storyboard.TargetProperty="Opacity" />
+                                                                 To="0"
+                                                                 Storyboard.TargetProperty="Opacity" />
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </MultiDataTrigger.EnterActions>
@@ -859,8 +858,8 @@
                                         <BeginStoryboard>
                                             <Storyboard>
                                                 <DoubleAnimation Duration="0:0:0.250"
-                                                             To="1"
-                                                             Storyboard.TargetProperty="Opacity" />
+                                                                 To="1"
+                                                                 Storyboard.TargetProperty="Opacity" />
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </MultiDataTrigger.ExitActions>
@@ -873,38 +872,38 @@
                                         </MultiBinding>
                                     </DataTrigger.Binding>
                                     <Setter Property="Visibility"
-                                        Value="Collapsed" />
+                                            Value="Collapsed" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </local:LoginControl.Style>
                 </local:LoginControl>
                 <Label VerticalAlignment="Center"
-                   HorizontalAlignment="Right"
-                   FontSize="128"
-                   IsHitTestVisible="False"
-                   Margin="16"
-                   Effect="{ss:SkinShadow MaterialDesignShadowDepth5}"
-                   Content="{Binding Client.Number,FallbackValue=?}">
+                       HorizontalAlignment="Right"
+                       FontSize="128"
+                       IsHitTestVisible="False"
+                       Margin="16"
+                       Effect="{ss:SkinShadow MaterialDesignShadowDepth5}"
+                       Content="{Binding Client.Number,FallbackValue=?}">
                     <Label.Style>
                         <Style TargetType="Label"
-                           BasedOn="{StaticResource MaterialDesignLabel}">
+                               BasedOn="{StaticResource MaterialDesignLabel}">
                             <Setter Property="Opacity"
-                                Value="0" />
+                                    Value="0" />
                             <Style.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding UserViewModel.IsLoggedIn}"
-                                               Value="False" />
+                                                   Value="False" />
                                         <Condition Binding="{Binding UserViewModel.IsIdle}"
-                                               Value="True" />
+                                                   Value="True" />
                                     </MultiDataTrigger.Conditions>
                                     <MultiDataTrigger.EnterActions>
                                         <BeginStoryboard>
                                             <Storyboard>
                                                 <DoubleAnimation Duration="0:0:0.250"
-                                                             To="1"
-                                                             Storyboard.TargetProperty="Opacity" />
+                                                                 To="1"
+                                                                 Storyboard.TargetProperty="Opacity" />
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </MultiDataTrigger.EnterActions>
@@ -912,8 +911,8 @@
                                         <BeginStoryboard>
                                             <Storyboard>
                                                 <DoubleAnimation Duration="0:0:0.250"
-                                                             To="0"
-                                                             Storyboard.TargetProperty="Opacity" />
+                                                                 To="0"
+                                                                 Storyboard.TargetProperty="Opacity" />
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </MultiDataTrigger.ExitActions>
@@ -926,12 +925,16 @@
                                         </MultiBinding>
                                     </DataTrigger.Binding>
                                     <Setter Property="Visibility"
-                                        Value="Collapsed" />
+                                            Value="Collapsed" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Label.Style>
                 </Label>
+                <local:ReservationScreenView x:Name="_RESERVATION_UI"
+                                             Visibility="{Binding ReservationViewModel.IsReserved,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Collapsed}"
+                                             VerticalAlignment="Top"
+                                             HorizontalAlignment="Center" />
             </Grid>
         </Grid>
         <StackPanel x:Name="_CLIENT_STATE_PRESENTER"
@@ -976,7 +979,7 @@
         </StackPanel>
         <Grid x:Name="_FOOTER_PRESENTER"
               VerticalAlignment="Bottom"
-              HorizontalAlignment="Stretch"             
+              HorizontalAlignment="Stretch"
               Visibility="{Binding UserViewModel.IsLoggedIn,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}"
               Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -1145,5 +1148,4 @@
             </md:TransitioningContent>
         </Grid>
     </Grid>
-
 </Window>

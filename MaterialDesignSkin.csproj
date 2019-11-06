@@ -33,8 +33,8 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MaterialDesignColors, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Client_Module\packages\MaterialDesignColors.1.2.1-ci545\lib\net45\MaterialDesignColors.dll</HintPath>
+    <Reference Include="MaterialDesignColors, Version=1.2.0.325, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Client_Module\packages\MaterialDesignColors.1.2.0\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.6.0.325, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Client_Module\packages\MaterialDesignThemes.2.6.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
@@ -99,6 +99,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Reservation\ReservationScreenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShopView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -148,6 +152,7 @@
   <ItemGroup>
     <Compile Include="Controls\ExtendedRichTextbox.cs" />
     <Compile Include="Converters\AppExePopupConverter.cs" />
+    <Compile Include="Converters\ImageSourceToBitmapConverter.cs" />
     <Compile Include="Modules\Settings\UserSettingsHardwareModule.cs" />
     <Compile Include="Modules\ShopSectionModule.cs" />
     <Compile Include="Source\NewsTemplateSelector.cs" />
@@ -174,6 +179,9 @@
     </Compile>
     <Compile Include="Views\Registration\RegsiterAgreementView.xaml.cs">
       <DependentUpon>RegsiterAgreementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reservation\ReservationScreenView.xaml.cs">
+      <DependentUpon>ReservationScreenView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShopView.xaml.cs">
       <DependentUpon>ShopView.xaml</DependentUpon>
@@ -231,6 +239,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

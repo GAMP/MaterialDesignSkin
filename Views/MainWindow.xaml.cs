@@ -579,6 +579,9 @@ namespace MaterialDesignSkin.Views
                     if (!allowClosing)
                         return;
 
+                    if (args.Source == this)
+                        return;
+
                     if (args.Source != _OVERLAY_CONTENT_HOST)
                     {
                         TryPop();
