@@ -36,8 +36,8 @@ namespace MaterialDesignSkin.Views
 
         #region FIELDS
 
-        private SemaphoreSlim DIALOG_LOCK = new SemaphoreSlim(1, 1);
-        private SemaphoreSlim OVERLAY_LOCK = new SemaphoreSlim(1, 1);
+        private readonly SemaphoreSlim DIALOG_LOCK = new SemaphoreSlim(1, 1);
+        private readonly SemaphoreSlim OVERLAY_LOCK = new SemaphoreSlim(1, 1);
         private CancellationTokenSource
             DIALOG_CTS,
             OVERLAY_CTS;
@@ -360,11 +360,12 @@ namespace MaterialDesignSkin.Views
         #region DIALOGLOCKEXCEPTION
         private class DialogLockException : Exception
         {
-        } 
+        }
         #endregion
 
         #region OVERLAY
 
+        #region CLASSES
         private class ContentLock
         {
             public object Content
@@ -376,9 +377,12 @@ namespace MaterialDesignSkin.Views
             {
                 get; set;
             }
-        }
+        } 
+        #endregion
 
-        public event EventHandler<OverlayEventArgs> OverlayEvent;
+        #region EVENTS
+        public event EventHandler<OverlayEventArgs> OverlayEvent; 
+        #endregion
 
         public Task<bool> TryShowOverlayAsync(object content)
         {
@@ -401,6 +405,7 @@ namespace MaterialDesignSkin.Views
         {
             return ShowOverlayAsync(mediaModel, true, ct);
         }
+
         public async Task ShowOverlayAsync(IMediaViewModel mediaModel, bool allowClosing, CancellationToken ct)
         {
             if (mediaModel == null)
@@ -576,6 +581,9 @@ namespace MaterialDesignSkin.Views
 
                 void mouseButtonEventHandler(object sender, MouseButtonEventArgs args)
                 {
+                    if (args.Handled)
+                        return;
+
                     if (!allowClosing)
                         return;
 
@@ -590,6 +598,9 @@ namespace MaterialDesignSkin.Views
 
                 void keyEventHandler(object sender, KeyEventArgs args)
                 {
+                    if (args.Handled)
+                        return;
+
                     if (!allowClosing)
                         return;
 
@@ -599,10 +610,10 @@ namespace MaterialDesignSkin.Views
                     TryPop();
                 }
 
+                OVERLAY_CONTENT_STACK.Push(new ContentLock() { Content = content });
+
                 MouseDown += mouseButtonEventHandler;
                 KeyDown += keyEventHandler;
-
-                OVERLAY_CONTENT_STACK.Push(new ContentLock() { Content = content });
 
                 await Dispatcher.InvokeAsync(() =>
                 {
@@ -614,6 +625,7 @@ namespace MaterialDesignSkin.Views
 
                     if (!_OVERLAY_CONTENT_HOST.Focus())
                         return;
+
                     _OVERLAY_CONTENT_HOST.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
                 });
 

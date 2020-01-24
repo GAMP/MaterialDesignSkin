@@ -30,9 +30,24 @@
     <sc:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
     <sc:AppExePopupConverter x:Key="AppExePopupConverter" />
     <ss:NewsTemplateSelector x:Key="NewsTemplateSelector" />
+    
     <!--<SolidColorBrush x:Key="MaterialDesignCardBackground" Color="#295383"/>
     <SolidColorBrush x:Key="MaterialDesignDarkBackground" Color="#2953b4"/>-->
     <!--<FontFamily x:Key="MaterialDesignFont">../Fonts/Play/#Play</FontFamily>-->
+
+    <!--<Style TargetType="TextBlock"
+           x:Key="MaterialDesignTitleTextBlock"
+           BasedOn="{StaticResource MaterialDesignCaptionTextBlock}" />
+    <Style TargetType="TextBlock"
+           x:Key="MaterialDesignDisplay1TextBlock"
+           BasedOn="{StaticResource MaterialDesignHeadline6TextBlock}" />
+    <Style TargetType="TextBlock"
+           x:Key="MaterialDesignSubheadingTextBlock"
+           BasedOn="{StaticResource MaterialDesignHeadline6TextBlock}" />
+    <Style TargetType="TextBlock"
+           x:Key="MaterialDesignHeadlineTextBlock"
+           BasedOn="{StaticResource MaterialDesignHeadline6TextBlock}" />-->
+
     <BitmapImage x:Key="_BACKGROUND_LOGIN"
                  UriSource="Images/BACKGROUND_LOGIN.jpg" />
     <BitmapImage x:Key="_BACKGROUND_DESKTOP"
@@ -242,6 +257,7 @@
                             Background="YellowGreen"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
+                            ss:ControlHelper.DisableDoubleClick="True"
                             Command="{Binding ExecuteCommand}"
                             BorderThickness="0">
                         <Button.Style>
@@ -575,6 +591,8 @@
                            BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Visibility"
                                 Value="Collapsed" />
+                        <Setter Property="ss:ControlHelper.DisableDoubleClick"
+                                Value="True" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ExecutableFileExists.IsCompleted}"
                                          Value="True">
@@ -798,6 +816,7 @@
                         VerticalContentAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
                         Command="{Binding ExecuteCommand}"
+                        ss:ControlHelper.DisableDoubleClick="True"
                         Style="{StaticResource MaterialDesignFlatButton}">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -868,6 +887,7 @@
                         Visibility="{Binding IsEnabled,RelativeSource={RelativeSource Self},Converter={StaticResource BoolToVisibilityConverter}}"
                         Padding="4"
                         Command="{Binding TerminateCommand}"
+                        ss:ControlHelper.DisableDoubleClick="True"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Right">
                     <Button.Content>
