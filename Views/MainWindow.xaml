@@ -715,31 +715,6 @@
                             </Grid>
                             <ContentControl Content="{Binding SelectedItem.Module.View,IsAsync=True}"
                                             Grid.Row="1" />
-                            <!--<md:Transitioner Grid.Row="1"
-                                         ClipToBounds="False"
-                                         SelectedItem="{Binding SelectedItem}"
-                                         ItemsSource="{Binding ItemsView}">
-                                <md:Transitioner.Resources>
-                                    <Style TargetType="md:TransitionerSlide"
-                                       BasedOn="{StaticResource {x:Type md:TransitionerSlide}}">
-                                        <Setter Property="BackwardWipe">
-                                            <Setter.Value>
-                                                <md:FadeWipe Duration="0:0:0.5" />
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Setter Property="ForwardWipe">
-                                            <Setter.Value>
-                                                <md:FadeWipe Duration="0:0:0.5" />
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </md:Transitioner.Resources>
-                                <md:Transitioner.ItemTemplate>
-                                    <DataTemplate>
-                                        <ContentControl Content="{Binding Module.View}" />
-                                    </DataTemplate>
-                                </md:Transitioner.ItemTemplate>
-                            </md:Transitioner>-->
                         </Grid>
                     </Grid>
                 </Grid>

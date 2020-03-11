@@ -18,7 +18,7 @@ namespace MaterialDesignSkin.Views
 
         private void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            ///Handle mouse wheel events to fix the scrolling problem
+            //Handle mouse wheel events to fix the scrolling problem
             if (e.Source is ItemsControl element)
             {
                 e.Handled = true;

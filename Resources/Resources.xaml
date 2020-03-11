@@ -8,6 +8,7 @@
                     xmlns:sc="clr-namespace:MaterialDesignSkin.Converters"
                     xmlns:lc="clr-namespace:MaterialDesignSkin.Controls"
                     xmlns:ss="clr-namespace:MaterialDesignSkin.Source">
+    
     <sifc:FlagsEnumValueConverter x:Key="FlagsEnumValueConverter"
                                   x:Shared="False" />
     <sifc:FlagsEnumValueVisibilityConverter x:Key="FlagsEnumValueVisibilityConverter"
@@ -18,7 +19,7 @@
     <sifc:BoolToHiddenConverter x:Key="BoolToHiddenConverter" />
     <sifc:EnumMatchToBooleanConverter x:Key="EnumMatchToBooleanConverter" />
     <sifc:CountGreaterOrEqualConverter x:Key="CountGreaterOrEqualConverter" />
-    <sifc:EmumValueGreaterOrEqualConverter x:Key="EmumValueGreaterOrEqualConverter" />
+    <sifc:EnumValueGreaterOrEqualConverter x:Key="EmumValueGreaterOrEqualConverter" />
     <sifc:ToUpperConverter x:Key="ToUpperConverter" />
     <sifc:BoolAnyConverter x:Key="BoolAnyConverter" />
     <sifc:NullVisibilityConverter x:Key="NullVisibilityConverter" />
@@ -30,7 +31,17 @@
     <sc:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
     <sc:AppExePopupConverter x:Key="AppExePopupConverter" />
     <ss:NewsTemplateSelector x:Key="NewsTemplateSelector" />
-    
+
+
+    <!--DEFAULT BACKGROUND IMAGE RESOURCES-->
+
+    <BitmapImage x:Key="_BACKGROUND_LOGIN"
+                 UriSource="Images/BACKGROUND_LOGIN.jpg" />
+    <BitmapImage x:Key="_BACKGROUND_DESKTOP"
+                 UriSource="Images/BACKGROUND_DESKTOP.jpg" />
+
+    <!--YOU CAN OVERRIDE STYLES HERE-->
+
     <!--<SolidColorBrush x:Key="MaterialDesignCardBackground" Color="#295383"/>
     <SolidColorBrush x:Key="MaterialDesignDarkBackground" Color="#2953b4"/>-->
     <!--<FontFamily x:Key="MaterialDesignFont">../Fonts/Play/#Play</FontFamily>-->
@@ -48,10 +59,6 @@
            x:Key="MaterialDesignHeadlineTextBlock"
            BasedOn="{StaticResource MaterialDesignHeadline6TextBlock}" />-->
 
-    <BitmapImage x:Key="_BACKGROUND_LOGIN"
-                 UriSource="Images/BACKGROUND_LOGIN.jpg" />
-    <BitmapImage x:Key="_BACKGROUND_DESKTOP"
-                 UriSource="Images/BACKGROUND_DESKTOP.jpg" />
     <Style TargetType="Button"
            BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="md:RippleAssist.IsDisabled"
@@ -1722,11 +1729,6 @@
                                                     Value="Visible" />
                                         </MultiDataTrigger.Setters>
                                     </MultiDataTrigger>
-                                    <!--<DataTrigger Binding="{Binding CostsPoints}"
-                                                 Value="True">
-                                        <Setter Property="Visibility"
-                                                Value="Visible" />
-                                    </DataTrigger>-->
                                     <DataTrigger Binding="{Binding PurchaseOptions}"
                                                  Value="Or">
                                         <Setter Property="Text"
