@@ -22,7 +22,7 @@
             <TextBox Grid.Column="0"
                      Grid.ColumnSpan="2"
                      Text="{Binding Username,UpdateSourceTrigger=PropertyChanged}"
-                     md:HintAssist.IsFloating="True"
+                     md:HintAssist.IsFloating="True"                    
                      VerticalAlignment="Center"
                      HorizontalAlignment="Stretch">
                 <md:HintAssist.Hint>
