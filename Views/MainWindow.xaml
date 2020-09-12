@@ -570,122 +570,161 @@
                                         CornerRadius="4"
                                         MinHeight="76"
                                         Background="{StaticResource MaterialDesignCardBackground}">
-                                    <Grid>
+                                    <Grid Background="{DynamicResource MaterialDesignPaper}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
-                                            <ColumnDefinition  Width="Auto" />
-                                            <ColumnDefinition />
-                                            <ColumnDefinition  Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Grid Grid.Column="0"
-                                              Margin="8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
-                                            <md:PackIcon Width="24"
-                                                         Height="24"
-                                                         VerticalAlignment="Center"
-                                                         Margin="4"
-                                                         Opacity="0.5"
-                                                         Kind="Rocket" />
-                                            <TextBlock Grid.Column="1"
-                                                       Text="{lex:LocTextUpper Key=HEADER_QUICK_LAUNCH}"
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center"
-                                                       Margin="0,8,0,8"
-                                                       FontWeight="Medium"
-                                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                                       Opacity="0.5" />
-                                            <ItemsControl Grid.Column="2"
-                                                          ItemsSource="{Binding QuickLaunchExecutables}"
-                                                          ItemTemplate="{StaticResource _APP_EXE_TEMPLATE}" />
-                                            <TextBlock Grid.Column="2"
-                                                       Text="{lex:LocTextUpper Key=INFO_QUICK_LAUNCH_EMPTY}"
-                                                       TextWrapping="WrapWithOverflow"
-                                                       FontWeight="SemiBold"
-                                                       FontSize="20"
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock"
-                                                           BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
-                                                        <Setter Property="Visibility"
-                                                                Value="Collapsed" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding QuickLaunchExecutables.Count}"
-                                                                         Value="0">
+                                        <TabControl TabStripPlacement="Left" BorderThickness="0" Background="{DynamicResource MaterialDesignPaper}">
+                                            <TabControl.Resources>
+                                                <Style TargetType="{x:Type TabItem}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type TabItem}">
+                                                                <Grid>
+                                                                    <Border Name="Border" Margin="0,0,0,0" Background="{DynamicResource MaterialDesignPaper}"
+                                                                            BorderThickness="0,0,0,2" Opacity="0.5">
+                                                                        <ContentPresenter ContentSource="Header"
+                                                                                          VerticalAlignment="Center"
+                                                                                          HorizontalAlignment="Left"
+                                                                                          Margin="12,2,12,2">
+                                                                        </ContentPresenter>
+                                                                    </Border>
+                                                                </Grid>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsSelected" Value="True">
+                                                                        <Setter TargetName="Border" Property="Background" Value="#363636" />
+                                                                        <Setter TargetName="Border" Property="BorderBrush" Value="YellowGreen" />
+                                                                        <Setter TargetName="Border" Property="Opacity" Value="1" />
+                                                                    </Trigger>
+                                                                    <Trigger Property="Border.IsMouseOver" Value="True">
+                                                                        <Setter TargetName="Border" Property="Background" Value="#3a3a3a" />
+                                                                    </Trigger>
+                                                                    <MultiTrigger>
+                                                                        <MultiTrigger.Conditions>
+                                                                            <Condition Property="Border.IsMouseOver" Value="True" />
+                                                                            <Condition Property="IsSelected" Value="True" />
+                                                                        </MultiTrigger.Conditions>
+                                                                        <Setter TargetName="Border" Property="Background" Value="#4a4a4a" />
+                                                                    </MultiTrigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </TabControl.Resources>
+                                            <TabItem>
+                                                <TabItem.Header>
+                                                    <Grid TextElement.Foreground="White">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <md:PackIcon Width="24"
+                                                                     Height="24"
+                                                                     VerticalAlignment="Center"
+                                                                     Margin="4"
+                                                                     Kind="Rocket" />
+                                                        <TextBlock Grid.Column="1"
+                                                                   Text="{lex:LocTextUpper Key=HEADER_QUICK_LAUNCH}"
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Center"
+                                                                   Margin="0,8,0,8"
+                                                                   FontWeight="Medium"
+                                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                                                   />
+                                                    </Grid>
+                                                </TabItem.Header>
+                                                <Grid TextElement.Foreground="White">
+                                                    <ItemsControl Grid.Column="2"
+                                                                  ItemsSource="{Binding QuickLaunchExecutables}"
+                                                                  ItemTemplate="{StaticResource _APP_EXE_TEMPLATE}" />
+                                                    <TextBlock Grid.Column="2"
+                                                               Text="{lex:LocTextUpper Key=INFO_QUICK_LAUNCH_EMPTY}"
+                                                               TextWrapping="WrapWithOverflow"
+                                                               FontWeight="SemiBold"
+                                                               FontSize="20"
+                                                               VerticalAlignment="Center"
+                                                               HorizontalAlignment="Center">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock"
+                                                                   BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
                                                                 <Setter Property="Visibility"
-                                                                        Value="Visible" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style></TextBlock>
-                                        </Grid>
-                                        <GridSplitter Grid.Column="1"
-                                                      Visibility="Visible"
-                                                      VerticalAlignment="Stretch"
-                                                      Background="Black"
-                                                      Width="1"
-                                                      HorizontalAlignment="Center" />
-                                        <Grid Grid.Column="2"
-                                              Margin="8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
-                                            <md:PackIcon Width="24"
-                                                         Height="24"
-                                                         VerticalAlignment="Center"
-                                                         Margin="4"
-                                                         Opacity="0.5"
-                                                         Kind="Heart" />
-                                            <TextBlock Grid.Column="1"
-                                                       Text="{lex:LocTextUpper Key=HEADER_FAVORITES}"
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center"
-                                                       Margin="0,8,0,8"
-                                                       FontWeight="Medium"
-                                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                                       Opacity="0.5" />
-                                            <ItemsControl Grid.Column="2"
+                                                                        Value="Collapsed" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding QuickLaunchExecutables.Count}"
+                                                                                 Value="0">
+                                                                        <Setter Property="Visibility"
+                                                                                Value="Visible" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </Grid>
+                                            </TabItem>
+                                            <TabItem>
+                                                <TabItem.Header>
+                                                    <Grid TextElement.Foreground="White">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <md:PackIcon Width="24"
+                                                                     Height="24"
+                                                                     VerticalAlignment="Center"
+                                                                     Margin="4"
+                                                                     Kind="Heart" />
+                                                        <TextBlock Grid.Column="1"
+                                                                   Text="{lex:LocTextUpper Key=HEADER_FAVORITES}"
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Center"
+                                                                   Margin="0,8,0,8"
+                                                                   FontWeight="Medium"
+                                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                                                   />
+                                                    </Grid>
+                                                </TabItem.Header>
+                                                <Grid TextElement.Foreground="White">
+                                                    <ItemsControl Grid.Column="2"
                                                           ItemsSource="{Binding TopExecutables}"
                                                           ItemTemplate="{StaticResource _APP_EXE_TEMPLATE}">
-                                                <ItemsControl.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <VirtualizingStackPanel Orientation="Horizontal" />
-                                                    </ItemsPanelTemplate>
-                                                </ItemsControl.ItemsPanel>
-                                            </ItemsControl>
-                                            <TextBlock Grid.Column="2"
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <VirtualizingStackPanel Orientation="Horizontal" />
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                    </ItemsControl>
+                                                    <TextBlock Grid.Column="2"
                                                        Text="{lex:LocTextUpper Key=INFO_FAVORITES_EMPTY}"
                                                        TextWrapping="WrapWithOverflow"
                                                        FontWeight="SemiBold"
                                                        FontSize="20"
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock"
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock"
                                                            BasedOn="{StaticResource MaterialDesignHeadlineTextBlock}">
-                                                        <Setter Property="Visibility"
-                                                                Value="Collapsed" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding TopExecutables.Count}"
-                                                                         Value="0">
                                                                 <Setter Property="Visibility"
+                                                                Value="Collapsed" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding TopExecutables.Count}"
+                                                                         Value="0">
+                                                                        <Setter Property="Visibility"
                                                                         Value="Visible" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style></TextBlock>
-                                        </Grid>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </Grid>
+                                            </TabItem>
+                                        </TabControl>
                                         <Border CornerRadius="0,4,4,0"
                                                 Visibility="{Binding Source={x:Static ss:SettingsHelper.HideActiveApplications},Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}"
                                                 ClipToBounds="True"
                                                 Background="{StaticResource MaterialDesignDarkBackground}"
-                                                Grid.Column="3">
+                                                Grid.Column="1">
                                             <Button Style="{StaticResource MaterialDesignFlatButton}"
                                                     md:RippleAssist.IsDisabled="True"
                                                     Margin="4"

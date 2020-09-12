@@ -7,6 +7,9 @@ namespace MaterialDesignSkin.Source
     /// <summary>
     /// Generic controls helper class.
     /// </summary>
+    /// <remarks>
+    /// Used to expose helper functions.
+    /// </remarks>
     public static class ControlHelper
     {
         #region ATTACHED PROPERTIES
