@@ -53,6 +53,16 @@ namespace MaterialDesignSkin.Source
             get; set;
         }
 
+        /// <summary>
+        /// Gets or sets if user login component should be hidden.
+        /// </summary>
+        [DataMember()]
+        [DefaultValue(false)]
+        public bool HideUserLoginComponent
+        {
+            get;set;
+        }
+
         #endregion
     }
     #endregion

@@ -846,6 +846,7 @@
                     </Image.Style>
                 </Image>
                 <local:LoginControl Effect="{ss:SkinShadow MaterialDesignShadowDepth5}"
+                                    Visibility="{Binding Source={x:Static ss:SettingsHelper.HideUserLoginComponent},Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}"
                                     Grid.RowSpan="2"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center">

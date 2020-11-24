@@ -49,6 +49,9 @@ namespace MaterialDesignSkin.Modules
 
                     //hide active applications if enabled
                     SettingsHelper.HideActiveApplications = materialConfig.HideActiveApplications;
+
+                    //hide user login component
+                    SettingsHelper.HideUserLoginComponent = materialConfig.HideUserLoginComponent;
                 }
             }
             catch(Exception ex)

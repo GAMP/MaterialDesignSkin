@@ -9,18 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataInterfaces", "..\DataIn
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Core Port|Any CPU = Core Port|Any CPU
-		Core Port|x64 = Core Port|x64
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BB6388CF-89D3-40F6-91AB-CAD01F4DDDC9}.Core Port|Any CPU.ActiveCfg = Core Port|Any CPU
-		{BB6388CF-89D3-40F6-91AB-CAD01F4DDDC9}.Core Port|Any CPU.Build.0 = Core Port|Any CPU
-		{BB6388CF-89D3-40F6-91AB-CAD01F4DDDC9}.Core Port|x64.ActiveCfg = Core Port|Any CPU
-		{BB6388CF-89D3-40F6-91AB-CAD01F4DDDC9}.Core Port|x64.Build.0 = Core Port|Any CPU
 		{BB6388CF-89D3-40F6-91AB-CAD01F4DDDC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BB6388CF-89D3-40F6-91AB-CAD01F4DDDC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB6388CF-89D3-40F6-91AB-CAD01F4DDDC9}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -29,10 +23,6 @@ Global
 		{BB6388CF-89D3-40F6-91AB-CAD01F4DDDC9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BB6388CF-89D3-40F6-91AB-CAD01F4DDDC9}.Release|x64.ActiveCfg = Release|Any CPU
 		{BB6388CF-89D3-40F6-91AB-CAD01F4DDDC9}.Release|x64.Build.0 = Release|Any CPU
-		{D1699CD0-EC5D-4BAC-AF4E-A145E417733B}.Core Port|Any CPU.ActiveCfg = Core Port|Any CPU
-		{D1699CD0-EC5D-4BAC-AF4E-A145E417733B}.Core Port|Any CPU.Build.0 = Core Port|Any CPU
-		{D1699CD0-EC5D-4BAC-AF4E-A145E417733B}.Core Port|x64.ActiveCfg = Core Port|Any CPU
-		{D1699CD0-EC5D-4BAC-AF4E-A145E417733B}.Core Port|x64.Build.0 = Core Port|Any CPU
 		{D1699CD0-EC5D-4BAC-AF4E-A145E417733B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D1699CD0-EC5D-4BAC-AF4E-A145E417733B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1699CD0-EC5D-4BAC-AF4E-A145E417733B}.Debug|x64.ActiveCfg = Debug|Any CPU
