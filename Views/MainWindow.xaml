@@ -908,6 +908,8 @@
                             <Style.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Source={x:Static ss:SettingsHelper.HideUserLoginComponent}}"
+                                                   Value="False"/>
                                         <Condition Binding="{Binding UserViewModel.IsLoggedIn}"
                                                    Value="False" />
                                         <Condition Binding="{Binding UserViewModel.IsIdle}"
@@ -941,6 +943,10 @@
                                     </DataTrigger.Binding>
                                     <Setter Property="Visibility"
                                             Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Source={x:Static ss:SettingsHelper.HideUserLoginComponent}}"
+                                              Value="True">
+                                    <Setter Property="Opacity" Value="1"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -1047,6 +1053,8 @@
                         <Style.Triggers>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Source={x:Static ss:SettingsHelper.HideDisplayLanguage}}"
+                                               Value="False"/>
                                     <Condition Binding="{Binding UserViewModel.IsLoggedIn}"
                                                Value="False" />
                                     <Condition Binding="{Binding UserViewModel.IsIdle}"
@@ -1074,6 +1082,7 @@
                             <DataTrigger Value="True">
                                 <DataTrigger.Binding>
                                     <MultiBinding Converter="{StaticResource BoolAnyConverter}">
+                                        <Binding Source="{x:Static ss:SettingsHelper.HideDisplayLanguage}"/>
                                         <Binding Path="Client.IsLocked" />
                                         <Binding Path="Client.IsOutOfOrder" />
                                     </MultiBinding>
@@ -1090,7 +1099,8 @@
                           FontSize="16"
                           md:HintAssist.Hint="{Binding Client.Settings.Language}"
                           ItemsSource="{Binding Languages.Result}"
-                          SelectedItem="{Binding Client.PreferedUILanguage}" />
+                          SelectedItem="{Binding Client.PreferedUILanguage}" >
+                </ComboBox>
             </Border>
             <ComboBox DataContext="{Binding ShellSettingsViewModel}"
                       ItemsSource="{Binding InstalledCultures}"
@@ -1102,7 +1112,17 @@
                       Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
                       SelectedItem="{Binding SelectedInputCulture,Mode=TwoWay}"
                       DisplayMemberPath="ThreeLetterISOLanguageName"
-                      Grid.Column="3" />
+                      Grid.Column="3">
+                <ComboBox.Style>
+                    <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Source={x:Static ss:SettingsHelper.HideInputLanguage}}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
+            </ComboBox>
         </Grid>
         <Grid x:Name="OVERLAY_HOST">
             <Grid.Style>

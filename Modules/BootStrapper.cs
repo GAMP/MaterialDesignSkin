@@ -50,8 +50,14 @@ namespace MaterialDesignSkin.Modules
                     //hide active applications if enabled
                     SettingsHelper.HideActiveApplications = materialConfig.HideActiveApplications;
 
-                    //hide user login component
+                    //hide user login component if configured
                     SettingsHelper.HideUserLoginComponent = materialConfig.HideUserLoginComponent;
+
+                    //hide display language if configured
+                    SettingsHelper.HideDisplayLanguage = materialConfig.HideDisplayLanguage;
+
+                    //hide input language if configured
+                    SettingsHelper.HideInputLanguage = materialConfig.HideInputLanguage;
                 }
             }
             catch(Exception ex)

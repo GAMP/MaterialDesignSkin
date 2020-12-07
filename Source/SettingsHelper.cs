@@ -39,6 +39,22 @@
             get;set;
         }
 
+        /// <summary>
+        /// Indicates if input language should be hidden.
+        /// </summary>
+        public static bool HideInputLanguage
+        {
+            get;set;
+        }
+
+        /// <summary>
+        /// Indicates if display language should be hidden.
+        /// </summary>
+        public static bool HideDisplayLanguage
+        {
+            get;set;
+        }
+
         #endregion
     }
 }

@@ -63,6 +63,26 @@ namespace MaterialDesignSkin.Source
             get;set;
         }
 
+        /// <summary>
+        /// Gets or sets if display language selection should be hidden.
+        /// </summary>
+        [DataMember()]
+        [DefaultValue(false)]
+        public bool HideDisplayLanguage
+        {
+            get;set;
+        }
+
+        /// <summary>
+        /// Gets or sets if input language selection should be hidden.
+        /// </summary>
+        [DataMember()]
+        [DefaultValue(false)]
+        public bool HideInputLanguage
+        {
+            get;set;
+        }
+
         #endregion
     }
     #endregion
