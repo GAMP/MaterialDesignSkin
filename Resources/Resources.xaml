@@ -1734,6 +1734,20 @@
                                         <Setter Property="Text"
                                                 Value="{lex:LocTextUpper Key=PURCHASE_OPTION_OR}" />
                                     </DataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding CostsPoints, Mode=OneWay}"
+                                                       Value="False" />
+                                            <Condition Binding="{Binding CostMoney, Mode=OneWay}"
+                                                       Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                            <Setter Property="Text"
+                                                Value="{lex:LocTextUpper Key=PURCHASE_OPTION_FREE}" />
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </TextBlock.Style></TextBlock>
