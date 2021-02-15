@@ -94,18 +94,53 @@
                 </Button>
             </Grid>
 
-            <ItemsControl Grid.Row="1"
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <md:PopupBox Grid.Column="1"
+                         VerticalAlignment="Top">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="4"
+                               Style="{StaticResource MaterialDesignTitleTextBlock}"
+                               Text="{lex:LocTextUpper Key=SORT_BY}" />
+                        <StackPanel Margin="8"
+                                Grid.Row="1"
+                                Orientation="Vertical">
+                            <RadioButton Content="{lex:LocTextUpper Key=PRODUCT_SORT_NAME}"
+                                     FontWeight="SemiBold"
+                                     IsChecked="{Binding ProductSort,Converter={StaticResource EnumMatchToBooleanConverter},ConverterParameter=Name}" />
+                            <RadioButton Content="{lex:LocTextUpper Key=PRODUCT_SORT_DATE_ADD}"
+                                     FontWeight="SemiBold"
+                                     IsChecked="{Binding ProductSort,Converter={StaticResource EnumMatchToBooleanConverter},ConverterParameter=DateAdded}" />
+                            <RadioButton Content="{lex:LocTextUpper Key=PRODUCT_SORT_PRICE}"
+                                     FontWeight="SemiBold"
+                                     IsChecked="{Binding ProductSort,Converter={StaticResource EnumMatchToBooleanConverter},ConverterParameter=Price}" />
+                            <RadioButton Content="{lex:LocTextUpper Key=PRODUCT_SORT_POINTS_PRICE}"
+                                     FontWeight="SemiBold"
+                                     IsChecked="{Binding ProductSort,Converter={StaticResource EnumMatchToBooleanConverter},ConverterParameter=PointsPrice}" />
+                        </StackPanel>
+                    </Grid>
+                </md:PopupBox>
+                <ItemsControl Grid.Column="0"
                           ItemTemplate="{StaticResource _PRODUCT_DISPLAY_TEMPLATE}"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ItemsSource="{Binding Products}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <controls:VirtualizingWrapPanel ChildWidth="200"
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <controls:VirtualizingWrapPanel ChildWidth="200"
                                                         MaxHeight="2092"
                                                         ChildHeight="300" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                
+            </Grid>            
 
         </Grid>
 
