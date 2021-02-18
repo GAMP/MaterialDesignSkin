@@ -121,7 +121,7 @@
                             <RadioButton Content="{lex:LocTextUpper Key=PRODUCT_SORT_PRICE}"
                                      FontWeight="SemiBold"
                                      IsChecked="{Binding ProductSort,Converter={StaticResource EnumMatchToBooleanConverter},ConverterParameter=Price}" />
-                            <RadioButton Content="{lex:LocTextUpper Key=PRODUCT_SORT_POINTS_PRICE}"
+                            <RadioButton Content="{lex:LocTextUpper Key=PRODUCT_SORT_PRICE_POINTS}"
                                      FontWeight="SemiBold"
                                      IsChecked="{Binding ProductSort,Converter={StaticResource EnumMatchToBooleanConverter},ConverterParameter=PointsPrice}" />
                         </StackPanel>
