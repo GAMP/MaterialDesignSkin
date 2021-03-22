@@ -147,7 +147,8 @@
         <Grid Grid.Column="2">
             <Border MinWidth="300"
                     MinHeight="450"
-                    MaxHeight="650"
+                    Height="600"
+                    MaxHeight="600"
                     Width="350"
                     CornerRadius="4"
                     VerticalAlignment="Top"
@@ -273,66 +274,18 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <ComboBox Grid.Row="0"
-                                  Margin="2"
-                                  IsEnabled="{Binding RequiresCash}"
-                                  Background="{StaticResource PrimaryHueDarkBrush}"
-                                  Foreground="{StaticResource PrimaryHueDarkForegroundBrush}"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                  md:HintAssist.Hint="{lex:LocText Key=PRODUCT_ORDER_PAYMENT_METHOD}"
-                                  md:HintAssist.FloatingScale="1"
-                                  md:ComboBoxAssist.ShowSelectedItem="False"
-                                  DataContext="{Binding Order}"
-                                  SelectedValue="{Binding PaymentMethodId}"
-                                  SelectedValuePath="PaymentMethodId"  
-                                  ItemsSource="{Binding PaymentMethods}">
-                            <ComboBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel />
-                                </ItemsPanelTemplate>
-                            </ComboBox.ItemsPanel>
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Cursor="Hand">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <md:PackIcon Kind="CurrencyUsd"
-                                                     Visibility="Visible"
-                                                     VerticalAlignment="Center"
-                                                     HorizontalAlignment="Center" />
-                                        <TextBlock Grid.Column="1"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Left"
-                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                                   Text="{Binding LocalizedName}" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-
-                        <Grid Grid.Row="1"
+                        <Grid Grid.Row="0"
                               Margin="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <StackPanel Orientation="Horizontal"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Right">
-                                <TextBlock VerticalAlignment="Center"
-                                           HorizontalAlignment="Right"
-                                           Text="{lex:LocTextUpper Key=PRODUCT_ORDER_ADD_NOTE_HEADER}"
-                                           Margin="8,2,8,2"
-                                           Grid.Row="0" />
-                                <ToggleButton Margin="8"
-                                              Grid.Row="0"
-                                              IsChecked="{Binding Order.AddUserNote}" />
-                            </StackPanel>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{lex:LocTextUpper Key=PRODUCT_ORDER_ADD_NOTE_HEADER}"
+                                       Margin="8,2,8,2"
+                                       Grid.Row="0" />
                             <TextBox Grid.Row="1"
                                      Margin="2"
                                      Padding="0"
@@ -358,7 +311,7 @@
                         </Grid>
 
                         <Button Background="YellowGreen"
-                                Grid.Row="2"
+                                Grid.Row="1"
                                 BorderThickness="0"
                                 Command="{Binding Order.AcceptCommand}"
                                 Content="{lex:LocTextUpper Key=ORDER_ACTION_PLACE}" />
