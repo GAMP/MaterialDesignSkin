@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<LangVersion>latest</LangVersion>
@@ -14,8 +14,8 @@
 		<TargetFrameworks>net461</TargetFrameworks>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<Optimize>true</Optimize>
-	</PropertyGroup>	
-	
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
 		<Optimize>false</Optimize>
 		<DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -29,6 +29,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\DataInterfaces\DataInterfaces\DataInterfaces.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Remove="Resources\Images\BACKGROUND_DESKTOP.jpg" />
 		<None Remove="Resources\Images\BACKGROUND_LOGIN.jpg" />
 	</ItemGroup>
@@ -36,10 +40,6 @@
 	<ItemGroup>
 		<Resource Include="Resources\Images\BACKGROUND_DESKTOP.jpg" />
 		<Resource Include="Resources\Images\BACKGROUND_LOGIN.jpg" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\DataInterfaces\DataInterfaces\DataInterfaces.csproj" />
 	</ItemGroup>
 
 </Project>
