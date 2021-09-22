@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lex="clr-namespace:Localization.Extensions;assembly=DataInterfaces"
              xmlns:ss="clr-namespace:MaterialDesignSkin.Source"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
@@ -22,7 +23,7 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock Text="RESERVED"
+            <TextBlock Text="{lex:LocTextUpper Key=RESERVED}"
                        Grid.Column="1"
                        Foreground="Red"
                        FontWeight="Bold"
@@ -48,12 +49,12 @@
                 <Grid Margin="4"
                       TextBlock.Foreground="Black"
                       TextBlock.FontWeight="SemiBold">
-                    <TextBlock Text="Login is currently blocked"
+                    <TextBlock Text="{lex:LocText Key=LOGIN_IS_CURRENTLY_BLOCKED}"
                                Visibility="{Binding ReservationViewModel.IsLoginBlocked,Converter={StaticResource BoolToVisibilityConverter}}"
                                Grid.ColumnSpan="2"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center" />
-                    <TextBlock Text="Login is currently un-blocked"
+                    <TextBlock Text="{lex:LocText Key=LOGIN_IS_CURRENTLY_UNBLOCKED}"
                                Visibility="{Binding ReservationViewModel.IsLoginBlocked,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=true}"
                                Grid.ColumnSpan="2"
                                VerticalAlignment="Center"
