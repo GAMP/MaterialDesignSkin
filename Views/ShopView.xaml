@@ -147,7 +147,6 @@
         <Grid Grid.Column="2">
             <Border MinWidth="300"
                     MinHeight="450"
-                    MaxHeight="600"
                     Width="350"
                     CornerRadius="4"
                     Margin="0,0,0,0"
