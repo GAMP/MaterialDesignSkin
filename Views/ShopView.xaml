@@ -145,6 +145,10 @@
         </Grid>
 
         <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" MaxHeight="600" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
             <Border MinWidth="300"
                     MinHeight="450"
                     Width="350"
