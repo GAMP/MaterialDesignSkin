@@ -139,19 +139,18 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                
-            </Grid>            
+
+            </Grid>
 
         </Grid>
 
         <Grid Grid.Column="2">
             <Border MinWidth="300"
                     MinHeight="450"
-                    Height="600"
                     MaxHeight="600"
                     Width="350"
                     CornerRadius="4"
-                    VerticalAlignment="Top"
+                    Margin="0,0,0,0"
                     HorizontalAlignment="Center">
                 <Border.Background>
                     <SolidColorBrush Color="White"
