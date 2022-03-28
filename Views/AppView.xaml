@@ -6,6 +6,7 @@
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:controls="clr-namespace:MaterialDesignSkin.Controls"
              xmlns:sharedLib="clr-namespace:SharedLib;assembly=DataInterfaces"
+             xmlns:ss="clr-namespace:MaterialDesignSkin.Source"
              xmlns:lex="clr-namespace:Localization.Extensions;assembly=DataInterfaces"
              mc:Ignorable="d"
              d:DesignWidth="2412.611"
@@ -149,7 +150,7 @@
                               IsChecked="{Binding AccessType,Converter={StaticResource FlagsEnumValueConverter},ConverterParameter={x:Static sharedLib:ApplicationModes.OneTimePurchase}}" />
                 </StackPanel>
             </Expander>
-            <Expander Grid.Row="3">
+            <Expander Grid.Row="3" Visibility="{Binding Source={x:Static ss:SettingsHelper.HideAppRating},Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}">
                 <Expander.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -266,7 +267,8 @@
                                      IsChecked="{Binding AppSort,Converter={StaticResource EnumMatchToBooleanConverter},ConverterParameter=Use}" />
                         <RadioButton Content="{lex:LocTextUpper Key=APP_SORT_RATING}"
                                      FontWeight="SemiBold"
-                                     IsChecked="{Binding AppSort,Converter={StaticResource EnumMatchToBooleanConverter},ConverterParameter=Rating}" />
+                                     IsChecked="{Binding AppSort,Converter={StaticResource EnumMatchToBooleanConverter},ConverterParameter=Rating}"
+                                     Visibility="{Binding Source={x:Static ss:SettingsHelper.HideAppRating},Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}" />
                         <RadioButton Content="{lex:LocTextUpper Key=APP_SORT_RELEASE_DATE}"
                                      FontWeight="SemiBold"
                                      IsChecked="{Binding AppSort,Converter={StaticResource EnumMatchToBooleanConverter},ConverterParameter=ReleaseDate}" />
@@ -288,7 +290,7 @@
                         <controls:VirtualizingWrapPanel ScrollOffset="220"
                                                         VirtualizingPanel.VirtualizationMode="Recycling"
                                                         MaxHeight="2092"
-                                                        ChildHeight="400"
+                                                        ChildHeight="{Binding Source={x:Static ss:SettingsHelper.HideAppRating},Converter={StaticResource RatingToHeightConverter}}"
                                                         ChildWidth="225"
                                                         IsItemsHost="True" />
                     </ItemsPanelTemplate>

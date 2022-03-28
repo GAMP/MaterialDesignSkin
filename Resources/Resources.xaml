@@ -31,6 +31,7 @@
     <sc:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
     <sc:AppExePopupConverter x:Key="AppExePopupConverter" />
     <ss:NewsTemplateSelector x:Key="NewsTemplateSelector" />
+    <sc:RatingToHeightConverter x:Key="RatingToHeightConverter" />
 
 
     <!--DEFAULT BACKGROUND IMAGE RESOURCES-->
@@ -541,10 +542,11 @@
                            Style="{StaticResource MaterialDesignBody1TextBlock}" />
                 <md:RatingBar Grid.Row="2"
                               Value="{Binding UserRating,Mode=TwoWay}"
-                              Margin="8,2,8,2" />
+                              Margin="8,2,8,2"
+                              Visibility="{Binding Source={x:Static ss:SettingsHelper.HideAppRating},Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}" />
                 <Separator Grid.Row="3"
-                           Style="{StaticResource _ANIMATED_SEPERATOR}" />
-                <Grid Grid.Row="4">
+                           Style="{StaticResource _ANIMATED_SEPERATOR}" Visibility="{Binding Source={x:Static ss:SettingsHelper.HideAppRating},Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}" />
+                <Grid Grid.Row="4" Visibility="{Binding Source={x:Static ss:SettingsHelper.HideAppRating},Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />

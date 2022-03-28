@@ -32,6 +32,14 @@
         }
 
         /// <summary>
+        /// Indicates if application rating should be hidden.
+        /// </summary>
+        public static bool HideAppRating
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// Indicates if user login component should be hidden.
         /// </summary>
         public static bool HideUserLoginComponent
