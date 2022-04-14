@@ -40,6 +40,22 @@
         }
 
         /// <summary>
+        /// Indicates if application filters should be hidden.
+        /// </summary>
+        public static bool HideAppFilters
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Indicates if application info should be hidden.
+        /// </summary>
+        public static bool HideAppInfo
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// Indicates if user login component should be hidden.
         /// </summary>
         public static bool HideUserLoginComponent

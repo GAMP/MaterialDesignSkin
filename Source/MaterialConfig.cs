@@ -64,6 +64,25 @@ namespace MaterialDesignSkin.Source
         }
 
         /// <summary>
+        /// Gets or sets if app rating should be hidden.
+        /// </summary>
+        [DataMember()]
+        [DefaultValue(false)]
+        public bool HideAppFilters
+        {
+            get; set;
+        }
+        /// <summary>
+        /// Gets or sets if app rating should be hidden.
+        /// </summary>
+        [DataMember()]
+        [DefaultValue(false)]
+        public bool HideAppInfo
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// Gets or sets if user login component should be hidden.
         /// </summary>
         [DataMember()]
