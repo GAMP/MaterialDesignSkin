@@ -48,6 +48,17 @@
         }
 
         /// <summary>
+        /// Indicates if application rating filter should be hidden.
+        /// </summary>
+        public static bool HideAppRatingFilter
+        {
+            get
+            {
+                return HideAppRating || HideAppFilters;
+            }
+        }
+
+        /// <summary>
         /// Indicates if application info should be hidden.
         /// </summary>
         public static bool HideAppInfo
