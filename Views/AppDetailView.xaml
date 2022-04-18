@@ -179,7 +179,8 @@
                                Text="{Binding Title}"
                                Style="{StaticResource MaterialDesignTitleTextBlock}" />
                     <md:RatingBar Grid.Row="2"
-                                  Value="{Binding UserRating,Mode=TwoWay}" />
+                                  Value="{Binding UserRating,Mode=TwoWay}"
+                                  Visibility="{Binding Source={x:Static ss:SettingsHelper.HideAppRating},Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}" />
                     <ScrollViewer Grid.Row="3"
                                   VerticalScrollBarVisibility="Auto">
                         <TextBlock Margin="4"

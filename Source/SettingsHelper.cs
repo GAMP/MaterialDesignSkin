@@ -32,6 +32,41 @@
         }
 
         /// <summary>
+        /// Indicates if application rating should be hidden.
+        /// </summary>
+        public static bool HideAppRating
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Indicates if application filters should be hidden.
+        /// </summary>
+        public static bool HideAppFilters
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Indicates if application rating filter should be hidden.
+        /// </summary>
+        public static bool HideAppRatingFilter
+        {
+            get
+            {
+                return HideAppRating || HideAppFilters;
+            }
+        }
+
+        /// <summary>
+        /// Indicates if application info should be hidden.
+        /// </summary>
+        public static bool HideAppInfo
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// Indicates if user login component should be hidden.
         /// </summary>
         public static bool HideUserLoginComponent

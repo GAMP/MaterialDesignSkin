@@ -50,6 +50,15 @@ namespace MaterialDesignSkin.Modules
                     //hide active applications if enabled
                     SettingsHelper.HideActiveApplications = materialConfig.HideActiveApplications;
 
+                    //hide application rating if enabled
+                    SettingsHelper.HideAppRating = materialConfig.HideAppRating;
+
+                    //hide application filters if enabled
+                    SettingsHelper.HideAppFilters = materialConfig.HideAppFilters;
+
+                    //hide application info if enabled
+                    SettingsHelper.HideAppInfo = materialConfig.HideAppInfo;
+
                     //hide user login component if configured
                     SettingsHelper.HideUserLoginComponent = materialConfig.HideUserLoginComponent;
 
