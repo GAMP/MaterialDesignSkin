@@ -70,7 +70,7 @@
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Stretch"
                                  md:HintAssist.IsFloating="True"
-                                 md:HintAssist.Hint="{lex:LocTextUpper Key=USERNAME}"
+                                 md:HintAssist.Hint="{lex:LocTextUpper Key=USERNAME_OR_PHONE}"
                                  FontSize="18"
                                  Margin="8" />
                         <PasswordBox md:TextFieldAssist.DecorationVisibility="Visible"
