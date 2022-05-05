@@ -958,6 +958,10 @@
                                              HorizontalAlignment="Center" />
             </Grid>
         </Grid>
+
+        <local:GracePeriodScreenView x:Name="_GRACE_PERIOD_UI"
+                                     Visibility="{Binding GracePeriodViewModel.IsInGracePeriod,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Collapsed}" />
+        
         <StackPanel x:Name="_CLIENT_STATE_PRESENTER"
                     Margin="8"
                     VerticalAlignment="Center"
