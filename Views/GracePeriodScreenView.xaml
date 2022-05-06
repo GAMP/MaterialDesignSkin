@@ -15,46 +15,54 @@
             Effect="{ss:SkinShadow MaterialDesignShadowDepth1}">
         <Border.Background>
             <SolidColorBrush Color="Black"
-                             Opacity="0.6" />
+                             Opacity="0.8" />
         </Border.Background>
         <Grid Margin="4">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.3*" />
-                <RowDefinition Height="0.3*" />
-                <RowDefinition Height="0.3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Foreground="Red"
+            <TextBlock Text="{lex:LocTextUpper Key=REFILL_GRACE_PERIOD_MESSAGE}"
+                       Foreground="Red"
                        FontWeight="Bold"
-                       FontSize="24"
+                       FontSize="48"
+                       TextAlignment="Center"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"
-                       Margin="8">Time Expired</TextBlock>
+                       Margin="8" />
             <TextBlock Text="{Binding GracePeriodViewModel.Time, StringFormat=mm\\:ss,FallbackValue=00:00}"
                        Grid.Row="1"
                        Grid.Column="1"
                        Foreground="Red"
                        FontWeight="Bold"
-                       FontSize="24"
-                       VerticalAlignment="Top"
+                       FontSize="48"
+                       VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Margin="8" />
             <Button Grid.Row="2"
+                    VerticalAlignment="Top"
                     HorizontalAlignment="Center"
+                    Margin="8"
+                    Height="48"
                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                    Command="{Binding UserLoginViewModel.LogoutCommand}">
+                    Command="{Binding GracePeriodViewModel.LogoutCommand}">
                 <Grid ClipToBounds="False">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <md:PackIcon Grid.Column="0"
-                                                     Kind="Logout" />
+                                 Kind="Logout"
+                                 Width="32"
+                                 Height="32" />
                     <TextBlock Text="{lex:LocTextUpper Key=LOGOUT}"
-                                                   Grid.Column="1"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"
-                                                   FontWeight="Medium"
-                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                               Grid.Column="1"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontWeight="Medium"
+                               FontSize="24"
+                               Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
                 </Grid>
             </Button>
         </Grid>

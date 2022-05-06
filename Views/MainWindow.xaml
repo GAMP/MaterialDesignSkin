@@ -959,49 +959,6 @@
             </Grid>
         </Grid>
 
-        <local:GracePeriodScreenView x:Name="_GRACE_PERIOD_UI"
-                                     Visibility="{Binding GracePeriodViewModel.IsInGracePeriod,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Collapsed}" />
-        
-        <StackPanel x:Name="_CLIENT_STATE_PRESENTER"
-                    Margin="8"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Orientation="Vertical">
-            <Grid  Visibility="{Binding Client.IsLocked,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Collapsed}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <md:PackIcon Kind="Lock"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
-                             Width="64"
-                             Height="64" />
-                <TextBlock Grid.Column="1"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           FontWeight="Normal"
-                           Style="{StaticResource MaterialDesignDisplay1TextBlock}"
-                           Text="{lex:LocTextUpper Key=HEADER_SYSTEM_LOCKED}" />
-            </Grid>
-            <Grid  Visibility="{Binding Client.IsOutOfOrder,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Collapsed}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <md:PackIcon Kind="AlertCircleOutline"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
-                             Width="64"
-                             Height="64" />
-                <TextBlock Grid.Column="1"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           FontWeight="Normal"
-                           Style="{StaticResource MaterialDesignDisplay1TextBlock}"
-                           Text="{lex:LocTextUpper Key=HEADER_SYSTEM_OUT_OF_ORDER}" />
-            </Grid>
-        </StackPanel>
         <Grid x:Name="_FOOTER_PRESENTER"
               VerticalAlignment="Bottom"
               HorizontalAlignment="Stretch"
@@ -1129,6 +1086,10 @@
             </ComboBox>
         </Grid>
         <Grid x:Name="OVERLAY_HOST">
+            <Grid.Effect>
+                <BlurEffect x:Name="_BLUR_EFFECT_OVERLAY"
+                            Radius="0" />
+            </Grid.Effect>
             <Grid.Style>
                 <Style TargetType="Grid">
                     <Setter Property="IsHitTestVisible"
@@ -1162,6 +1123,34 @@
                                 </BeginStoryboard>
                             </DataTrigger.ExitActions>
                         </DataTrigger>
+                        
+                        
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource BoolAnyConverter}">
+                                    <Binding Path="Client.IsOutOfOrder" />
+                                    <Binding Path="Client.IsLocked" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.500"
+                                                         To="30"
+                                                         Storyboard.TargetProperty="Effect.Radius" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.500"
+                                                         To="0"
+                                                         Storyboard.TargetProperty="Effect.Radius" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
@@ -1186,5 +1175,50 @@
                 </md:TransitioningContent.OpeningEffects>
             </md:TransitioningContent>
         </Grid>
+
+        <local:GracePeriodScreenView x:Name="_GRACE_PERIOD_UI"
+                                     Visibility="{Binding GracePeriodViewModel.IsInGracePeriod, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
+
+        <StackPanel x:Name="_CLIENT_STATE_PRESENTER"
+                    Margin="8"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical">
+            <Grid Visibility="{Binding Client.IsLocked,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Collapsed}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <md:PackIcon Kind="Lock"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             Width="64"
+                             Height="64" />
+                <TextBlock Grid.Column="1"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           FontWeight="Normal"
+                           Style="{StaticResource MaterialDesignDisplay1TextBlock}"
+                           Text="{lex:LocTextUpper Key=HEADER_SYSTEM_LOCKED}" />
+            </Grid>
+            <Grid  Visibility="{Binding Client.IsOutOfOrder,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Collapsed}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <md:PackIcon Kind="AlertCircleOutline"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             Width="64"
+                             Height="64" />
+                <TextBlock Grid.Column="1"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           FontWeight="Normal"
+                           Style="{StaticResource MaterialDesignDisplay1TextBlock}"
+                           Text="{lex:LocTextUpper Key=HEADER_SYSTEM_OUT_OF_ORDER}" />
+            </Grid>
+        </StackPanel>
+
     </Grid>
 </Window>
