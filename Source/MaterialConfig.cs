@@ -64,7 +64,7 @@ namespace MaterialDesignSkin.Source
         }
 
         /// <summary>
-        /// Gets or sets if app rating should be hidden.
+        /// Gets or sets if app filters should be hidden.
         /// </summary>
         [DataMember()]
         [DefaultValue(false)]
@@ -72,12 +72,13 @@ namespace MaterialDesignSkin.Source
         {
             get; set;
         }
+
         /// <summary>
-        /// Gets or sets if app rating should be hidden.
+        /// Gets or sets if user can lock UI.
         /// </summary>
         [DataMember()]
         [DefaultValue(false)]
-        public bool HideAppInfo
+        public bool AllowUserLock
         {
             get; set;
         }

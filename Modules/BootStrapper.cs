@@ -59,6 +59,9 @@ namespace MaterialDesignSkin.Modules
                     //hide application info if enabled
                     SettingsHelper.HideAppInfo = materialConfig.HideAppInfo;
 
+                    //show user lock ui if enabled
+                    SettingsHelper.AllowUserLock = materialConfig.AllowUserLock;
+
                     //hide user login component if configured
                     SettingsHelper.HideUserLoginComponent = materialConfig.HideUserLoginComponent;
 
