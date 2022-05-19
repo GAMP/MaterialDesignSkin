@@ -12,6 +12,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Border BorderThickness="0,0,0,1"
                 BorderBrush="YellowGreen">
@@ -24,13 +25,27 @@
                       Margin="8"
                       VerticalScrollBarVisibility="Auto">
             <TextBlock TextWrapping="WrapWithOverflow"
-                       Text="{Binding UserAgreement}" />
+                       Text="{Binding CurrentUserAgreementText}" />
         </ScrollViewer>
-        <StackPanel Grid.Row="2">
-            <Button VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Content="{lex:LocText Key=UI_AGREE}"
+        <CheckBox Grid.Row="2"
+                  Margin="16"
+                  IsChecked="{Binding CurrentUserAgreementAccepted}"
+                  Content="{lex:LocText Key=UI_ACCEPT_TOS}" />
+        <StackPanel Grid.Row="3">
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                    Margin="4"
+                    Content="{lex:LocTextUpper Key=UI_CANCEL}"
+                    Command="{Binding RejectAgreementCommand}" />
+                <Button Grid.Column="1"
+                    Margin="4"
+                    Content="{lex:LocTextUpper Key=UI_ACCEPT}"
                     Command="{Binding AcceptAgreementCommand}" />
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>
