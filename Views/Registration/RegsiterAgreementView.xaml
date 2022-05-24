@@ -29,6 +29,7 @@
         </ScrollViewer>
         <CheckBox Grid.Row="2"
                   Margin="16"
+                  Visibility="{Binding CurrentUserAgreementIgnoreState, Converter={StaticResource BoolToHiddenConverter}, ConverterParameter=True}"
                   IsChecked="{Binding CurrentUserAgreementAccepted}"
                   Content="{lex:LocText Key=UI_ACCEPT_TOS}" />
         <StackPanel Grid.Row="3">
