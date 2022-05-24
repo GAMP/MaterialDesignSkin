@@ -1176,6 +1176,15 @@
             </md:TransitioningContent>
         </Grid>
 
+        <local:UserAgreementsControl>
+            <local:UserAgreementsControl.Visibility>
+                <MultiBinding Converter="{StaticResource BoolAndToVisibilityConverter}">
+                    <Binding Path="UserViewModel.IsLoggedIn" />
+                    <Binding Path="UserViewModel.HasPendingUserAgreements" />
+                </MultiBinding>
+            </local:UserAgreementsControl.Visibility>
+        </local:UserAgreementsControl>
+        
         <local:GracePeriodScreenView x:Name="_GRACE_PERIOD_UI"
                                      Visibility="{Binding GracePeriodViewModel.IsInGracePeriod, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
 

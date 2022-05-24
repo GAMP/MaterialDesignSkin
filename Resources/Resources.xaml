@@ -16,6 +16,7 @@
     <sifc:DoubleSecondsToHoursConverter x:Key="DoubleSecondsToHoursConverter" />
     <sifc:NullImageSourceConverter x:Key="NullImageSourceConverter" />
     <sifc:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <sifc:BoolAndToVisibilityConverter x:Key="BoolAndToVisibilityConverter" />
     <sifc:BoolToHiddenConverter x:Key="BoolToHiddenConverter" />
     <sifc:EnumMatchToBooleanConverter x:Key="EnumMatchToBooleanConverter" />
     <sifc:CountGreaterOrEqualConverter x:Key="CountGreaterOrEqualConverter" />
