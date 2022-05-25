@@ -535,8 +535,26 @@
                                                  Height="24"
                                                  Kind="Settings" />
                                 </Button>
-                                <Button Grid.Column="3"
-                                        Margin="8"
+                                <Button Margin="8"
+                                        Visibility="{Binding Source={x:Static ss:SettingsHelper.AllowUserLock}, Converter={StaticResource BoolToVisibilityConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                        Command="{Binding UserLockViewModel.LockCommand}">
+                                    <Grid ClipToBounds="False">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <md:PackIcon Grid.Column="0"
+                                                     Kind="Lock" />
+                                        <TextBlock Text="{lex:LocTextUpper Key=LOCK}"
+                                                   Grid.Column="1"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   FontWeight="Medium"
+                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                    </Grid>
+                                </Button>
+                                <Button Margin="8"
                                         Visibility="{Binding UserLoginViewModel.CanLogout,Converter={StaticResource BoolToVisibilityConverter}}"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         Command="{Binding UserLoginViewModel.LogoutCommand}">
@@ -1176,6 +1194,9 @@
             </md:TransitioningContent>
         </Grid>
 
+        <local:UserLockScreenView x:Name="_LOCK_UI"
+                              Visibility="{Binding UserLockViewModel.IsLocked, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
+
         <local:UserAgreementsControl>
             <local:UserAgreementsControl.Visibility>
                 <MultiBinding Converter="{StaticResource BoolAndToVisibilityConverter}">
@@ -1184,7 +1205,7 @@
                 </MultiBinding>
             </local:UserAgreementsControl.Visibility>
         </local:UserAgreementsControl>
-        
+		
         <local:GracePeriodScreenView x:Name="_GRACE_PERIOD_UI"
                                      Visibility="{Binding GracePeriodViewModel.IsInGracePeriod, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
 

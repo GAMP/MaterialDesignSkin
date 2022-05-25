@@ -67,6 +67,14 @@
         }
 
         /// <summary>
+        /// Indicates if user can lock UI.
+        /// </summary>
+        public static bool AllowUserLock
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// Indicates if user login component should be hidden.
         /// </summary>
         public static bool HideUserLoginComponent
