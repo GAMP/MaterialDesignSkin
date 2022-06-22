@@ -535,25 +535,81 @@
                                                  Height="24"
                                                  Kind="Settings" />
                                 </Button>
-                                <Button Margin="8"
-                                        Visibility="{Binding Source={x:Static ss:SettingsHelper.AllowUserLock}, Converter={StaticResource BoolToVisibilityConverter}}"
-                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                        Command="{Binding UserLockViewModel.LockCommand}">
-                                    <Grid ClipToBounds="False">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <md:PackIcon Grid.Column="0"
-                                                     Kind="Lock" />
-                                        <TextBlock Text="{lex:LocTextUpper Key=LOCK}"
+
+                                <Grid Background="{StaticResource MaterialDesignDarkBackground}">
+                                    <Button Margin="8" Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                                        <TextBlock Text="{lex:LocTextUpper Key=OPTIONS}"
                                                    Grid.Column="1"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"
                                                    FontWeight="Medium"
                                                    Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
-                                    </Grid>
-                                </Button>
+                                    </Button>
+                                    
+                                    <Popup x:Name="_USER_OPTIONS_POPUP"
+                                           Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
+                                           PopupAnimation="Fade"
+                                           AllowsTransparency="True"
+                                           HorizontalAlignment="Stretch">
+                                        <Popup.IsOpen>
+                                            <ss:DelayedMultiBindingExtension Delay="0:0:0.01"
+                                                                             Mode="TwoWay"
+                                                                             Converter="{StaticResource BoolAnyConverter}">
+                                                <Binding Path="IsMouseOver"
+                                                         RelativeSource="{RelativeSource AncestorType=Grid}"
+                                                         Mode="OneWay" />
+                                                <Binding Path="IsMouseOver"
+                                                         RelativeSource="{RelativeSource Self}"
+                                                         Mode="OneWay" />
+                                            </ss:DelayedMultiBindingExtension>
+                                        </Popup.IsOpen>
+                                        <Border CornerRadius="0,0,4,4"
+                                                Background="{StaticResource MaterialDesignDarkBackground}">
+                                            <StackPanel Margin="8">
+                                                <Button Margin="8"
+                                                        Visibility="{Binding Source={x:Static ss:SettingsHelper.AllowUserLock}, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                                        Command="{Binding UserLockViewModel.LockCommand}">
+                                                    <Grid ClipToBounds="False">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <md:PackIcon Grid.Column="0"
+                                                                     Kind="Lock" />
+                                                        <TextBlock Text="{lex:LocTextUpper Key=LOCK}"
+                                                                   Grid.Column="1"
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Center"
+                                                                   FontWeight="Medium"
+                                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                                    </Grid>
+                                                </Button>
+
+                                                <Button Margin="8"
+                                                        Visibility="{Binding UserViewModel.CanChangePassword, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                                        Command="{Binding UserViewModel.ChangePasswordCommand}">
+                                                    <Grid ClipToBounds="False">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <md:PackIcon Grid.Column="0"
+                                                                     Kind="KeyVariant" />
+                                                        <TextBlock Text="{lex:LocTextUpper Key=CHANGE_PASSWORD}"
+                                                                   Grid.Column="1"
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Center"
+                                                                   FontWeight="Medium"
+                                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                                    </Grid>
+                                                </Button>
+                                            </StackPanel>
+                                        </Border>
+                                    </Popup>
+                                </Grid>
+                                
                                 <Button Margin="8"
                                         Visibility="{Binding UserLoginViewModel.CanLogout,Converter={StaticResource BoolToVisibilityConverter}}"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
