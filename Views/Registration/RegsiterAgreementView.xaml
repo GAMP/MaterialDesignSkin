@@ -44,7 +44,7 @@
                     Command="{Binding RejectAgreementCommand}" />
                 <Button Grid.Column="1"
                     Margin="4"
-                    Content="{lex:LocTextUpper Key=UI_ACCEPT}"
+                    Content="{lex:LocTextUpper Key=UI_CONTINUE}"
                     Command="{Binding AcceptAgreementCommand}" />
             </Grid>
         </StackPanel>
