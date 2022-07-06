@@ -536,7 +536,8 @@
                                                  Kind="Settings" />
                                 </Button>
 
-                                <Grid Background="{StaticResource MaterialDesignDarkBackground}">
+                                <Grid Background="{StaticResource MaterialDesignDarkBackground}"
+                                      Visibility="{Binding UserViewModel.ShowOptionsButton, Converter={StaticResource BoolToVisibilityConverter}}">
                                     <Button Margin="8" Style="{StaticResource MaterialDesignRaisedDarkButton}">
                                         <TextBlock Text="{lex:LocTextUpper Key=OPTIONS}"
                                                    Grid.Column="1"

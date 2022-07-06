@@ -74,16 +74,6 @@ namespace MaterialDesignSkin.Source
         }
 
         /// <summary>
-        /// Gets or sets if user can lock UI.
-        /// </summary>
-        [DataMember()]
-        [DefaultValue(false)]
-        public bool AllowUserLock
-        {
-            get; set;
-        }
-
-        /// <summary>
         /// Gets or sets if user login component should be hidden.
         /// </summary>
         [DataMember()]
