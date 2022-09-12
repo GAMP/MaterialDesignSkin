@@ -29,6 +29,7 @@
     <sifc:ValueLessConverter x:Key="ValueLessConverter" />
     <sifc:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
     <sifc:HTMLToFlowDocumentConverter x:Key="HTMLConverter" />
+    <sifc:RevertBoolConverter x:Key="RevertBoolConverter" />
     <sc:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
     <sc:AppExePopupConverter x:Key="AppExePopupConverter" />
     <ss:NewsTemplateSelector x:Key="NewsTemplateSelector" />

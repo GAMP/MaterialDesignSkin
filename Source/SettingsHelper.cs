@@ -67,6 +67,14 @@
         }
 
         /// <summary>
+        /// Indicates if user can deposit online.
+        /// </summary>
+        public static bool ShowUserDepositOnline
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// Indicates if user can lock UI.
         /// </summary>
         public static bool AllowUserLock

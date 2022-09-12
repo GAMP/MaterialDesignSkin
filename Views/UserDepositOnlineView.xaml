@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="MaterialDesignSkin.Views.UserDepositOnlineView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lex="clr-namespace:Localization.Extensions;assembly=DataInterfaces"
+             xmlns:wd="clr-namespace:System.Windows.Data;assembly=DataInterfaces"
+             xmlns:ss="clr-namespace:MaterialDesignSkin.Source"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             MinWidth="600"
+             MaxWidth="600"
+             HorizontalAlignment="Center"
+             VerticalAlignment="Center">
+    <Border Background="{StaticResource MaterialDesignPaper}"
+            Effect="{ss:SkinShadow MaterialDesignShadowDepth5}"
+            CornerRadius="16"
+            Padding="32"
+            DataContext="{Binding UserDepositOnlineViewModel}">
+        <Grid>
+            <Grid Visibility="{Binding ShowResults, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Top Up" Margin="0,0,0,24" FontSize="24" />
+
+                <TextBlock Text="Quick select" Grid.Row="1" Margin="0,0,0,8" FontSize="14" />
+
+                <ItemsControl Grid.Row="2" Margin="0,0,0,24" ItemsSource="{Binding Path=OnlinePaymentsConfiguration.Presets}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Margin="4" Content="{Binding}" Command="{Binding Path=DataContext.SelectAmountCommand, RelativeSource={RelativeSource AncestorType=Border}}" CommandParameter="{Binding}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+                <TextBlock Text="Or enter amount*" Margin="0,0,0,4" Grid.Row="3" />
+
+                <TextBox Grid.Row="4" Margin="0,0,0,9" Text="{Binding Amount}" IsReadOnly="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, FallbackValue=True, Converter={StaticResource RevertBoolConverter}}" />
+
+                <TextBlock Text="Payment method" Margin="0,0,0,4" Grid.Row="5" />
+
+                <ComboBox Grid.Row="6"
+                      Margin="0,0,0,9"
+                      ItemsSource="{Binding PaymentMethods}"
+                      SelectedValue="{Binding SelectedPaymentMethodId}"
+                      DisplayMemberPath="Name"
+                      SelectedValuePath="PaymentMethodId"
+                      />
+
+                <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="0,5,0,54">
+                    <TextBlock Text="{wd:CultureAwareBinding Amount, StringFormat=C2}" FontSize="14" />
+                    <TextBlock Margin="4,0,0,0" FontSize="14" Text="will be credited to you Account balance" />
+                </StackPanel>
+
+                <Button Content="Place Next" Grid.Row="8" Command="{Binding SubmitCommand}" Margin="0,6,0,0" />
+
+            </Grid>
+            <Grid Visibility="{Binding ShowResults, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Content="Pay from pc" Command="{Binding OpenBrowserCommand}" />
+                <Image Source="{Binding QrImage}" Grid.Column="1" />
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

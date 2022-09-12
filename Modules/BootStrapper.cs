@@ -59,6 +59,9 @@ namespace MaterialDesignSkin.Modules
                     //hide application info if enabled
                     SettingsHelper.HideAppInfo = materialConfig.HideAppInfo;
 
+                    //show user online deposit if enabled
+                    SettingsHelper.ShowUserDepositOnline = materialConfig.ShowUserDepositOnline;
+
                     //show user lock ui if enabled
                     SettingsHelper.AllowUserLock = materialConfig.AllowUserLock;
 

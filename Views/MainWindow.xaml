@@ -568,6 +568,26 @@
                                                 Background="{StaticResource MaterialDesignDarkBackground}">
                                             <StackPanel Margin="8">
                                                 <Button Margin="8"
+                                                        Visibility="{Binding Source={x:Static ss:SettingsHelper.ShowUserDepositOnline}, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                                        Command="{Binding UserViewModel.DepositOnlineCommand}">
+                                                    <Grid ClipToBounds="False">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <md:PackIcon Grid.Column="0"
+                                                                     Kind="Lock" />
+                                                        <TextBlock Text="{lex:LocTextUpper Key=TOP_UP}"
+                                                                   Grid.Column="1"
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Center"
+                                                                   FontWeight="Medium"
+                                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                                    </Grid>
+                                                </Button>
+                                                
+                                                <Button Margin="8"
                                                         Visibility="{Binding Source={x:Static ss:SettingsHelper.AllowUserLock}, Converter={StaticResource BoolToVisibilityConverter}}"
                                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                                         Command="{Binding UserLockViewModel.LockCommand}">
