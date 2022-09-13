@@ -568,7 +568,7 @@
                                                 Background="{StaticResource MaterialDesignDarkBackground}">
                                             <StackPanel Margin="8">
                                                 <Button Margin="8"
-                                                        Visibility="{Binding Source={x:Static ss:SettingsHelper.ShowUserDepositOnline}, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                        Visibility="{Binding Path=UserDepositOnlineViewModel.ShowUserDepositOnline, Converter={StaticResource BoolToVisibilityConverter}}"
                                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                                         Command="{Binding UserViewModel.DepositOnlineCommand}">
                                                     <Grid ClipToBounds="False">
