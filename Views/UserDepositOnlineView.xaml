@@ -18,148 +18,142 @@
             Padding="32"
             DataContext="{Binding UserDepositOnlineViewModel}">
         <Grid>
-            <Grid Visibility="{Binding ShowResults, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-                <Grid Margin="0,0,0,24">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+            <Grid Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="{lex:LocText Key=TOP_UP}" FontSize="24" />
+                <TextBlock Text="{lex:LocText Key=TOP_UP}" FontSize="24" />
 
-                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                <Button Style="{StaticResource MaterialDesignFlatButton}"
                         md:RippleAssist.IsDisabled="True"
                         Padding="4"
                         Command="{Binding CloseCommand}"
                         ss:ControlHelper.DisableDoubleClick="True"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Right">
-                        <Button.Content>
-                            <md:PackIcon Width="24"
+                    <Button.Content>
+                        <md:PackIcon Width="24"
                                      Height="24"
                                      Kind="CloseCircleOutline" />
-                        </Button.Content>
-                    </Button>
-                </Grid>
-
-                <TextBlock Text="{lex:LocText Key=QUICK_SELECT}" Grid.Row="1" Margin="0,0,0,8" FontSize="14" />
-
-                <ItemsControl Grid.Row="2" Margin="0,0,0,24" ItemsSource="{Binding Path=OnlinePaymentsConfiguration.Presets}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button Margin="4" Content="{Binding}" Command="{Binding Path=DataContext.SelectAmountCommand, RelativeSource={RelativeSource AncestorType=Border}}" CommandParameter="{Binding}" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-
-                <StackPanel Margin="0,0,0,4" Grid.Row="3" Orientation="Horizontal">
-                    <TextBlock FontSize="14" Text="{lex:LocText Key=DEPOSIT_AMOUNT}" Margin="0,0,4,0" />
-                    <TextBlock FontSize="14" Text="(" Visibility="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
-                    <TextBlock FontSize="14" Margin="0,0,4,0" Text="{lex:LocText Key=VE_MINIMUM_AMOUNT}" Visibility="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
-                    <TextBlock FontSize="14" Text="{Binding Path=OnlinePaymentsConfiguration.MinimumAmount, StringFormat=C2}" Visibility="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
-                    <TextBlock FontSize="14" Text=")" Visibility="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
-                </StackPanel>
-                
-                <TextBox Grid.Row="4" Margin="0,0,0,24" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, FallbackValue=True, Converter={StaticResource RevertBoolConverter}}" />
-
-                <!--<TextBlock Text="Payment method" Margin="0,0,0,4" Grid.Row="5" />
-
-                <ComboBox Grid.Row="6"
-                      Margin="0,0,0,9"
-                      ItemsSource="{Binding PaymentMethods}"
-                      SelectedValue="{Binding SelectedPaymentMethodId}"
-                      DisplayMemberPath="Name"
-                      SelectedValuePath="PaymentMethodId"
-                      />-->
-
-
-                <!--<Separator Grid.Row="7" />-->
-
-                <!--<StackPanel Grid.Row="8" Orientation="Horizontal">
-                    <TextBlock Text="{wd:CultureAwareBinding Amount, StringFormat=C2}" FontSize="14" Validation.ErrorTemplate="{x:Null}" />
-                    <TextBlock Margin="4,0,0,0" FontSize="14" Text="{lex:LocText Key=ONLINE_DEPOSIT_CREDIT_MESSAGE}" />
-                </StackPanel>
-
-                <Separator Grid.Row="9" Margin="0,4,0,24" />-->
-
-                <Button Content="{lex:LocTextUpper Key=PROCEED_TO_PAYMENT}" Grid.Row="10" Command="{Binding SubmitCommand}"  />
-
+                    </Button.Content>
+                </Button>
             </Grid>
-            <Grid Visibility="{Binding ShowResults, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
 
-                <Grid Margin="0,0,0,24">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+            <ProgressBar IsIndeterminate="True"
+                         Grid.Row="1"
+                         Width="64"
+                         Height="64"
+                         Margin="0,24,0,24"
+                         Foreground="YellowGreen"
+                         Style="{StaticResource MaterialDesignCircularProgressBar}"
+                         IsEnabled="{Binding IsRunning}"
+                         Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibilityConverter}}" />
 
-                    <TextBlock Text="{lex:LocText Key=TOP_UP}" FontSize="24" />
+            <Grid Grid.Row="1" Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}">
+                <Grid Visibility="{Binding ShowResults, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                    <Button Style="{StaticResource MaterialDesignFlatButton}"
-                        md:RippleAssist.IsDisabled="True"
-                        Padding="4"
-                        Command="{Binding CloseCommand}"
-                        ss:ControlHelper.DisableDoubleClick="True"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Right">
-                        <Button.Content>
-                            <md:PackIcon Width="24"
-                                     Height="24"
-                                     Kind="CloseCircleOutline" />
-                        </Button.Content>
-                    </Button>
+                    <TextBlock Text="{lex:LocText Key=QUICK_SELECT}" Grid.Row="1" Margin="0,0,0,8" FontSize="14" />
+
+                    <ItemsControl Grid.Row="2" Margin="0,0,0,24" ItemsSource="{Binding Path=Presets}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Margin="4" Content="{Binding}" ContentStringFormat="C2" Command="{Binding Path=DataContext.SelectAmountCommand, RelativeSource={RelativeSource AncestorType=Border}}" CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                    <StackPanel Margin="0,0,0,4" Grid.Row="3" Orientation="Horizontal">
+                        <TextBlock FontSize="14" Text="{lex:LocText Key=DEPOSIT_AMOUNT}" Margin="0,0,4,0" />
+                        <TextBlock FontSize="14" Text="(" Visibility="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
+                        <TextBlock FontSize="14" Margin="0,0,4,0" Text="{lex:LocText Key=VE_MINIMUM_AMOUNT}" Visibility="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
+                        <TextBlock FontSize="14" Text="{Binding Path=OnlinePaymentsConfiguration.MinimumAmount, StringFormat=C2}" Visibility="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
+                        <TextBlock FontSize="14" Text=")" Visibility="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
+                    </StackPanel>
+
+                    <TextBox Grid.Row="4" Margin="0,0,0,24" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, FallbackValue=True, Converter={StaticResource RevertBoolConverter}}" />
+
+                    <!--<TextBlock Text="Payment method" Margin="0,0,0,4" Grid.Row="5" />
+
+                    <ComboBox Grid.Row="6"
+                          Margin="0,0,0,9"
+                          ItemsSource="{Binding PaymentMethods}"
+                          SelectedValue="{Binding SelectedPaymentMethodId}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="PaymentMethodId"
+                          />-->
+
+
+                        <!--<Separator Grid.Row="7" />-->
+
+                        <!--<StackPanel Grid.Row="8" Orientation="Horizontal">
+                        <TextBlock Text="{wd:CultureAwareBinding Amount, StringFormat=C2}" FontSize="14" Validation.ErrorTemplate="{x:Null}" />
+                        <TextBlock Margin="4,0,0,0" FontSize="14" Text="{lex:LocText Key=ONLINE_DEPOSIT_CREDIT_MESSAGE}" />
+                    </StackPanel>
+
+                    <Separator Grid.Row="9" Margin="0,4,0,24" />-->
+
+                    <Button Content="{lex:LocTextUpper Key=PROCEED_TO_PAYMENT}" Grid.Row="10" Command="{Binding SubmitCommand}"  />
+
                 </Grid>
+                <Grid Visibility="{Binding ShowResults, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                <Separator Grid.Row="1" Margin="0,0,0,4" />
+                    <Separator Grid.Row="1" Margin="0,0,0,4" />
 
-                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" >
-                    <TextBlock FontSize="14" Text="{lex:LocText Key=DEPOSIT_AMOUNT}" />
-                    <TextBlock Margin="4,0,0,0" Text="{wd:CultureAwareBinding Amount, StringFormat=C2}" FontSize="14" Validation.ErrorTemplate="{x:Null}" />
-                </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" >
+                        <TextBlock FontSize="14" Text="{lex:LocText Key=DEPOSIT_AMOUNT}" />
+                        <TextBlock Margin="4,0,0,0" Text="{wd:CultureAwareBinding Amount, StringFormat=C2}" FontSize="14" Validation.ErrorTemplate="{x:Null}" />
+                    </StackPanel>
 
-                <Separator Grid.Row="3" Margin="0,4,0,24" />
+                    <Separator Grid.Row="3" Margin="0,4,0,24" />
 
-                <TextBlock Grid.Row="4" FontSize="14" Text="{lex:LocText Key=SCAN_TO_PAY_FROM_PHONE}" Margin="0,0,0,12" HorizontalAlignment="Center" />
-                
-                <Border Grid.Row="5" Background="White" Padding="8" HorizontalAlignment="Center" Margin="0,0,0,12">
-                    <Image Source="{Binding QrImage}" Width="300" Height="300" />
-                </Border>
+                    <TextBlock Grid.Row="4" FontSize="14" Text="{lex:LocText Key=SCAN_TO_PAY_FROM_PHONE}" Margin="0,0,0,12" HorizontalAlignment="Center" />
 
-                <TextBlock Grid.Row="6" FontSize="14" Text="{lex:LocText Key=PURCHASE_OPTION_OR}" Margin="0,0,0,12" HorizontalAlignment="Center" />
+                    <Border Grid.Row="5" Background="White" Padding="8" HorizontalAlignment="Center" Margin="0,0,0,12">
+                        <Image Source="{Binding QrImage}" Width="300" Height="300" />
+                    </Border>
 
-                <Button Grid.Row="7" Content="{lex:LocTextUpper Key=PAY_FROM_PC}" Command="{Binding OpenBrowserCommand}" Margin="0,0,0,24" />
+                    <TextBlock Grid.Row="6" FontSize="14" Text="{lex:LocText Key=PURCHASE_OPTION_OR}" Margin="0,0,0,12" HorizontalAlignment="Center" />
 
-                <Button Grid.Row="8" Content="{lex:LocTextUpper Key=DISMISS}" Command="{Binding CloseCommand}" />
+                    <Button Grid.Row="7" Content="{lex:LocTextUpper Key=PAY_FROM_PC}" Command="{Binding OpenBrowserCommand}" Margin="0,0,0,24" />
+
+                    <Button Grid.Row="8" Content="{lex:LocTextUpper Key=DISMISS}" Command="{Binding CloseCommand}" />
+                </Grid>
             </Grid>
         </Grid>
     </Border>
