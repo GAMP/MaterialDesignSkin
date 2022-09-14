@@ -79,7 +79,7 @@
                     <TextBlock FontSize="14" Text=")" Visibility="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
                 </StackPanel>
                 
-                <TextBox Grid.Row="4" Margin="0,0,0,24" Text="{Binding Amount}" IsReadOnly="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, FallbackValue=True, Converter={StaticResource RevertBoolConverter}}" />
+                <TextBox Grid.Row="4" Margin="0,0,0,24" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Path=OnlinePaymentsConfiguration.AllowCustomValue, FallbackValue=True, Converter={StaticResource RevertBoolConverter}}" />
 
                 <!--<TextBlock Text="Payment method" Margin="0,0,0,4" Grid.Row="5" />
 
@@ -94,12 +94,12 @@
 
                 <!--<Separator Grid.Row="7" />-->
 
-                <StackPanel Grid.Row="8" Orientation="Horizontal">
+                <!--<StackPanel Grid.Row="8" Orientation="Horizontal">
                     <TextBlock Text="{wd:CultureAwareBinding Amount, StringFormat=C2}" FontSize="14" Validation.ErrorTemplate="{x:Null}" />
                     <TextBlock Margin="4,0,0,0" FontSize="14" Text="{lex:LocText Key=ONLINE_DEPOSIT_CREDIT_MESSAGE}" />
                 </StackPanel>
 
-                <Separator Grid.Row="9" Margin="0,4,0,24" />
+                <Separator Grid.Row="9" Margin="0,4,0,24" />-->
 
                 <Button Content="{lex:LocTextUpper Key=PROCEED_TO_PAYMENT}" Grid.Row="10" Command="{Binding SubmitCommand}"  />
 
