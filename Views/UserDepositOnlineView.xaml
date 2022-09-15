@@ -50,7 +50,7 @@
                          Grid.Row="1"
                          Width="64"
                          Height="64"
-                         Margin="0,24,0,24"
+                         Margin="0,63,0,63"
                          Foreground="YellowGreen"
                          Style="{StaticResource MaterialDesignCircularProgressBar}"
                          IsEnabled="{Binding IsRunning}"
