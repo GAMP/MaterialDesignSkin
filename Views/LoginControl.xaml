@@ -98,16 +98,29 @@
                                          Kind="LoginVariant" />
                         </Button>
                     </Grid>
-                    <TextBlock Grid.Row="1" VerticalAlignment="Center"
-                               HorizontalAlignment="Right"
-                               FontSize="16"
-                               FontWeight="Medium"
-                               Visibility="{Binding UserLoginViewModel.IsRegistrationEnabled,Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}"
-                               Margin="16,0,16,16">
-                        <Hyperlink Command="{Binding UserLoginViewModel.RegisterCommand}">
-                            <TextBlock Text="{lex:LocText Key=REGISTER_ACTION_REGISTER_ACCOUNT}" />
-                        </Hyperlink>
-                    </TextBlock>
+                    <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="16"
+                                   FontWeight="Medium"
+                                   Visibility="{Binding UserLoginViewModel.IsPasswordResetEnabled, Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}"
+                                   Margin="16,0,16,16">
+                            <Hyperlink Command="{Binding UserLoginViewModel.ResetPasswordCommand}">
+                                <TextBlock Text="{lex:LocText Key=PASSWORD_RESET_FORGOT_PASSWORD}" />
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Grid.Column="1"
+                                   FontSize="16"
+                                   FontWeight="Medium"
+                                   Visibility="{Binding UserLoginViewModel.IsRegistrationEnabled,Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}"
+                                   Margin="16,0,16,16">
+                            <Hyperlink Command="{Binding UserLoginViewModel.RegisterCommand}">
+                                <TextBlock Text="{lex:LocText Key=REGISTER_ACTION_REGISTER_ACCOUNT}" />
+                            </Hyperlink>
+                        </TextBlock>
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>
