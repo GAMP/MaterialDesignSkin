@@ -46,25 +46,26 @@
             <Border Grid.Column="2"                   
                     Background="{StaticResource MaterialDesignDarkBackground}"
                     CornerRadius="0,8,8,0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid VerticalAlignment="Center" Grid.RowSpan="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <md:PackIcon Grid.Column="0"
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid VerticalAlignment="Center" Grid.RowSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <md:PackIcon Grid.Column="0"
                                      Width="64"
                                      Height="64"
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Center"
                                      Kind="Account" />
-                        <TextBox md:TextFieldAssist.DecorationVisibility="Visible"
+                            <TextBox md:TextFieldAssist.DecorationVisibility="Visible"
                                  Text="{Binding UserLoginViewModel.Username,UpdateSourceTrigger=PropertyChanged}"
                                  Grid.Column="1"
                                  VerticalAlignment="Center"
@@ -73,7 +74,7 @@
                                  md:HintAssist.Hint="{lex:LocTextUpper Key=USERNAME_OR_PHONE}"
                                  FontSize="18"
                                  Margin="8" />
-                        <PasswordBox md:TextFieldAssist.DecorationVisibility="Visible"
+                            <PasswordBox md:TextFieldAssist.DecorationVisibility="Visible"
                                      Grid.Column="2"
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Stretch"
@@ -83,7 +84,7 @@
                                      md:HintAssist.Hint="{lex:LocTextUpper Key=PASSWORD}"
                                      sif:PasswordBoxAssistant.BindPassword="True"
                                      sif:PasswordBoxAssistant.BoundPassword="{Binding Path=UserLoginViewModel.Password,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
-                        <Button Width="72"
+                            <Button Width="72"
                                 Height="72"
                                 Background="{x:Null}"
                                 BorderBrush="{x:Null}"
@@ -93,35 +94,36 @@
                                 Command="{Binding UserLoginViewModel.LoginCommand}"
                                 VerticalContentAlignment="Center"
                                 HorizontalContentAlignment="Center">
-                            <md:PackIcon Width="64"
+                                <md:PackIcon Width="64"
                                          Height="64"
                                          Kind="LoginVariant" />
-                        </Button>
+                            </Button>
+                        </Grid>
+                        <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="16"
+                                       FontWeight="Medium"
+                                       Visibility="{Binding UserLoginViewModel.IsPasswordResetEnabled, Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}"
+                                       Margin="16,0,16,16">
+                                <Hyperlink Command="{Binding UserLoginViewModel.ResetPasswordCommand}">
+                                    <TextBlock Text="{lex:LocText Key=PASSWORD_RESET_FORGOT_PASSWORD}" />
+                                </Hyperlink>
+                            </TextBlock>
+                            <TextBlock Grid.Column="1"
+                                       FontSize="16"
+                                       FontWeight="Medium"
+                                       Visibility="{Binding UserLoginViewModel.IsRegistrationEnabled,Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}"
+                                       Margin="16,0,16,16">
+                                <Hyperlink Command="{Binding UserLoginViewModel.RegisterCommand}">
+                                    <TextBlock Text="{lex:LocText Key=REGISTER_ACTION_REGISTER_ACCOUNT}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </Grid>
                     </Grid>
-                    <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="16"
-                                   FontWeight="Medium"
-                                   Visibility="{Binding UserLoginViewModel.IsPasswordResetEnabled, Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}"
-                                   Margin="16,0,16,16">
-                            <Hyperlink Command="{Binding UserLoginViewModel.ResetPasswordCommand}">
-                                <TextBlock Text="{lex:LocText Key=PASSWORD_RESET_FORGOT_PASSWORD}" />
-                            </Hyperlink>
-                        </TextBlock>
-                        <TextBlock Grid.Column="1"
-                                   FontSize="16"
-                                   FontWeight="Medium"
-                                   Visibility="{Binding UserLoginViewModel.IsRegistrationEnabled,Converter={StaticResource ResourceKey=BoolToVisibilityConverter}}"
-                                   Margin="16,0,16,16">
-                            <Hyperlink Command="{Binding UserLoginViewModel.RegisterCommand}">
-                                <TextBlock Text="{lex:LocText Key=REGISTER_ACTION_REGISTER_ACCOUNT}" />
-                            </Hyperlink>
-                        </TextBlock>
-                    </Grid>
-                </Grid>
+                </AdornerDecorator>
             </Border>
         </Grid>
 
