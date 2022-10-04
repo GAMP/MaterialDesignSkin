@@ -255,13 +255,23 @@
                 </md:PackIcon.Style>
             </md:PackIcon>
         </Grid>
-        <Button Grid.Row="2"
-                Margin="8"
-                Command="{Binding ConfirmCodeCommand}"
-                Visibility="{Binding IsEnumerating,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Content="{lex:LocText Key=REGISTER_ACTION_CONFIRM_CODE}">
+
+        <Grid HorizontalAlignment="Center" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Margin="4"
+                    Content="{lex:LocTextUpper Key=UI_CANCEL}"
+                    Command="{Binding CancelCommand}" />
+            <Button Grid.Column="1"
+                    Margin="8"
+                    Command="{Binding ConfirmCodeCommand}"
+                    Visibility="{Binding IsEnumerating,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Content="{lex:LocText Key=REGISTER_ACTION_CONFIRM_CODE}">
             <Button.Style>
                 <Style TargetType="Button"
                        BasedOn="{StaticResource {x:Type Button}}">
@@ -285,5 +295,6 @@
                 </Style>
             </Button.Style>
         </Button>
+        </Grid>
     </Grid>
 </UserControl>

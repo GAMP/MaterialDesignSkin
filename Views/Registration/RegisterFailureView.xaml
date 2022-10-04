@@ -12,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <md:PackIcon Foreground="Red"
                      VerticalAlignment="Center"
@@ -23,5 +24,11 @@
                    HorizontalAlignment="Center"
                    Grid.Row="1"
                    Text="{lex:LocText Key=REGISTER_FAILED_MESSAGE}" />
+        <Button Content="{lex:LocText Key=DISMISS}"
+                Command="{Binding FinishCommand}"
+                Grid.Row="2"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="8" />
     </Grid>
 </UserControl>
