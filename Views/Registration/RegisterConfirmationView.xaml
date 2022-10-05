@@ -186,7 +186,7 @@
         <Grid Grid.Row="1"
               Margin="8"
               VerticalAlignment="Bottom"
-              Visibility="{Binding IsEnumerating,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}">
+              Visibility="{Binding HasConfirmCode, Converter={StaticResource BoolToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />
@@ -195,8 +195,10 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock Text="{lex:LocText Key=REGISTER_HEADER_ENTER_CONFIRMATION_CODE}"
+            <TextBlock Text="{Binding ConfirmationCodeMessage}"
                        Foreground="YellowGreen"
+                       TextWrapping="Wrap"
+                       Visibility="{Binding HasConfirmCode, Converter={StaticResource BoolToVisibilityConverter}}"
                        FontSize="16">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
@@ -219,7 +221,7 @@
             <TextBox Grid.Column="0"
                      Grid.Row="1"
                      Grid.ColumnSpan="2"
-                     IsEnabled="{Binding HasConfirmCode}"
+                     Visibility="{Binding HasConfirmCode, Converter={StaticResource BoolToVisibilityConverter}}"
                      Text="{Binding ConfirmCode,UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
             <md:PackIcon Grid.Column="1"
@@ -268,10 +270,10 @@
             <Button Grid.Column="1"
                     Margin="8"
                     Command="{Binding ConfirmCodeCommand}"
-                    Visibility="{Binding IsEnumerating,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}"
+                    Visibility="{Binding HasConfirmCode, Converter={StaticResource BoolToVisibilityConverter}}"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Content="{lex:LocText Key=REGISTER_ACTION_CONFIRM_CODE}">
+                    Content="{lex:LocTextUpper Key=REGISTER_ACTION_CONFIRM_CODE}">
             <Button.Style>
                 <Style TargetType="Button"
                        BasedOn="{StaticResource {x:Type Button}}">
