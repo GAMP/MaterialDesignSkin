@@ -546,7 +546,7 @@
                                                    FontWeight="Medium"
                                                    Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
                                     </Button>
-                                    
+
                                     <Popup x:Name="_USER_OPTIONS_POPUP"
                                            Effect="{ss:SkinShadow MaterialDesignShadowDepth1}"
                                            PopupAnimation="Fade"
@@ -586,7 +586,7 @@
                                                                    Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
                                                     </Grid>
                                                 </Button>
-                                                
+
                                                 <Button Margin="8"
                                                         Visibility="{Binding Source={x:Static ss:SettingsHelper.AllowUserLock}, Converter={StaticResource BoolToVisibilityConverter}}"
                                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
@@ -630,7 +630,7 @@
                                         </Border>
                                     </Popup>
                                 </Grid>
-                                
+
                                 <Button Margin="8"
                                         Visibility="{Binding UserLoginViewModel.CanLogout,Converter={StaticResource BoolToVisibilityConverter}}"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
@@ -859,6 +859,7 @@
                     <RowDefinition />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+                
                 <md:Transitioner Grid.RowSpan="2"
                                  DataContext="{Binding LoginRotator}"
                                  SelectedIndex="{Binding CurrentIndex,Mode=OneWay}"
@@ -919,6 +920,7 @@
                         </DataTemplate>
                     </md:Transitioner.ItemTemplate>
                 </md:Transitioner>
+                
                 <Image VerticalAlignment="Stretch"
                        HorizontalAlignment="Stretch"
                        RenderOptions.BitmapScalingMode="LowQuality"
@@ -940,6 +942,21 @@
                         </Style>
                     </Image.Style>
                 </Image>
+
+                <Border x:Name="_HOST_QR_IMAGE" 
+                        Margin="64"
+                        DataContext="{Binding HostBarcodeViewModel}"
+                        Visibility="{Binding IsEnabled,Converter={StaticResource BoolToVisibilityConverter}}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left" 
+                        BorderBrush="White" 
+                        BorderThickness="4">
+                    <Image 
+                           Source="{Binding QrImage}"
+                           Width="256" 
+                           Height="256" />
+                </Border>
+
                 <local:LoginControl Effect="{ss:SkinShadow MaterialDesignShadowDepth5}"
                                     Visibility="{Binding Source={x:Static ss:SettingsHelper.HideUserLoginComponent},Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True}"
                                     Grid.RowSpan="2"
@@ -988,6 +1005,7 @@
                         </Style>
                     </local:LoginControl.Style>
                 </local:LoginControl>
+                
                 <Label VerticalAlignment="Center"
                        HorizontalAlignment="Right"
                        FontSize="128"
@@ -1047,6 +1065,7 @@
                         </Style>
                     </Label.Style>
                 </Label>
+                
                 <local:ReservationScreenView x:Name="_RESERVATION_UI"
                                              Visibility="{Binding ReservationViewModel.IsReserved,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Collapsed}"
                                              VerticalAlignment="Top"
@@ -1218,8 +1237,8 @@
                                 </BeginStoryboard>
                             </DataTrigger.ExitActions>
                         </DataTrigger>
-                        
-                        
+
+
                         <DataTrigger Value="True">
                             <DataTrigger.Binding>
                                 <MultiBinding Converter="{StaticResource BoolAnyConverter}">
@@ -1282,7 +1301,7 @@
                 </MultiBinding>
             </local:UserAgreementsControl.Visibility>
         </local:UserAgreementsControl>
-		
+
         <local:GracePeriodScreenView x:Name="_GRACE_PERIOD_UI"
                                      Visibility="{Binding GracePeriodViewModel.IsInGracePeriod, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" />
 
