@@ -103,9 +103,19 @@
                             <Border Grid.Column="2"
                                     Margin="2"
                                     Background="Transparent">
-                                <Button Content="{lex:LocTextUpper Key=REGISTER_ACTION_SEND_CODE}"
-                                        Command="{Binding SendConfirmationCommand}"
-                                        Margin="4,0,0,0" />
+                                <Button Command="{Binding SendConfirmationCommand}"
+                                        Margin="4,0,0,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{lex:LocTextUpper Key=REGISTER_ACTION_SEND_CODE}" />
+                                        <TextBlock Visibility="{Binding UserVerificationViewModel.IsVerificationLocked, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                   Text="{Binding UserVerificationViewModel.Countdown, StringFormat=mm\\:ss, FallbackValue=00:00}"
+                                                   Margin="10,0,0,0"
+                                                   FontSize="14"
+                                                   FontWeight="Medium"
+                                                   Foreground="#DD000000"
+                                                   />
+                                    </StackPanel>
+                                </Button>
                             </Border>
                         </Grid>
 
@@ -258,7 +268,7 @@
             </md:PackIcon>
         </Grid>
 
-        <Grid HorizontalAlignment="Center" Grid.Row="2">
+        <Grid HorizontalAlignment="Center" Grid.Row="2" Margin="0,15,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
