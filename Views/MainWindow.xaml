@@ -577,7 +577,7 @@
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
                                                         <md:PackIcon Grid.Column="0"
-                                                                     Kind="Lock" />
+                                                                     Kind="Qrcode" />
                                                         <TextBlock Text="{lex:LocTextUpper Key=TOP_UP}"
                                                                    Grid.Column="1"
                                                                    VerticalAlignment="Center"
