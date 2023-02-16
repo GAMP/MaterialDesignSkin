@@ -30,6 +30,11 @@
                             <Setter Property="Visibility"
                                     Value="Visible" />
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding VerificationMethod}"
+                                     Value="4">
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
@@ -272,7 +277,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
             <Button Grid.Column="0"
                     Margin="4"
                     Content="{lex:LocTextUpper Key=UI_CANCEL}"
@@ -284,29 +294,45 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     Content="{lex:LocTextUpper Key=REGISTER_ACTION_CONFIRM_CODE}">
-            <Button.Style>
-                <Style TargetType="Button"
-                       BasedOn="{StaticResource {x:Type Button}}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsConfirmCodeValid}"
-                                     Value="{x:Null}">
-                            <Setter Property="IsEnabled"
-                                    Value="False" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding IsConfirmCodeValid}"
-                                     Value="True">
-                            <Setter Property="IsEnabled"
-                                    Value="True" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding IsConfirmCodeValid}"
-                                     Value="False">
-                            <Setter Property="IsEnabled"
-                                    Value="False" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
+                <Button.Style>
+                    <Style TargetType="Button"
+                           BasedOn="{StaticResource {x:Type Button}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsConfirmCodeValid}"
+                                         Value="{x:Null}">
+                                <Setter Property="IsEnabled"
+                                        Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsConfirmCodeValid}"
+                                         Value="True">
+                                <Setter Property="IsEnabled"
+                                        Value="True" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsConfirmCodeValid}"
+                                         Value="False">
+                                <Setter Property="IsEnabled"
+                                        Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Margin="4"
+                    Command="{Binding FallbackCommand}"
+                    Visibility="{Binding UserVerificationFallbackViewModel.IsSMSFallbackAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{lex:LocTextUpper Key=UI_RETRY_WITH_SMS}" />
+                    <TextBlock Visibility="{Binding UserVerificationFallbackViewModel.IsVerificationFallbackLocked, Converter={StaticResource BoolToVisibilityConverter}}"
+                               Text="{Binding UserVerificationFallbackViewModel.Countdown, StringFormat=mm\\:ss, FallbackValue=00:00}"
+                               Margin="10,0,0,0"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#DD000000"
+                               />
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>
