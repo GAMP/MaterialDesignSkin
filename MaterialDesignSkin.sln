@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29306.81
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaterialDesignSkin", "MaterialDesignSkin.csproj", "{BB6388CF-89D3-40F6-91AB-CAD01F4DDDC9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataInterfaces", "..\DataInterfaces\DataInterfaces\DataInterfaces.csproj", "{D1699CD0-EC5D-4BAC-AF4E-A145E417733B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gizmo.Shared", "..\Gizmo.Shared\Gizmo.Shared.csproj", "{DD55A94A-622A-4F33-86B0-3066B65789CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{D1699CD0-EC5D-4BAC-AF4E-A145E417733B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1699CD0-EC5D-4BAC-AF4E-A145E417733B}.Release|x64.ActiveCfg = Release|Any CPU
 		{D1699CD0-EC5D-4BAC-AF4E-A145E417733B}.Release|x64.Build.0 = Release|Any CPU
+		{DD55A94A-622A-4F33-86B0-3066B65789CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD55A94A-622A-4F33-86B0-3066B65789CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD55A94A-622A-4F33-86B0-3066B65789CC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DD55A94A-622A-4F33-86B0-3066B65789CC}.Debug|x64.Build.0 = Debug|Any CPU
+		{DD55A94A-622A-4F33-86B0-3066B65789CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD55A94A-622A-4F33-86B0-3066B65789CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD55A94A-622A-4F33-86B0-3066B65789CC}.Release|x64.ActiveCfg = Release|Any CPU
+		{DD55A94A-622A-4F33-86B0-3066B65789CC}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
