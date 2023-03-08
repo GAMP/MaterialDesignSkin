@@ -30,11 +30,6 @@
                             <Setter Property="Visibility"
                                     Value="Visible" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding VerificationMethod}"
-                                     Value="4">
-                            <Setter Property="Visibility"
-                                    Value="Visible" />
-                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
